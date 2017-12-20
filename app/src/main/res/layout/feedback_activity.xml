@@ -1,42 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="vertical"
+    android:background="#CCFFD180">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<LinearLayout
+    android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
-        android:id="@+id/endMessage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:text="Thanks for taking your time to send us feedback. WHICH is a new application and we really appreciate your feedback. Chose the categories you would like us to add in WHICH and click send."/>
+
+    <CheckBox
+        android:id="@+id/geo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Geography"
+        android:layout_marginLeft="16dp"/>
+
+    <CheckBox
+        android:id="@+id/pol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Politics"
+        android:layout_marginLeft="16dp"/>
+
+    <CheckBox
+        android:id="@+id/his"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:layout_marginLeft="16dp"/>
+
+    <CheckBox
+        android:id="@+id/mus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Music"
+        android:layout_marginLeft="16dp"/>
+
+    <CheckBox
+        android:id="@+id/spo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sports"
+        android:layout_marginLeft="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Give us feedback. Click the categories you would like us to add in Which"/>
+        android:layout_margin="16dp"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:text="Other:"/>
 
-    <CheckBox
+    <EditText
+        android:id="@+id/other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:maxLines="2"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Geography"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Politics"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Science"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Music"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sports"/>
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:text="send"
+        android:onClick="sendFeedback"/>
 
 </LinearLayout>
+
+    <Button
+        android:id="@+id/newGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:layout_alignParentLeft="true"
+        android:layout_marginVertical="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="new game>>"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:layout_alignParentRight="true"
+        android:layout_marginVertical="32dp"
+        android:layout_marginRight="16dp"
+        android:text="quit>>"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
+
+</ScrollView>
