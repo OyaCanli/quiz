@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putBoolean(KEY_IS_NEXT_ENABLED, isNextEnabled);
     }
 
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         questionNumber = savedInstanceState.getInt(KEY_QUESTIONNUMBER);
         question.setText(WelcomeActivity.questions[questionNumber][0]);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void setTimer(long millis){
+    public void setTimer(long millis){
         if(timer != null) timer.cancel();
         timer = new CountDownTimer(millis, 1000) {
             @Override
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    protected void showHint(View view) {
+    public void showHint(View view) {
         if (hintCounter >= 1) {
             Toast.makeText(this, "You have already used hint.", Toast.LENGTH_SHORT).show();
             return;
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         hint.setVisibility(View.VISIBLE);
     }
 
-    protected void halfTheOptions(View view) {
+    public void halfTheOptions(View view) {
         if (halfLifelineCounter >= 1) {
             Toast.makeText(this, "You have already used 1/2 lifeline.", Toast.LENGTH_SHORT).show();
             return;
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void turnYellow(View view) {
+    public void turnYellow(View view) {
         if (optionA.isChecked()) {
             optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
             OptAIsYellow = true;
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void checkTheAnswer(View view) {
+    public void checkTheAnswer(View view) {
         if (!(optionA.isChecked()) && !(optionB.isChecked()) && !(optionC.isChecked()) && !(optionD.isChecked())) {
             Toast.makeText(this, "You didn't chose any of the options.", Toast.LENGTH_SHORT).show();
             return;
