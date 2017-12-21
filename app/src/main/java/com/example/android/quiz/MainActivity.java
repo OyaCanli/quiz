@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected static final String KEY_IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Initialize views
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_CURRENT_MILLIS, currentMillis);
         outState.putInt(KEY_HINT_COUNTER, hintCounter);
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putBoolean(KEY_IS_NEXT_ENABLED, isNextEnabled);
     }
 
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         questionNumber = savedInstanceState.getInt(KEY_QUESTIONNUMBER);
         question.setText(WelcomeActivity.questions[questionNumber][0]);
