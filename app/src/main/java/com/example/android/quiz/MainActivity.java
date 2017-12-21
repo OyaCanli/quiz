@@ -25,15 +25,16 @@ public class MainActivity extends AppCompatActivity {
     TextView question, hint, time, showHint, half;
     RadioButton optionA, optionB, optionC, optionD, correctOption, wrongOption;
     RadioGroup options;
+    RadioButton butToErase1, butToErase2;
     Button nextButton, backToCategories;
-    CountDownTimer timer1, timer2;
+    CountDownTimer timer;
     RelativeLayout root;
-    int questionNumber, counter, hintCounter, halfLifelineCounter;
-    long millis;
-    boolean isTimerOn, firstTimerCancelled, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
-    boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow;
+    int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
+    long currentMillis;
+    boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
+    boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow, isHalfLifeLineActif;
 
-    protected static final String KEY_COUNTER = "SavedStateOfCounter";
+    protected static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     protected static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
     protected static final String KEY_HINT_COUNTER = "SavedStateOfHintCounter";
     protected static final String KEY_HALF_COUNTER = "SavedStateOfHalfCounter";
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     protected static final String KEY_OPTB_IS_YELLOW = "SavedStateOfOptBIsYellow";
     protected static final String KEY_OPTC_IS_YELLOW = "SavedStateOfOptCIsYellow";
     protected static final String KEY_OPTD_IS_YELLOW = "SavedStateOfOptDIsYellow";
+    protected static final String KEY_IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
+    protected static final String KEY_OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
+    protected static final String KKEY_OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
     protected static final String KEY_CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
     protected static final String KEY_WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
     protected static final String KEY_IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
@@ -72,57 +76,18 @@ public class MainActivity extends AppCompatActivity {
         optionD.setText(WelcomeActivity.questions[questionNumber][5]);
         //Initialiwe variables
         if(savedInstanceState != null){
-            millis = savedInstanceState.getLong("KEY_COUNTER");
-            isTimerOn = savedInstanceState.getBoolean("KEY_IS_TIMER_ON");
-            halfLifelineCounter = savedInstanceState.getInt("KEY_HALF_COUNTER");
-            hintCounter = savedInstanceState.getInt("KEY_HINT_COUNTER");
+            currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
+            isTimerOn = savedInstanceState.getBoolean(KEY_IS_TIMER_ON);
+            halfLifelineCounter = savedInstanceState.getInt(KEY_HALF_COUNTER);
+            hintCounter = savedInstanceState.getInt(KEY_HINT_COUNTER);
         } else {
             hintCounter = 0;
             halfLifelineCounter = 0;
-            millis = 60000;
+            currentMillis = 60000;
             isTimerOn = true;
         }
-            //Set a countdown timer
-            timer1 = new CountDownTimer(millis, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    time.setText((String.valueOf(millisUntilFinished / 1000)));
-                    if (millisUntilFinished < 6000) {
-                        time.setTextColor(Color.RED);
-                    }
-                    millis -= 1000;
-                    if(millis<=5 && !firstTimerCancelled){
-                        String message = "1st timer - Time expired. Game is over. You can click new game to restart the game.";
-                        createAlertDialog(message);
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            };
-
-        timer2 = new CountDownTimer(60000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                time.setText((String.valueOf(millisUntilFinished / 1000)));
-                if (millisUntilFinished < 6000) {
-                    time.setTextColor(Color.RED);
-                    millis -= 1000;
-                }
-                if(millisUntilFinished<=5){
-                    String message = "2nd timer - Time expired. Game is over. You can click new game to restart the game.";
-                    createAlertDialog(message);
-                }
-            }
-            @Override
-            public void onFinish() {
-
-            }
-        };
-        if(isTimerOn) timer1.start();
-        else time.setText((String.valueOf(millis / 1000)));
+        if(isTimerOn) setTimer(currentMillis);
+        else time.setText((String.valueOf(currentMillis / 1000)));
         //Set the background theme according to the category chosen
         if (WelcomeActivity.category.equals("literature")) {
             root.setBackgroundColor(getResources().getColor(R.color.literature));
@@ -165,53 +130,89 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong("KEY_COUNTER", millis);
-        outState.putInt("KEY_HINT_COUNTER", hintCounter);
-        outState.putInt("KEY_HALF_COUNTER", halfLifelineCounter);
-        outState.putInt("KEY_QUESTIONNUMBER", questionNumber);
-        outState.putBoolean("KEY_IS_TIMER_ON", isTimerOn);
-        outState.putBoolean("KEY_OPTA_IS_YELLOW", OptAIsYellow);
-        outState.putBoolean("KEY_OPTB_IS_YELLOW", OptBIsYellow);
-        outState.putBoolean("KEY_OPTC_IS_YELLOW", OptCIsYellow);
-        outState.putBoolean("KEY_OPTD_IS_YELLOW", OptDIsYellow);
-        outState.putBoolean("KEY_CORRECT_OPTION_IS_SHOWN", correctOptionIsShown);
-        outState.putBoolean("KEY_WRONG_OPTION_IS_SHOWN", wrongOptionIsShown);
-        outState.putBoolean("KEY_IS_NEXT_ENABLED", isNextEnabled);
+        outState.putLong(KEY_CURRENT_MILLIS, currentMillis);
+        outState.putInt(KEY_HINT_COUNTER, hintCounter);
+        outState.putInt(KEY_HALF_COUNTER, halfLifelineCounter);
+        outState.putInt(KEY_QUESTIONNUMBER, questionNumber);
+        outState.putBoolean(KEY_IS_TIMER_ON, isTimerOn);
+        outState.putBoolean(KEY_OPTA_IS_YELLOW, OptAIsYellow);
+        outState.putBoolean(KEY_OPTB_IS_YELLOW, OptBIsYellow);
+        outState.putBoolean(KEY_OPTC_IS_YELLOW, OptCIsYellow);
+        outState.putBoolean(KEY_OPTD_IS_YELLOW, OptDIsYellow);
+        outState.putBoolean(KEY_IS_HALF_ACTIF, isHalfLifeLineActif);
+        outState.putInt(KEY_OPT_TO_ERASE_1, option_to_erase_1);
+        outState.putInt(KKEY_OPT_TO_ERASE_2, option_to_erase_2);
+        outState.putBoolean(KEY_CORRECT_OPTION_IS_SHOWN, correctOptionIsShown);
+        outState.putBoolean(KEY_WRONG_OPTION_IS_SHOWN, wrongOptionIsShown);
+        outState.putBoolean(KEY_IS_NEXT_ENABLED, isNextEnabled);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        questionNumber = savedInstanceState.getInt("KEY_QUESTIONNUMBER");
+        questionNumber = savedInstanceState.getInt(KEY_QUESTIONNUMBER);
         question.setText(WelcomeActivity.questions[questionNumber][0]);
         hint.setText(WelcomeActivity.questions[questionNumber][1]);
         optionA.setText(WelcomeActivity.questions[questionNumber][2]);
         optionB.setText(WelcomeActivity.questions[questionNumber][3]);
         optionC.setText(WelcomeActivity.questions[questionNumber][4]);
         optionD.setText(WelcomeActivity.questions[questionNumber][5]);
-        halfLifelineCounter = savedInstanceState.getInt("KEY_HALF_COUNTER");
-        hintCounter = savedInstanceState.getInt("KEY_HINT_COUNTER");
-        millis = savedInstanceState.getLong("KEY_COUNTER");
-        isTimerOn = savedInstanceState.getBoolean("KEY_IS_TIMER_ON");
-        isNextEnabled = savedInstanceState.getBoolean("KEY_IS_NEXT_ENABLED");
-        if(isNextEnabled) nextButton.setEnabled(true);
-        OptAIsYellow = savedInstanceState.getBoolean("KEY_OPTA_IS_YELLOW");
-        if( OptAIsYellow) optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptBIsYellow = savedInstanceState.getBoolean("KEY_OPTB_IS_YELLOW");
-        if( OptBIsYellow) optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptCIsYellow = savedInstanceState.getBoolean("KEY_OPTC_IS_YELLOW");
-        if( OptCIsYellow) optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptDIsYellow = savedInstanceState.getBoolean("KEY_OPTD_IS_YELLOW");
-        if( OptDIsYellow) optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        correctOptionIsShown = savedInstanceState.getBoolean("KEY_CORRECT_OPTION_IS_SHOWN");
-        if(correctOptionIsShown) {
+        halfLifelineCounter = savedInstanceState.getInt(KEY_HALF_COUNTER);
+        hintCounter = savedInstanceState.getInt(KEY_HINT_COUNTER);
+        currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
+        isTimerOn = savedInstanceState.getBoolean(KEY_IS_TIMER_ON);
+        if(isTimerOn) setTimer(currentMillis);
+        isNextEnabled = savedInstanceState.getBoolean(KEY_IS_NEXT_ENABLED);
+        if (isNextEnabled) nextButton.setEnabled(true);
+        OptAIsYellow = savedInstanceState.getBoolean(KEY_OPTA_IS_YELLOW);
+        if (OptAIsYellow)
+            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+        OptBIsYellow = savedInstanceState.getBoolean(KEY_OPTB_IS_YELLOW);
+        if (OptBIsYellow)
+            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+        OptCIsYellow = savedInstanceState.getBoolean(KEY_OPTC_IS_YELLOW);
+        if (OptCIsYellow)
+            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+        OptDIsYellow = savedInstanceState.getBoolean(KEY_OPTD_IS_YELLOW);
+        if (OptDIsYellow)
+            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+        correctOptionIsShown = savedInstanceState.getBoolean(KEY_CORRECT_OPTION_IS_SHOWN);
+        if (correctOptionIsShown) {
             correctOption = (RadioButton) findViewById(WelcomeActivity.answers[questionNumber]);
             correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         }
-        wrongOptionIsShown = savedInstanceState.getBoolean("KEY_WRONG_OPTION_IS_SHOWN");
-        if(wrongOptionIsShown){
+        wrongOptionIsShown = savedInstanceState.getBoolean(KEY_WRONG_OPTION_IS_SHOWN);
+        if (wrongOptionIsShown) {
             wrongOption = (RadioButton) findViewById(options.getCheckedRadioButtonId());
             wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
         }
+        isHalfLifeLineActif = savedInstanceState.getBoolean(KEY_IS_HALF_ACTIF);
+        option_to_erase_1 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_1);
+        option_to_erase_2 = savedInstanceState.getInt(KKEY_OPT_TO_ERASE_2);
+        if (isHalfLifeLineActif) {
+            butToErase1 = (RadioButton) findViewById(option_to_erase_1);
+            butToErase2 = (RadioButton) findViewById(option_to_erase_2);
+            butToErase1.setVisibility(View.INVISIBLE);
+            butToErase2.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    protected void setTimer(long millis){
+        if(timer != null) timer.cancel();
+        timer = new CountDownTimer(millis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                time.setText((String.valueOf(millisUntilFinished / 1000)));
+                currentMillis = millisUntilFinished;
+                if (millisUntilFinished < 6000) {
+                    time.setTextColor(Color.RED);
+                }
+            }
+            @Override
+            public void onFinish() {
+                String message = "Time expired. Game is over. You can click new game to restart the game.";
+                createAlertDialog(message);
+            }
+        }.start();
     }
 
     protected void showHint(View view) {
@@ -236,13 +237,14 @@ public class MainActivity extends AppCompatActivity {
         }
         Random rand = new Random();
         int index = rand.nextInt(list.size());
-        int option_to_erase_1 = list.get(index);
+        option_to_erase_1 = list.get(index);
         list.remove(index);
-        int option_to_erase_2 = list.get(rand.nextInt(list.size()));
-        RadioButton but1 = (RadioButton) findViewById(option_to_erase_1);
-        RadioButton but2 = (RadioButton) findViewById(option_to_erase_2);
-        but1.setVisibility(View.INVISIBLE);
-        but2.setVisibility(View.INVISIBLE);
+        option_to_erase_2 = list.get(rand.nextInt(list.size()));
+        butToErase1 = (RadioButton) findViewById(option_to_erase_1);
+        butToErase2 = (RadioButton) findViewById(option_to_erase_2);
+        butToErase1.setVisibility(View.INVISIBLE);
+        butToErase2.setVisibility(View.INVISIBLE);
+        isHalfLifeLineActif = true;
 
     }
 
@@ -299,9 +301,7 @@ public class MainActivity extends AppCompatActivity {
         correctOption = (RadioButton) findViewById(WelcomeActivity.answers[questionNumber]);
         correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         correctOptionIsShown = true;
-        timer1.cancel();
-        timer2.cancel();
-        firstTimerCancelled = true;
+        timer.cancel();
         isTimerOn = false;
         if (options.getCheckedRadioButtonId() == WelcomeActivity.answers[questionNumber]) {
             if (questionNumber == 4) {
@@ -375,11 +375,15 @@ public class MainActivity extends AppCompatActivity {
         options.clearCheck();
         nextButton.setEnabled(false);
         isNextEnabled = false;
-        millis = 60000;
-        timer2.start();
+        setTimer(60000);
         isTimerOn = true;
         correctOptionIsShown = false;
         wrongOptionIsShown = false;
+        OptAIsYellow = false;
+        OptBIsYellow = false;
+        OptCIsYellow = false;
+        OptDIsYellow = false;
+        isHalfLifeLineActif = false;
     }
 
 

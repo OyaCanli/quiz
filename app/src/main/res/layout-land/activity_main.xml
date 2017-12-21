@@ -9,6 +9,8 @@
     android:scrollbars="vertical"
     tools:context="com.example.android.quiz.MainActivity">
 
+
+
     <RelativeLayout
         android:id="@+id/root"
         android:layout_width="match_parent"

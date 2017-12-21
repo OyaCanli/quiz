@@ -69,7 +69,7 @@ public class QuestionLists {
     public static final String CIN_Q5_OPTD = "Saving Private Ryan";
 
     public static final String SCI_Q1 = "Which of the following scientist is the inventor of the electric light?";
-    public static final String SCI_H1 = "hint";
+    public static final String SCI_H1 = "Electric light is discovered in 20th century. Newton and Watt lived in 17th-18th centuries.";
     public static final String SCI_Q1_OPTA = "Thomas Edison";
     public static final String SCI_Q1_OPTB = "Isaac Newton";
     public static final String SCI_Q1_OPTC = "Albert Einstein";
@@ -81,19 +81,19 @@ public class QuestionLists {
     public static final String SCI_Q2_OPTC = "Albert Einstein";
     public static final String SCI_Q2_OPTD = "Alfred Nobel";
     public static final String SCI_Q3 = "Which of the following scientist is the inventor of the dynamite?";
-    public static final String SCI_H3 = " hint";
+    public static final String SCI_H3 = "The name of this scientist is given to a prestigous award in recognition of scientific and academical advances.";
     public static final String SCI_Q3_OPTA = "Louis Pasteur";
     public static final String SCI_Q3_OPTB = "Alexander Fleming";
     public static final String SCI_Q3_OPTC = "Alfred Nobel";
     public static final String SCI_Q3_OPTD = "Charles Darwin";
     public static final String SCI_Q4 = "Which of the following scientist is the father of the evolution theory?";
-    public static final String SCI_H4 = "hint";
+    public static final String SCI_H4 = "Add a hint here. Who the hell would need a hint for this question anyway.";
     public static final String SCI_Q4_OPTA = "Alfred Wegener";
     public static final String SCI_Q4_OPTB = "Albert Einstein";
     public static final String SCI_Q4_OPTC = "Gregor Mendel";
     public static final String SCI_Q4_OPTD = "Charles Darwin";
     public static final String SCI_Q5 = "Which of the following scientists is the creator of the relativity theory?";
-    public static final String SCI_H5 = "hint";
+    public static final String SCI_H5 = "This scientist is allegedly the most ingelligent man ever lived. His relativity theory disproved the conviction that the mass never changes.";
     public static final String SCI_Q5_OPTA = "Blaise Pascal ";
     public static final String SCI_Q5_OPTB = "Albert Einstein";
     public static final String SCI_Q5_OPTC = "Alexander Fleming";
@@ -109,13 +109,15 @@ public class QuestionLists {
     };
 
     public static final int[] literatureCorrectAnswers = {
-            R.id.optionD, R.id.optionB, R.id.optionC
+            R.id.optionD, R.id.optionB, R.id.optionC, R.id.optionB, R.id.optionA,
     };
 
     public static final int[][] literatureWrongAnswers = {
             {R.id.optionA, R.id.optionB, R.id.optionC},
             {R.id.optionA, R.id.optionC, R.id.optionD},
-            {R.id.optionA, R.id.optionB, R.id.optionD}
+            {R.id.optionA, R.id.optionB, R.id.optionD},
+            {R.id.optionA, R.id.optionC, R.id.optionD},
+            {R.id.optionB, R.id.optionC, R.id.optionD},
     };
 
     public static final String[][] cinemaQuestions = {
@@ -147,13 +149,15 @@ public class QuestionLists {
     };
 
     public static final int[] scienceCorrectAnswers = {
-            R.id.optionA, R.id.optionD, R.id.optionB
+            R.id.optionA, R.id.optionA, R.id.optionC, R.id.optionD, R.id.optionB
     };
 
     public static final int[][] scienceWrongAnswers = {
+            {R.id.optionB, R.id.optionC, R.id.optionD},
+            {R.id.optionB, R.id.optionC, R.id.optionD},
+            {R.id.optionA, R.id.optionB, R.id.optionD},
             {R.id.optionA, R.id.optionB, R.id.optionC},
             {R.id.optionA, R.id.optionC, R.id.optionD},
-            {R.id.optionA, R.id.optionB, R.id.optionD}
     };
 
 }
