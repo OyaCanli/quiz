@@ -386,5 +386,10 @@ public class MainActivity extends AppCompatActivity {
         isHalfLifeLineActif = false;
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        timer.cancel();
+    }
+
 
 }
