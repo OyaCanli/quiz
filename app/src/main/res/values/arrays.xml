@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="literature_questions">
+        <item>@array/lit_q1</item>
+        <item>@array/lit_q2</item>
+        <item>@array/lit_q3</item>
+        <item>@array/lit_q4</item>
+        <item>@array/lit_q5</item>
+    </array>
+
+    <array name="cinema_questions">
+        <item>@array/cin_q1</item>
+        <item>@array/cin_q2</item>
+        <item>@array/cin_q3</item>
+        <item>@array/cin_q4</item>
+        <item>@array/cin_q5</item>
+    </array>
+
+    <array name="science_questions">
+        <item>@array/sci_q1</item>
+        <item>@array/sci_q2</item>
+        <item>@array/sci_q3</item>
+        <item>@array/sci_q4</item>
+        <item>@array/sci_q5</item>
+    </array>
+
+</resources>

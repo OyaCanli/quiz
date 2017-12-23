@@ -25,41 +25,41 @@
                 android:layout_margin="16dp"
                 android:textSize="16dp"
                 android:textColor="@android:color/black"
-                android:text="Thanks for taking your time to send us feedback. WHICH is a new application and we really appreciate your feedback. Chose the categories you would like us to add in WHICH and click send."/>
+                android:text="@string/thanksforfeedback"/>
 
             <CheckBox
                 android:id="@+id/geo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Geography"
+                android:text="@string/geography"
                 android:layout_marginLeft="16dp"/>
 
             <CheckBox
                 android:id="@+id/pol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Politics"
+                android:text="@string/politics"
                 android:layout_marginLeft="16dp"/>
 
             <CheckBox
                 android:id="@+id/his"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="@string/science"
                 android:layout_marginLeft="16dp"/>
 
             <CheckBox
                 android:id="@+id/mus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Music"
+                android:text="@string/music"
                 android:layout_marginLeft="16dp"/>
 
             <CheckBox
                 android:id="@+id/spo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sports"
+                android:text="@string/sports"
                 android:layout_marginLeft="16dp"/>
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_margin="16dp"
                 android:textSize="16dp"
                 android:textColor="@android:color/black"
-                android:text="Other:"/>
+                android:text="@string/other"/>
 
             <EditText
                 android:id="@+id/other"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"
-                android:text="send"
+                android:text="@string/send"
                 android:onClick="sendFeedback"/>
 
         </LinearLayout>
@@ -96,7 +96,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            android:text="new game>>"
+            android:text="@string/new_game"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="18sp"
             android:background="@android:color/transparent"/>
@@ -109,7 +109,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
-            android:text="quit>>"
+            android:text="@string/quit"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="18sp"
             android:background="@android:color/transparent"/>

@@ -1,3 +1,184 @@
 <resources>
     <string name="app_name">WHICH</string>
+
+    <string name="info">Welcome to WHICH! You can compete in one of the three categories below. There are five questions in each category. There is a hint and a lifeline 1/2 for reducing the options. However you can use each of them only once. Chose the category from below and click start. Have fun and good luck!</string>
+    <string name="literature">Literature</string>
+    <string name="cinema">Cinema</string>
+    <string name="science">Science</string>
+    <string name="start">Start</string>
+    <string name="giveusfeedback">You\'d prefer other categories? Give us feedback!</string>
+    <string name="feedback"><![CDATA[feedback>>]]></string>
+
+    <string name="_60">60</string>
+    <string name="half">1/2</string>
+    <string name="categoriesbutton">categ.</string>
+    <string name="submit">submit</string>
+    <string name="next">next</string>
+    <string name="thanksforfeedback">Thanks for taking your time to send us feedback. WHICH is a new application and we really appreciate your feedback. Chose the categories you would like us to add in WHICH and click send.</string>
+    <string name="geography">Geography</string>
+    <string name="geography_">\\nGeography</string>
+    <string name="politics">Politics</string>
+    <string name="politics_">\\nPolitics</string>
+    <string name="music">Music</string>
+    <string name="music_">\\nMusic</string>
+    <string name="sports">Sports</string>
+    <string name="sports_">\\nSports</string>
+    <string name="history">History</string>
+    <string name="history_">\\nHistory</string>
+    <string name="other">Other:</string>
+    <string name="send">send</string>
+    <string name="new_game"><![CDATA[new game>>]]></string>
+    <string name="quitarrow"><![CDATA[quit>>]]></string>
+    <string name="quit">quit</string>
+    <string name="exitwarning">Are you sure you want to quit the game?</string>
+    <string name="cancel">Cancel</string>
+    <string name="timeoutwarning">Time expired. Game is over. You can click new game to restart the game.</string>
+    <string name="hintwarning">You have already used hint.</string>
+    <string name="halfwarning">You have already used 1/2 lifeline.</string>
+    <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
+    <string name="congratulations">Congratulations! You successfully completed the quiz. If you would like compete in another category click new game.</string>
+    <string name="correcttoastmessage">Correct! Click next to continue.</string>
+    <string name="wronganswer">The answer was wrong. Game is over.</string>
+    <string name="newgame">New Game</string>
+    <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
+    <string name="youadded">\\nYou added:</string>
+    <string name="thanks">\\nThanks for your feedback!</string>
+    <string name="mailaddress">oyacan@gmail.com</string>
+    <string name="mailsubject">Feedback for WHICH app</string>
+
+    <string-array name="lit_q1">
+        <item>Which of the followings is not a novel by Charles Dickens?</item>
+        <item>The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII</item>
+        <item>A Tale Of Two Cities</item>
+        <item>Oliver Twist</item>
+        <item>Bleak House</item>
+        <item>A Farewell To Arms.</item>
+    </string-array>
+
+    <string-array name="lit_q2">
+        <item>Which of the followings is not a novel by Dostoyevski?</item>
+        <item>The answer is a novel written by Tolstoy, narrating the science of a married aristocratic woman who has a love affair</item>
+        <item>Crime and Punishment</item>
+        <item>Anna Karenina</item>
+        <item>Notes From Underground</item>
+        <item>The Brothers Karamazov</item>
+    </string-array>
+
+    <string-array name="lit_q3">
+        <item>Which of the followings is not a novel by Balzac?</item>
+        <item>The answer is a novel written by Jane Austen, narrating the story of two lovers who cannot surrender themselves to love because of their pride</item>
+        <item>The Black Sheep</item>
+        <item>Father Goriot</item>
+        <item>Pride and Prejudice</item>
+        <item>The Lily of the Valley</item>
+    </string-array>
+
+    <string-array name="lit_q4">
+        <item>Which of the followings is not a novel by Jack London?</item>
+        <item>The answer is a novel written by Emile Zola, narrating the tough lives of coalminers.</item>
+        <item>The Iron Heel</item>
+        <item>Germinal</item>
+        <item>The Call of the Wild</item>
+        <item>The Sea-Wolf</item>
+    </string-array>
+
+    <string-array name="lit_q5">
+        <item>Which of the followings is not a novel by Franz Kafka?</item>
+        <item>The answer is a novel written by Paulo Coelho, narrating the story of Santiago, a Spanish shepherd, searching for a treasure in Egypt.</item>
+        <item>The Alchemist</item>
+        <item>The Trial</item>
+        <item>Metamorphosis</item>
+        <item>Letters to Milena</item>
+    </string-array>
+
+    <string-array name="cin_q1">
+        <item>Which of the following is not a film by Michael Haneke?</item>
+        <item>The answer is a film starring Adrien Bordy, set during Nazi invasion of Poland.</item>
+        <item>The Pianist</item>
+        <item>Funny Games</item>
+        <item>Hidden</item>
+        <item>Amour</item>
+    </string-array>
+
+    <string-array name="cin_q2">
+        <item>Which of the following is not a film by Emir Kusturica?</item>
+        <item>The answer is a film starring Edward Norton and Edward Furlong, telling the story of two neo-nazi brothers</item>
+        <item>Time of The Gypsies</item>
+        <item>Arizona Dream</item>
+        <item>Underground</item>
+        <item>American History X</item>
+    </string-array>
+
+    <string-array name="cin_q3">
+        <item>Which of the following is not a film by Lars Von Trier?</item>
+        <item>The answer is a 1954 film concerning the deliberations of the jury of a homicide trial.</item>
+        <item>Antichrist</item>
+        <item>12 Angry Men</item>
+        <item>Dancer in the Dark</item>
+        <item>Dogville</item>
+    </string-array>
+
+    <string-array name="cin_q4">
+        <item>Which of the following is not a film by Quentin Tarantino?</item>
+        <item>The answer is a film starring Tim Robbins and Morgan Freeman, set in a prison, telling the story of two friends sentenced to life</item>
+        <item>The Shawshank Redemption</item>
+        <item>Pulp Fiction</item>
+        <item>Kill Bill</item>
+        <item>Reservoir Dogs</item>
+    </string-array>
+
+    <string-array name="cin_q5">
+        <item>Which of the following is not a film by Quentin Tarantino?</item>
+        <item>The answer is a 1999 science-fiction film starring Keanu Reeves where people live in a virtual reality.</item>
+        <item>Jaws</item>
+        <item>E.T.</item>
+        <item>The Matrix</item>
+        <item>Letters to Milena</item>
+    </string-array>
+
+    <string-array name="sci_q1">
+        <item>Which of the following scientist is the inventor of the electric light?</item>
+        <item>Electric light is discovered in 20th century. Newton and Watt lived in 17th-18th centuries.</item>
+        <item>Thomas Edison</item>
+        <item>Isaac Newton</item>
+        <item>Albert Einstein</item>
+        <item>James Watt</item>
+    </string-array>
+
+    <string-array name="sci_q2">
+        <item>Which of the following scientist is the inventor of the telephone?</item>
+        <item>Add a hint here</item>
+        <item>Abraham Bell</item>
+        <item>Nikola Tesla</item>
+        <item>Albert Einstein</item>
+        <item>Alfred Nobel</item>
+    </string-array>
+
+    <string-array name="sci_q3">
+        <item>Which of the following scientist is the inventor of the dynamite?</item>
+        <item>The name of this scientist is given to a prestigious award in recognition of scientific and academical advances.</item>
+        <item>Louis Pasteur</item>
+        <item>Alexander Fleming</item>
+        <item>Alfred Nobel</item>
+        <item>Charles Darwin</item>
+    </string-array>
+
+    <string-array name="sci_q4">
+        <item>Which of the following scientist is the father of the evolution theory?</item>
+        <item>Add a hint here.</item>
+        <item>Alfred Wegener</item>
+        <item>Albert Einstein</item>
+        <item>Gregor Mendel</item>
+        <item>Charles Darwin</item>
+    </string-array>
+
+    <string-array name="sci_q5">
+        <item>Which of the following scientists is the creator of the relativity theory?</item>
+        <item>This scientist is allegedly the most ingelligent man ever lived. His relativity theory disproved the conviction that the mass never changes.</item>
+        <item>Blaise Pascal</item>
+        <item>Albert Einstein</item>
+        <item>Alexander Fleming</item>
+        <item>Johannes Kepler</item>
+    </string-array>
+
 </resources>

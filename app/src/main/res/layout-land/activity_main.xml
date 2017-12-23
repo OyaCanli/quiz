@@ -45,7 +45,7 @@
             android:layout_marginTop="32dp"
             android:background="@android:color/black"
             android:gravity="center"
-            android:text="60"
+            android:text="@string/_60"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -60,7 +60,7 @@
             android:background="@drawable/lifeline_literature"
             android:gravity="center"
             android:onClick="halfTheOptions"
-            android:text="1/2"
+            android:text="@string/half"
             android:textColor="#FFF"
             android:textSize="16sp" />
 
@@ -176,7 +176,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="32dp"
             android:background="@drawable/buttonborders"
-            android:text="categ." />
+            android:text="@string/categoriesbutton" />
 
         <Button
             android:id="@+id/submit"
@@ -187,7 +187,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/buttonborders"
             android:onClick="checkTheAnswer"
-            android:text="submit" />
+            android:text="@string/submit" />
 
         <Button
             android:id="@+id/next"
@@ -200,7 +200,7 @@
             android:background="@drawable/buttonborders"
             android:enabled="false"
             android:onClick="setNextQuestion"
-            android:text="next" />
+            android:text="@string/next" />
 
     </RelativeLayout>
 </ScrollView>

@@ -34,7 +34,7 @@ public class FeedbackActivity extends AppCompatActivity {
         his = findViewById(R.id.his);
         mus = findViewById(R.id.mus);
         spo = findViewById(R.id.spo);
-        message = "The categories you would like to see in WHICH are: ";
+        message = getString(R.string.feedbackquestion);
         Button newGame = (Button) findViewById(R.id.newGame);
         newGame.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
@@ -58,20 +58,20 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     public void sendFeedback(View view) {
-        if(geo.isChecked())  message += "\nGeography";
-        if(pol.isChecked())  message += "\nPolitics";
-        if(his.isChecked())  message += "\nHistory";
-        if(mus.isChecked())  message += "\nMusic";
-        if(spo.isChecked())  message += "\nSports ";
-        message += "\nYou added: ";
+        if(geo.isChecked())  message += getString(R.string.geography_);
+        if(pol.isChecked())  message += getString(R.string.politics_);
+        if(his.isChecked())  message += getString(R.string.history_);
+        if(mus.isChecked())  message += getString(R.string.music_);
+        if(spo.isChecked())  message += getString(R.string.sports_);
+        message += getString(R.string.youadded);
         other = edittext.getText().toString();
         if(!(other.equals(" "))) message += other;
-        message += "\nThanks for your feedback!";
+        message += getString(R.string.thanks);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto: "));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for WHICH app");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mailsubject));
         intent.putExtra(Intent.EXTRA_TEXT, message);
-        String[] addresses = {"oyacan@gmail.com"};
+        String[] addresses = {getString(R.string.mailaddress)};
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(intent);

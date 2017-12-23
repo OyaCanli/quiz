@@ -89,15 +89,15 @@ public class MainActivity extends AppCompatActivity {
         if(isTimerOn) setTimer(currentMillis);
         else time.setText((String.valueOf(currentMillis / 1000)));
         //Set the background theme according to the category chosen
-        if (WelcomeActivity.category.equals("literature")) {
+        if (WelcomeActivity.category.equals(getString(R.string.literature))) {
             root.setBackgroundColor(getResources().getColor(R.color.literature));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_literature));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_literature));
-        } else if (WelcomeActivity.category.equals("cinema")) {
+        } else if (WelcomeActivity.category.equals(getString(R.string.cinema))) {
             root.setBackgroundColor(getResources().getColor(R.color.cinema));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_cinema));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_cinema));
-        } else if (WelcomeActivity.category.equals("science")) {
+        } else if (WelcomeActivity.category.equals(getString(R.string.science))) {
             root.setBackgroundColor(getResources().getColor(R.color.science));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_science));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.lifeline_science));
@@ -109,14 +109,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                builder.setMessage("Are you sure you want to quit the game?");
-                builder.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.exitwarning);
+                builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent categoriesIntent = new Intent(MainActivity.this, WelcomeActivity.class);
                         startActivity(categoriesIntent);
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
         correctOptionIsShown = savedInstanceState.getBoolean(KEY_CORRECT_OPTION_IS_SHOWN);
         if (correctOptionIsShown) {
-            correctOption = (RadioButton) findViewById(WelcomeActivity.answers[questionNumber]);
+            correctOption = (RadioButton) findViewById(WelcomeActivity.correctAnswers[questionNumber]);
             correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         }
         wrongOptionIsShown = savedInstanceState.getBoolean(KEY_WRONG_OPTION_IS_SHOWN);
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                String message = "Time expired. Game is over. You can click new game to restart the game.";
+                String message = getString(R.string.timeoutwarning);
                 createAlertDialog(message);
             }
         }.start();
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showHint(View view) {
         if (hintCounter >= 1) {
-            Toast.makeText(this, "You have already used hint.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.hintwarning, Toast.LENGTH_SHORT).show();
             return;
         }
         hintCounter++;
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void halfTheOptions(View view) {
         if (halfLifelineCounter >= 1) {
-            Toast.makeText(this, "You have already used 1/2 lifeline.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.halfwarning, Toast.LENGTH_SHORT).show();
             return;
         }
         halfLifelineCounter++;
@@ -295,22 +295,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkTheAnswer(View view) {
         if (!(optionA.isChecked()) && !(optionB.isChecked()) && !(optionC.isChecked()) && !(optionD.isChecked())) {
-            Toast.makeText(this, "You didn't chose any of the options.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();
             return;
         }
-        correctOption = (RadioButton) findViewById(WelcomeActivity.answers[questionNumber]);
+        correctOption = (RadioButton) findViewById(WelcomeActivity.correctAnswers[questionNumber]);
         correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         correctOptionIsShown = true;
         timer.cancel();
         isTimerOn = false;
-        if (options.getCheckedRadioButtonId() == WelcomeActivity.answers[questionNumber]) {
+        if (options.getCheckedRadioButtonId() == WelcomeActivity.correctAnswers[questionNumber]) {
             if (questionNumber == 4) {
-                String message = "Congratulations! You successfully completed the quiz. If you would like compete in another category click new game.";
+                String message = getString(R.string.congratulations);
                 createAlertDialog(message);
             } else {
                 nextButton.setEnabled(true);
                 isNextEnabled = true;
-                Toast.makeText(this, "Correct! Click next to continue.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
         } else {
             wrongOption = (RadioButton) findViewById(options.getCheckedRadioButtonId());
@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onFinish() {
-                    String message = "The answer was wrong. Game is over.";
+                    String message = getString(R.string.wronganswer);
                     createAlertDialog(message);
                 }
             };
@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
     public void createAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         builder.setMessage(message);
-        builder.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.newgame, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(categoriesIntent);
             }
         });
-        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent goToHome = new Intent(Intent.ACTION_MAIN);
                 goToHome.addCategory(Intent.CATEGORY_HOME);
@@ -390,6 +390,4 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         timer.cancel();
     }
-
-
 }

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="16dp"
-        android:text="Welcome to WHICH! You can compete in one of the three categories below. There are five questions in each category. There is a hint and a lifeline 1/2 for reducing the options. However you can use each of them only once. Chose the category from below and click start. Have fun and good luck!"
+        android:text="@string/info"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:fontFamily="casual"/>
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:padding="10dp"
-        android:text="Literature"
+        android:text="@string/literature"
         android:textSize="20sp"
         android:textAllCaps="true"
         android:background="@drawable/literaturecategory"/>
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:padding="10dp"
-        android:text="Cinema"
+        android:text="@string/cinema"
         android:textSize="20sp"
         android:textAllCaps="true"
         android:background="@drawable/cinemacategory"/>
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:padding="10dp"
-        android:text="Science"
+        android:text="@string/science"
         android:textSize="20sp"
         android:textAllCaps="true"
         android:background="@drawable/sciencecategory"/>
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Start"
+        android:text="@string/start"
         android:textSize="20sp"
         android:padding="16dp"
         android:onClick="startQuiz"/>
@@ -72,13 +72,13 @@
         android:fontFamily="casual"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:text="You'd prefer other categories? Give us feedback!"/>
+        android:text="@string/giveusfeedback"/>
 
     <Button
         android:id="@+id/openFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="feedback>>"
+        android:text="@string/feedback"
         android:textSize="20sp"
         android:textAllCaps="true"
         android:textColor="#F44336"
