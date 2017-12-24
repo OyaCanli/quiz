@@ -1,0 +1,13 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/white">
+    <item>
+        <shape android:shape="oval">
+
+            <solid android:color="@color/literature"/>
+            // The width and color of the border
+            <size
+                android:width="50dp"
+                android:height="50dp"/>
+        </shape>
+    </item>
+</ripple>

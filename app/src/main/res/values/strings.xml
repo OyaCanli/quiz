@@ -141,7 +141,7 @@
 
     <string-array name="sci_q2">
         <item>Which of the following scientist is the inventor of the telephone?</item>
-        <item>Add a hint here</item>
+        <item>This scientist gave his name to a huge American telephone company</item>
         <item>Abraham Bell</item>
         <item>Nikola Tesla</item>
         <item>Albert Einstein</item>

@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">HANGI</string>
     <string name="feedback">geribildirim>></string>
-    <string name="new_game">yeni oyun>></string>
     <string name="quitarrow">çıkış</string>
     <string name="quit">çıkış</string>
     <string name="cancel">iptal</string>
@@ -13,7 +12,7 @@
     <string name="science">Bilim</string>
     <string name="submit">gönder</string>
     <string name="start">Başla</string>
-    <string name="next">sonraki</string>
+    <string name="next"> >> </string>
     <string name="politics">politika</string>
     <string name="sports">Spor</string>
     <string name="send">gönder</string>
@@ -21,13 +20,25 @@
     <string name="geography">coğrafya</string>
     <string name="other">Diğer:</string>
     <string name="newgame">Yeni Oyun</string>
-    <string name="info">HANGİSİ\'ne hoşgeldiniz! Aşağıdaki kategorilerden birini seçerek yarışabilirsiniz. Her kategoride beş soru, her soru için bir ipucu, bir seçenekleri yarıla joker seçeneği ve 60 saniye süre kısıtlaması bulunmaktadır. Jokerleri oyun boyunca sadece birer kere kullanabilirsiniz. Aşağıdaki kategoriler den birini seçin ve başla tuşuna tıklayın. İyi eğlenceler!</string>
+    <string name="info">HANGİSİ\'ne hoşgeldiniz! Aşağıdaki kategorilerden birinde yarışabilirsiniz. Her kategoride beş soru, her soru için bir ipucu, bir de seçenekleri yarıla joker seçeneği bulunmaktadır. Yalniz jokerleri oyun boyunca sadece birer kere kullanabilirsiniz. Aşağıdaki kategorilerden birini seçin ve başla tuşuna tıklayın. İyi eğlenceler!</string>
     <string name="giveusfeedback">Başka bir kategoriyi mi tercih ederdiniz? Aşağıdaki sayfadan bize isteklerinizi bildirebilirsiniz.</string>
     <string name="thanksforfeedback">Zaman ayırdığınız için teşekkür ederiz. HANGİSİ yeni bir uygulama ve sizlerin geribildirimleri bizim için çok önemli. HANGİSİ\'ne eklememizi istediğiniz kategorileri tıklayın ve gönder tuşuna basın.</string>
+    <string name="exitwarning">Kategorilere geri dönmek başladığınız oyunu bitirecektir. Dönmek istediğinizden emin misin?</string>
+    <string name="halfwarning">Yarı yarıya jokerini zaten kullandınız.</string>
+    <string name="hintwarning">Ipucunu zaten kullandınız.</string>
+    <string name="chosenothingwarning">Seçeneklerden birini seçmediniz.</string>
+    <string name="congratulations">Tebrikler! Oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz Yeni Oyun\'a tıklayın.</string>
+    <string name="correcttoastmessage">Doğru! Sonraki soruya geçmek için >>\'a tıklayın.</string>
+    <string name="wronganswer">Yanlış cevap! Oyun sona erdi.</string>
+    <string name="feedbackquestion">HANGISI\'nde görmek istediğiniz kategoriler:</string>
+    <string name="thanks">Geribildiriminiz için teşekkür ederiz.</string>
+    <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
+    <string name="youadded">Şunları eklediniz:</string>
+    <string name="timeoutwarning">Süre doldu. Oyun sona erdi. Yeniden oynamak icin yeni oyun\'a basın.</string>
 
     <string-array name="lit_q1">
-        <item>Hangisi Charles Dickens'ın romanlarından biri değildir?</item>
-        <item>Ernest Hemingway'in yazdığı bu roman 2. Dünya Savaşı'nda, Italya cephesinde geçer.</item>
+        <item>Hangisi Charles Dickens\'ın romanlarından biri değildir?</item>
+        <item>Ernest Hemingway\'in yazdığı bu roman 2. Dünya Savaşı\'nda, Italya cephesinde geçer.</item>
         <item>İki Şehrin Hikayesi</item>
         <item>Oliver Twist</item>
         <item>Kasvetli Ev</item>
@@ -35,8 +46,8 @@
     </string-array>
 
     <string-array name="lit_q2">
-        <item>Hangisi Dostoyevski'nin romanlarından biri değildir?</item>
-        <item>Tolstoy'un yazdığı bu roman soylu ve evli bir kadının yaşadığı yasak aşkı ve hayatındaki etkilerini anlatır.</item>
+        <item>Hangisi Dostoyevski\'nin romanlarından biri değildir?</item>
+        <item>Tolstoy\'un yazdığı bu roman soylu ve evli bir kadının yaşadığı yasak aşkı ve hayatındaki etkilerini anlatır.</item>
         <item>Suç ve Ceza</item>
         <item>Anna Karenina</item>
         <item>Yeraltından Notlar</item>
@@ -44,8 +55,8 @@
     </string-array>
 
     <string-array name="lit_q3">
-        <item>Hangisi Balzac'ın romanlarından biri değildir?</item>
-        <item>Jane Austen'in yazdığı bu roman gururları ve önyargıları yüzünden kendilerini aşka bırakamayan iki aşığın hikayesini anlatır.</item>
+        <item>Hangisi Balzac\'ın romanlarından biri değildir?</item>
+        <item>Jane Austen\'in yazdığı bu roman gururları ve önyargıları yüzünden kendilerini aşka bırakamayan iki aşığın hikayesini anlatır.</item>
         <item>Otuz Yaşındaki Kadın</item>
         <item>Goriot Baba</item>
         <item>Aşk ve Gurur</item>
@@ -53,8 +64,8 @@
     </string-array>
 
     <string-array name="lit_q4">
-        <item>Hangisi Jack London'ın romanlarından biri değildir?</item>
-        <item>Emile Zola'nın yazdığı bu roman kömür madencilerinin zorlu yaşamlarını anlatır.</item>
+        <item>Hangisi Jack London\'ın romanlarından biri değildir?</item>
+        <item>Emile Zola\'nın yazdığı bu roman kömür madencilerinin zorlu yaşamlarını anlatır.</item>
         <item>Demir Ökçe</item>
         <item>Germinal</item>
         <item>Vahşetin Çağrısı</item>
@@ -62,17 +73,17 @@
     </string-array>
 
     <string-array name="lit_q5">
-        <item>Hangisi Franz Kafka'nın romanlarından biri değildir?</item>
-        <item>Paulo Coelho'nun yazdığı bu roman Endülüs çobanı Santiago'nun Mısır'da piramitlerin eteğinde hazine arayışını anlatır. </item>
+        <item>Hangisi Franz Kafka\'nın romanlarından biri değildir?</item>
+        <item>Paulo Coelho\'nun yazdığı bu roman Endülüs çobanı Santiago\'nun Mısır\'da piramitlerin eteğinde hazine arayışını anlatır. </item>
         <item>Simyacı</item>
         <item>Dava</item>
         <item>Dönüşüm</item>
-        <item>Milena'ya Mektuplar</item>
+        <item>Milena\'ya Mektuplar</item>
     </string-array>
 
     <string-array name="cin_q1">
-        <item>Hangisi Michael Haneke'nin yönettiği filmlerden biri değildir?</item>
-        <item>Edward Norton ve Edward Furlon'un başrollerini paylaştığı film iki ırkçı kardeşin başından geçenleri anlatır.</item>
+        <item>Hangisi Michael Haneke\'nin yönettiği filmlerden biri değildir?</item>
+        <item>Edward Norton ve Edward Furlon\'un başrollerini paylaştığı film iki ırkçı kardeşin başından geçenleri anlatır.</item>
         <item>Geçmişin Gölgesinde</item>
         <item>Ölümcül Oyunlar</item>
         <item>Saklı</item>
@@ -80,8 +91,8 @@
     </string-array>
 
     <string-array name="cin_q2">
-        <item>Hangisi Emir Kusturica'nın yönettiği filmlerden biri değildir?</item>
-        <item>Başrolünü Adrien Bordy'nin canlandırdığı film Nazilerin işgali altındaki Polonya'da geçer. </item>
+        <item>Hangisi Emir Kusturica\'nın yönettiği filmlerden biri değildir?</item>
+        <item>Başrolünü Adrien Bordy\'nin canlandırdığı film Nazilerin işgali altındaki Polonya\'da geçer. </item>
         <item>Çingeneler Zamanı</item>
         <item>Arizona Rüyası</item>
         <item>Yeraltı</item>
@@ -89,7 +100,7 @@
     </string-array>
 
     <string-array name="cin_q3">
-        <item>Hangisi Lars Von Trier'in yönettiği filmlerden biri değildir?</item>
+        <item>Hangisi Lars Von Trier\'in yönettiği filmlerden biri değildir?</item>
         <item>1954 yapımı olan bu film, bir cinayet davasının jüri üyelerinin tartışmalarına odaklanır. </item>
         <item>Deccal</item>
         <item>12 Öfkeli Adam</item>
@@ -98,8 +109,8 @@
     </string-array>
 
     <string-array name="cin_q4">
-        <item>Hangisi Quentin Tarantino'nun yönettiği filmlerden biri değildir?</item>
-        <item>Tim Robbins ve Morgan Freeman'ın başrollerini paylaştığı film ömür boyu hapse mahkum iki hükümlünün dostluklarını ve ilginç hikayelerini anlatır. </item>
+        <item>Hangisi Quentin Tarantino\'nun yönettiği filmlerden biri değildir?</item>
+        <item>Tim Robbins ve Morgan Freeman\'ın başrollerini paylaştığı film ömür boyu hapse mahkum iki hükümlünün dostluklarını ve ilginç hikayelerini anlatır. </item>
         <item>Esaretin Bedeli</item>
         <item>Ucuz Roman</item>
         <item>Kill Bill</item>
@@ -107,16 +118,16 @@
     </string-array>
 
     <string-array name="cin_q5">
-        <item>Hangisi Steven Spielberg'in yönettiği filmlerden biri değildir?</item>
-        <item>Keanu Reeves'in başrolünde olduğu bu bilim-kurgu filminde insanların sanal bir gerçeklik içinde yaşamaktadır.</item>
+        <item>Hangisi Steven Spielberg\'in yönettiği filmlerden biri değildir?</item>
+        <item>Keanu Reeves\'in başrolünde olduğu bu bilim-kurgu filminde insanların sanal bir gerçeklik içinde yaşamaktadır.</item>
         <item>Jaws</item>
         <item>E.T.</item>
         <item>Matrix</item>
-        <item>Er Ryan'ı Kurtarmak</item>
+        <item>Er Ryan\'ı Kurtarmak</item>
     </string-array>
 
     <string-array name="sci_q1">
-        <item>Aşağıdaki bilim insanlarından hangisi ampülün mucididir?</item>
+        <item>Hangisi ampülün mucididir?</item>
         <item>Ampül 20. yüzyılda keşfedilmiştir, Newton ve Watt 17.-18. yüzyıllarda yaşamışlardır.</item>
         <item>Thomas Edison</item>
         <item>Isaac Newton</item>
@@ -125,8 +136,8 @@
     </string-array>
 
     <string-array name="sci_q2">
-        <item>Aşağıdaki bilim insanlarından hangisi telefonun mucididir?</item>
-        <item>Add a hint here</item>
+        <item>Hangisi telefonun mucididir?</item>
+        <item>Bu bilim insanının kendi adıyla büyük bir telefon şirketi kurulmustur. </item>
         <item>Abraham Bell</item>
         <item>Nikola Tesla</item>
         <item>Albert Einstein</item>
@@ -134,7 +145,7 @@
     </string-array>
 
     <string-array name="sci_q3">
-        <item>Aşağıdaki bilim insanlarından hangisi dinamitin mucididir?</item>
+        <item>Hangisi dinamitin mucididir?</item>
         <item>Bu bilim insanının adı bilim alanında oldukça prestijli bir ödüle verilmiştir.</item>
         <item>Louis Pasteur</item>
         <item>Alexander Fleming</item>
@@ -143,8 +154,8 @@
     </string-array>
 
     <string-array name="sci_q4">
-        <item>Aşağıdaki bilim insanlarından hangisi evrim teorisinin yaratıcısıdır?</item>
-        <item>Bir gemiyle beş yıllık bir araştırma gezisi yapan bu jeolog, gözlemlerinden yola çıkarak evrim ve doğal seçilim kuramlarını ortaya atmıştır.</item>
+        <item>Hangisi evrim teorisinin yaratıcısıdır?</item>
+        <item>Bir gemiyle beş yıllık bir araştırma gezisi yapan bu bilim adami, gözlemlerinden yola çıkarak evrim ve doğal seçilim kuramlarını ortaya atmıştır.</item>
         <item>Alfred Wegener</item>
         <item>Albert Einstein</item>
         <item>Gregor Mendel</item>
@@ -152,24 +163,12 @@
     </string-array>
 
     <string-array name="sci_q5">
-        <item>Aşağıdaki bilim insanlarından hangisi görelilik teorisinin yaratıcısıdır?</item>
-        <item>Bu ünlü fizikçinin gelmiş geçmiş en zeki insan oşduğu iddia edilir. Görelilik teorisi kğtlenini değişmez olduğu inancını yıkmıştır</item>
+        <item>Hangisi görelilik teorisinin yaratıcısıdır?</item>
+        <item>Bu ünlü fizikçinin gelmiş geçmiş en zeki insan olduğu iddia edilir. Görelilik teorisi kütlenin değişmez olduğu inancını yıkmıştır</item>
         <item>Blaise Pascal</item>
         <item>Albert Einstein</item>
         <item>Alexander Fleming</item>
         <item>Johannes Kepler</item>
     </string-array>
-    <string name="exitwarning">Kategorilere geri dönmek başladığınız oyunu bitirecektir. Dönmek istediğinizden emin misin?</string>
-    <string name="halfwarning">Yarı yarıya jokerini zaten kullandınız.</string>
-    <string name="hintwarning">Ipucunu zaten kullandınız.</string>
-    <string name="chosenothingwarning">Seçeneklerden birini seçmediniz.</string>
-    <string name="congratulations">Tebrikler! Oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz yeni oyun\'a tıklayın.</string>
-    <string name="correcttoastmessage">Doğru! Sonraki tuşuna tıklayın.</string>
-    <string name="wronganswer">Yanlış cevap! Oyun sona erdi.</string>
-    <string name="feedbackquestion">HANGISI\'nde görmek istediğiniz kategoriler:</string>
-    <string name="thanks">Geribildiriminiz için teşekkür ederiz.</string>
-    <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
-    <string name="youadded">Şunları eklediniz:</string>
-    <string name="timeoutwarning">Süre doldu. Oyun sona erdi. Yeniden oynamak icin yeni oyun\'a basın.</string>
 
 </resources>

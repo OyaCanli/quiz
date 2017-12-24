@@ -13,7 +13,7 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#B71C1C">
+        android:background="@color/literature">
 
         <View
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/lifeline_literature"
+            android:background="@drawable/rippleliterature"
             android:gravity="center"
             android:onClick="showHint"
             android:text="?"
@@ -57,7 +57,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="50dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/lifeline_literature"
+            android:background="@drawable/rippleliterature"
             android:gravity="center"
             android:onClick="halfTheOptions"
             android:text="@string/half"
@@ -81,9 +81,8 @@
 
         <RadioGroup
             android:id="@+id/options"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_below="@id/question"
             android:layout_marginHorizontal="24dp"
             android:elevation="2dp"
@@ -94,14 +93,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/optionsbackground"
                 android:fontFamily="sans-serif"
                 android:onClick="turnYellow"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:text="A Tale Of Two Cities"
                 android:textColor="@android:color/black" />
 
@@ -110,14 +107,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/optionsbackground"
                 android:fontFamily="sans-serif"
                 android:onClick="turnYellow"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:text="Oliver Twist"
                 android:textColor="@android:color/black" />
 
@@ -126,14 +121,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_below="@id/optionA"
-
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/optionsbackground"
                 android:fontFamily="sans-serif"
                 android:onClick="turnYellow"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:text="Bleak House"
                 android:textColor="@android:color/black" />
 
@@ -142,14 +135,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/optionB"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/optionsbackground"
                 android:fontFamily="sans-serif"
                 android:onClick="turnYellow"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:text="A Farewell To Arms"
                 android:textColor="@android:color/black" />
 
