@@ -58,15 +58,15 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     public void sendFeedback(View view) {
-        if(geo.isChecked())  message += getString(R.string.geography_);
-        if(pol.isChecked())  message += getString(R.string.politics_);
-        if(his.isChecked())  message += getString(R.string.history_);
-        if(mus.isChecked())  message += getString(R.string.music_);
-        if(spo.isChecked())  message += getString(R.string.sports_);
-        message += getString(R.string.youadded);
+        if(geo.isChecked())  message += "\n" + getString(R.string.geography);
+        if(pol.isChecked())  message += "\n" + getString(R.string.politics);
+        if(his.isChecked())  message += "\n" + getString(R.string.history);
+        if(mus.isChecked())  message += "\n" + getString(R.string.music);
+        if(spo.isChecked())  message += "\n" + getString(R.string.sports);
+        message += "\n" + getString(R.string.youadded);
         other = edittext.getText().toString();
         if(!(other.equals(" "))) message += other;
-        message += getString(R.string.thanks);
+        message += "\n" + getString(R.string.thanks);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto: "));
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mailsubject));

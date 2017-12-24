@@ -9,26 +9,20 @@
     <string name="giveusfeedback">You\'d prefer other categories? Give us feedback!</string>
     <string name="feedback"><![CDATA[feedback>>]]></string>
 
-    <string name="_60">60</string>
-    <string name="half">1/2</string>
+    <string name="_60" translatable="false">60</string>
+    <string name="half" translatable="false">1/2</string>
     <string name="categoriesbutton">categ.</string>
     <string name="submit">submit</string>
     <string name="next">next</string>
     <string name="thanksforfeedback">Thanks for taking your time to send us feedback. WHICH is a new application and we really appreciate your feedback. Chose the categories you would like us to add in WHICH and click send.</string>
     <string name="geography">Geography</string>
-    <string name="geography_">\\nGeography</string>
     <string name="politics">Politics</string>
-    <string name="politics_">\\nPolitics</string>
     <string name="music">Music</string>
-    <string name="music_">\\nMusic</string>
     <string name="sports">Sports</string>
-    <string name="sports_">\\nSports</string>
     <string name="history">History</string>
-    <string name="history_">\\nHistory</string>
     <string name="other">Other:</string>
     <string name="send">send</string>
     <string name="new_game"><![CDATA[new game>>]]></string>
-    <string name="quitarrow"><![CDATA[quit>>]]></string>
     <string name="quit">quit</string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
@@ -41,9 +35,9 @@
     <string name="wronganswer">The answer was wrong. Game is over.</string>
     <string name="newgame">New Game</string>
     <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
-    <string name="youadded">\\nYou added:</string>
-    <string name="thanks">\\nThanks for your feedback!</string>
-    <string name="mailaddress">oyacan@gmail.com</string>
+    <string name="youadded">You added:</string>
+    <string name="thanks">Thanks for your feedback!</string>
+    <string name="mailaddress" translatable="false">oyacan@gmail.com</string>
     <string name="mailsubject">Feedback for WHICH app</string>
 
     <string-array name="lit_q1">
@@ -93,20 +87,20 @@
 
     <string-array name="cin_q1">
         <item>Which of the following is not a film by Michael Haneke?</item>
-        <item>The answer is a film starring Adrien Bordy, set during Nazi invasion of Poland.</item>
-        <item>The Pianist</item>
+        <item>The answer is a film starring Edward Norton and Edward Furlong, telling the story of two neo-nazi brothers</item>
+        <item>American History X</item>
         <item>Funny Games</item>
         <item>Hidden</item>
-        <item>Amour</item>
+        <item>The White Ribbon</item>
     </string-array>
 
     <string-array name="cin_q2">
         <item>Which of the following is not a film by Emir Kusturica?</item>
-        <item>The answer is a film starring Edward Norton and Edward Furlong, telling the story of two neo-nazi brothers</item>
+        <item>The answer is a film starring Adrien Bordy, set during Nazi invasion of Poland.</item>
         <item>Time of The Gypsies</item>
         <item>Arizona Dream</item>
         <item>Underground</item>
-        <item>American History X</item>
+        <item>The Pianist</item>
     </string-array>
 
     <string-array name="cin_q3">
@@ -128,12 +122,12 @@
     </string-array>
 
     <string-array name="cin_q5">
-        <item>Which of the following is not a film by Quentin Tarantino?</item>
+        <item>Which of the following is not a film by Steven Spielberg?</item>
         <item>The answer is a 1999 science-fiction film starring Keanu Reeves where people live in a virtual reality.</item>
         <item>Jaws</item>
         <item>E.T.</item>
         <item>The Matrix</item>
-        <item>Letters to Milena</item>
+        <item>Saving Private Ryan</item>
     </string-array>
 
     <string-array name="sci_q1">
@@ -180,5 +174,6 @@
         <item>Alexander Fleming</item>
         <item>Johannes Kepler</item>
     </string-array>
+    <string name="quitarrow">quit>></string>
 
 </resources>
