@@ -1,22 +1,14 @@
 package com.example.android.quiz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-/**
- * Created by Oya on 12-12-17.
- */
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -59,7 +51,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
-        Button openFeedback = (Button) findViewById(R.id.openFeedback);
+        Button openFeedback = findViewById(R.id.openFeedback);
         openFeedback.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
             @Override

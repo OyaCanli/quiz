@@ -9,10 +9,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-/**
- * Created by Oya on 17-12-17.
- */
-
 public class FeedbackActivity extends AppCompatActivity {
 
     EditText edittext;
@@ -35,7 +31,7 @@ public class FeedbackActivity extends AppCompatActivity {
         mus = findViewById(R.id.mus);
         spo = findViewById(R.id.spo);
         message = getString(R.string.feedbackquestion);
-        Button newGame = (Button) findViewById(R.id.newGame);
+        Button newGame = findViewById(R.id.newGame);
         newGame.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
             @Override
@@ -45,7 +41,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 startActivity(newGameIntent);
             }
         });
-        Button quit = (Button) findViewById(R.id.quit);
+        Button quit = findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
             @Override

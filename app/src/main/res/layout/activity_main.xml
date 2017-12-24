@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.quiz.MainActivity"
     android:layout_width="match_parent"
@@ -16,13 +15,14 @@
     android:id="@+id/root"
     android:background="@color/literature">
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="16dp"
-    android:alpha="0.8"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:alpha="0.8"
+        android:background="@android:color/black" />
 
     <TextView
             android:id="@+id/time"
@@ -124,7 +124,7 @@
         android:gravity="center"
         android:textSize="24sp"
         android:textColor="#FFF"
-        android:background="@drawable/ripplescience"
+        android:background="@drawable/rippleliterature"
         android:onClick="showHint"/>
 
     <Button
