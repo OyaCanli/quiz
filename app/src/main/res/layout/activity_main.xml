@@ -67,14 +67,12 @@
         android:id="@+id/showHint"
         android:layout_below="@id/question"
         android:text="?"
-        android:onClick="showHint"
         style="@style/lifelinebuttonStyle"/>
 
     <Button
         android:id="@+id/half"
         android:layout_below="@id/showHint"
         android:text="@string/half"
-        android:onClick="halfTheOptions"
         style="@style/lifelinebuttonStyle"/>
 
     <TextView
@@ -95,7 +93,6 @@
     <Button
         android:id="@+id/submit"
         android:text="@string/submit"
-        android:onClick="checkTheAnswer"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         style="@style/buttonStyle"/>
@@ -104,7 +101,6 @@
         android:id="@+id/next"
         android:text="@string/next"
         android:layout_marginRight="@dimen/nextbutton_marginRight"
-        android:onClick="setNextQuestion"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:enabled="false"

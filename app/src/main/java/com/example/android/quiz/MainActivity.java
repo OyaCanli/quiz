@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,25 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.app.AlertDialog;
-import android.view.Window;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     private String[][] questions;
     private int[] correctAnswers;
     private int[][] wrongAnswers;
-    private String category;
     private TextView question, hint, time;
     private RadioButton optionA, optionB, optionC, optionD, correctOption, wrongOption;
     private RadioGroup options;
     private RadioButton butToErase1, butToErase2;
-    private Button nextButton, backToCategories, showHint, half;
+    private Button nextButton, showHint, half;
     private CountDownTimer timer;
-    private RelativeLayout root;
     private int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
     private long currentMillis;
     private boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
@@ -74,15 +69,26 @@ public class MainActivity extends AppCompatActivity {
         optionC =  findViewById(R.id.optionC);
         optionD =  findViewById(R.id.optionD);
         options = findViewById(R.id.options);
-        nextButton = findViewById(R.id.next);
-        root = findViewById(R.id.root);
+
+
+        time = findViewById(R.id.time);
+        //Initialiwe buttons
         showHint = findViewById(R.id.showHint);
         half = findViewById(R.id.half);
-        time = findViewById(R.id.time);
+        Button backToCategories = findViewById(R.id.categories);
+        Button submit = findViewById(R.id.submit);
+        nextButton = findViewById(R.id.next);
+        //set clicklisteners on these buttons
+        showHint.setOnClickListener(this);
+        half.setOnClickListener(this);
+        backToCategories.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
+        //gets questions from welcome activity
         questions = WelcomeActivity.getQuestions();
         correctAnswers = WelcomeActivity.getCorrectAnswers();
         wrongAnswers = WelcomeActivity.getWrongAnswers();
-        category = WelcomeActivity.getCategory();
+        String category = WelcomeActivity.getCategory();
         //Set the first question
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
@@ -105,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         if(isTimerOn) setTimer(currentMillis);
         else time.setText((String.valueOf(currentMillis / 1000)));
         //Set the background theme according to the category chosen
+        RelativeLayout root = findViewById(R.id.root);
         if (category.equals(getString(R.string.literature))) {
             root.setBackgroundColor(getResources().getColor(R.color.literature));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.rippleliterature));
@@ -119,11 +126,21 @@ public class MainActivity extends AppCompatActivity {
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
         }
         //Set the button which returns back to categories after poping up an alert dialog.
-        backToCategories = findViewById(R.id.categories);
-        backToCategories.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
-            @Override
-            public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.showHint:{
+                showHint();
+                break;
+            }
+            case R.id.half:{
+                halfTheOptions();
+                break;
+            }
+            case R.id.categories:{
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                 builder.setMessage(R.string.exitwarning);
                 builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
@@ -139,9 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 });
                 builder.create();
                 builder.show();
-
+                break;
             }
-        });
+            case R.id.submit: {
+                checkTheAnswer();
+                break;
+            }
+            case R.id.next: {
+                setNextQuestion();
+                break;
+            }
+        }
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -240,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void showHint(View view) {
+    public void showHint() {
         //can use hint only once
         if (hintCounter >= 1) {
             Toast.makeText(this, R.string.hintwarning, Toast.LENGTH_SHORT).show();
@@ -252,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         isHintVisible = true;
     }
 
-    public void halfTheOptions(View view) {
+    public void halfTheOptions() {
         //can use this lifeline only once
         if (halfLifelineCounter >= 1) {
             Toast.makeText(this, R.string.halfwarning, Toast.LENGTH_SHORT).show();
@@ -325,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkTheAnswer(View view) {
+    public void checkTheAnswer() {
         //warn if nothing is chosen
         if (!(optionA.isChecked()) && !(optionB.isChecked()) && !(optionC.isChecked()) && !(optionD.isChecked())) {
             Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();
@@ -353,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 isNextEnabled = true;
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
-        } else { //if it was a wrong answer
+        } else { //if it was a wrong answerik; ;,;;:=:m:lmmml7
             wrongOption =  findViewById(options.getCheckedRadioButtonId());
             wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
             wrongOptionIsShown = true;
@@ -395,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    protected void setNextQuestion(View view) {
+    protected void setNextQuestion() {
         questionNumber++;
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
