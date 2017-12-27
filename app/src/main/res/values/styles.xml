@@ -8,4 +8,104 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="frame_style">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/outer_margin</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:alpha">0.8</item>
+
+    </style>
+
+    <style name="timerStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/timer_textSize</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">@dimen/timer_height</item>
+        <item name="android:layout_width">@dimen/timer_width</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin</item>
+    </style>
+
+    <style name="questionStyle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/question_textSize</item>
+        <item name="android:background">@drawable/optionsbackground</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/question_width</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+        <item name="android:layout_marginTop">@dimen/question_margin_vertical</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:padding">@dimen/question_padding</item>
+    </style>
+
+    <style name="radiogroupStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+    <style name="radiobuttonStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:background">@drawable/optionsbackground</item>
+        <item name="android:paddingRight">@dimen/radiobutton_padding</item>
+        <item name="android:paddingTop">@dimen/radiobutton_padding</item>
+        <item name="android:paddingBottom">@dimen/radiobutton_padding</item>
+        <item name="android:layout_marginLeft">@dimen/radiobutton_marginLeft</item>
+        <item name="android:layout_marginTop">@dimen/radiobutton_marginVertical</item>
+        <item name="android:layout_marginBottom">@dimen/radiobutton_marginVertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/radiobutton_textSize</item>
+    </style>
+
+    <style name="lifelinebuttonStyle">
+        <item name="android:layout_height">@dimen/lifelinebutton_height</item>
+        <item name="android:layout_width">@dimen/lifelinebutton_width</item>
+        <item name="android:layout_marginTop">@dimen/lifelinebutton_marginTop</item>
+        <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
+        <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/rippleliterature</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="lifelinebuttonStyleLand">
+        <item name="android:layout_height">@dimen/lifelinebutton_land_height</item>
+        <item name="android:layout_width">@dimen/lifelinebutton_land_width</item>
+        <item name="android:layout_marginRight">@dimen/lifelinebutton_land_marginRight</item>
+        <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
+        <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/rippleliterature</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="buttonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/outer_margin</item>
+        <item name="android:background">@drawable/buttonborders</item>
+        <item name="android:textSize">@dimen/button_textSize</item>
+    </style>
+
+    <style name="hintStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+        <item name="android:layout_marginTop">@dimen/hint_marginHorizontal</item>
+        <item name="android:layout_marginBottom">@dimen/hint_marginHorizontal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/hint_padding</item>
+        <item name="android:paddingRight">@dimen/hint_padding</item>
+        <item name="android:textSize">@dimen/hint_textSize</item>
+    </style>
+
 </resources>

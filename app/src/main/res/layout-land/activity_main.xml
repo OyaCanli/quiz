@@ -16,182 +16,102 @@
         android:background="@color/literature">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:alpha="0.8" />
+            style="@style/frame_style"/>
 
         <Button
             android:id="@+id/showHint"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rippleliterature"
-            android:gravity="center"
-            android:onClick="showHint"
             android:text="?"
-            android:textColor="#FFF"
-            android:textSize="24sp" />
+            android:onClick="showHint"
+            android:layout_alignTop="@id/time"
+            style="@style/lifelinebuttonStyleLand"/>
 
         <TextView
             android:id="@+id/time"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/black"
-            android:gravity="center"
+            android:layout_marginTop="@dimen/inner_margin"
             android:text="@string/_60"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            style="@style/timerStyle"/>
 
         <Button
             android:id="@+id/half"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rippleliterature"
-            android:gravity="center"
-            android:onClick="halfTheOptions"
+           android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/time"
             android:text="@string/half"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
+            android:onClick="halfTheOptions"
+            style="@style/lifelinebuttonStyleLand"/>
 
         <TextView
             android:id="@+id/question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@id/time"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="16dp"
-            android:background="@drawable/optionsbackground"
-            android:elevation="2dp"
-            android:fontFamily="sans-serif"
-            android:padding="10dp"
-            android:text="Which of the followings is not a novel by Charles Dickens?"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            style="@style/questionStyle"
+            android:text="Which of the followings is not a novel by Charles Dickens?" />
 
         <RadioGroup
             android:id="@+id/options"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/question"
-            android:layout_marginHorizontal="24dp"
-            android:elevation="2dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/question"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/question"
+            style="@style/radiogroupStyle">
 
             <RadioButton
                 android:id="@+id/optionA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="5dp"
-                android:background="@drawable/optionsbackground"
-                android:fontFamily="sans-serif"
-                android:onClick="turnYellow"
-                android:paddingRight="5dp"
                 android:text="A Tale Of Two Cities"
-                android:textColor="@android:color/black" />
+                style="@style/radiobuttonStyle"
+                android:onClick="turnYellow"
+                android:layout_marginTop="0dp"/>
 
             <RadioButton
                 android:id="@+id/optionB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="5dp"
-                android:background="@drawable/optionsbackground"
-                android:fontFamily="sans-serif"
-                android:onClick="turnYellow"
-                android:paddingRight="5dp"
                 android:text="Oliver Twist"
-                android:textColor="@android:color/black" />
+                style="@style/radiobuttonStyle"
+                android:onClick="turnYellow"/>
 
             <RadioButton
                 android:id="@+id/optionC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="5dp"
-                android:background="@drawable/optionsbackground"
-                android:fontFamily="sans-serif"
-                android:onClick="turnYellow"
-                android:paddingRight="5dp"
                 android:text="Bleak House"
-                android:textColor="@android:color/black" />
+                android:onClick="turnYellow"
+                style="@style/radiobuttonStyle"/>
 
             <RadioButton
                 android:id="@+id/optionD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="5dp"
-                android:background="@drawable/optionsbackground"
-                android:fontFamily="sans-serif"
-                android:onClick="turnYellow"
-                android:paddingRight="5dp"
                 android:text="A Farewell To Arms"
-                android:textColor="@android:color/black" />
-
+                android:onClick="turnYellow"
+                style="@style/radiobuttonStyle"/>
         </RadioGroup>
 
         <TextView
             android:id="@+id/hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/options"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="16dp"
-            android:paddingHorizontal="16dp"
+            android:layout_width="@dimen/hint_land_width"
+            android:layout_below="@id/question"
             android:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
-            android:textColor="@android:color/white"
-            android:visibility="invisible" />
+            android:visibility="visible"
+            style="@style/hintStyle"/>
 
         <Button
             android:id="@+id/categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="@string/categoriesbutton"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/hint"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="32dp"
-            android:background="@drawable/buttonborders"
-            android:text="@string/categoriesbutton" />
+            android:layout_marginLeft="@dimen/categorybutton_land_marginLeft"
+            style="@style/buttonStyle"/>
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/hint"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/buttonborders"
+            android:text="@string/submit"
             android:onClick="checkTheAnswer"
-            android:text="@string/submit" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            style="@style/buttonStyle"/>
 
         <Button
             android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/hint"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="32dp"
-            android:background="@drawable/buttonborders"
-            android:enabled="false"
+            android:text="@string/next"
+            android:layout_marginRight="@dimen/inner_margin"
             android:onClick="setNextQuestion"
-            android:text="@string/next" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:enabled="false"
+            style="@style/buttonStyle"/>
 
     </RelativeLayout>
 </ScrollView>

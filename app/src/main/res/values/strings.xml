@@ -24,6 +24,7 @@
     <string name="send">send</string>
     <string name="new_game"><![CDATA[new game>>]]></string>
     <string name="quit">quit</string>
+    <string name="quitarrow">quit>></string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
     <string name="timeoutwarning">Time expired. Game is over. You can click new game to restart the game.</string>
@@ -174,6 +175,6 @@
         <item>Alexander Fleming</item>
         <item>Johannes Kepler</item>
     </string-array>
-    <string name="quitarrow">quit>></string>
+
 
 </resources>

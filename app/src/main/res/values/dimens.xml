@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="outer_margin">16dp</dimen>
+    <dimen name="inner_margin">32dp</dimen>
+
+    <dimen name="timer_width">80dp</dimen>
+    <dimen name="timer_height">40dp</dimen>
+    <dimen name="timer_textSize">20sp</dimen>
+
+    <dimen name="question_padding">10dp</dimen>
+    <dimen name="question_margin_vertical">16dp</dimen>
+    <dimen name="question_width">300dp</dimen>
+    <dimen name="question_textSize">18sp</dimen>
+
+    <dimen name="radiobutton_padding">5dp</dimen>
+    <dimen name="radiobutton_marginLeft">10dp</dimen>
+    <dimen name="radiobutton_marginVertical">5dp</dimen>
+    <dimen name="radiobutton_textSize">14sp</dimen>
+
+    <dimen name="lifelinebutton_width">50dp</dimen>
+    <dimen name="lifelinebutton_height">50dp</dimen>
+    <dimen name="lifelinebutton_marginLeft">50dp</dimen>
+    <dimen name="lifelinebutton_marginTop">32dp</dimen>
+    <dimen name="lifelinebutton_textSize">22sp</dimen>
+    <dimen name="lifelinebutton_land_marginRight">80dp</dimen>
+    <dimen name="lifelinebutton_land_width">40dp</dimen>
+    <dimen name="lifelinebutton_land_height">40dp</dimen>
+
+    <dimen name="hint_padding">16dp</dimen>
+    <dimen name="hint_marginHorizontal">16dp</dimen>
+    <dimen name="hint_textSize">16sp</dimen>
+    <dimen name="hint_land_width">300dp</dimen>
+
+    <dimen name="button_textSize">14sp</dimen>
+    <dimen name="categorybutton_land_marginLeft">32dp</dimen>
+    <dimen name="nextbutton_marginRight">32dp</dimen>
+
+</resources>
