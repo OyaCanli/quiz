@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,24 +16,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.app.AlertDialog;
+import android.view.Window;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView question, hint, time;
-    RadioButton optionA, optionB, optionC, optionD, correctOption, wrongOption;
-    RadioGroup options;
-    RadioButton butToErase1, butToErase2;
-    Button nextButton, backToCategories, showHint, half;
-    CountDownTimer timer;
-    RelativeLayout root;
-    int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
-    long currentMillis;
-    boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
-    boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow;
-    boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
+    private String[][] questions;
+    private int[] correctAnswers;
+    private int[][] wrongAnswers;
+    private String category;
+    private TextView question, hint, time;
+    private RadioButton optionA, optionB, optionC, optionD, correctOption, wrongOption;
+    private RadioGroup options;
+    private RadioButton butToErase1, butToErase2;
+    private Button nextButton, backToCategories, showHint, half;
+    private CountDownTimer timer;
+    private RelativeLayout root;
+    private int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
+    private long currentMillis;
+    private boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
+    private boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow;
+    private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
 
     protected static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     protected static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
@@ -57,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //hide action bar
+        getSupportActionBar().hide();
         //Initialize views
         question = findViewById(R.id.question);
         hint = findViewById(R.id.hint);
@@ -70,13 +79,17 @@ public class MainActivity extends AppCompatActivity {
         showHint = findViewById(R.id.showHint);
         half = findViewById(R.id.half);
         time = findViewById(R.id.time);
+        questions = WelcomeActivity.getQuestions();
+        correctAnswers = WelcomeActivity.getCorrectAnswers();
+        wrongAnswers = WelcomeActivity.getWrongAnswers();
+        category = WelcomeActivity.getCategory();
         //Set the first question
-        question.setText(WelcomeActivity.questions[questionNumber][0]);
-        hint.setText(WelcomeActivity.questions[questionNumber][1]);
-        optionA.setText(WelcomeActivity.questions[questionNumber][2]);
-        optionB.setText(WelcomeActivity.questions[questionNumber][3]);
-        optionC.setText(WelcomeActivity.questions[questionNumber][4]);
-        optionD.setText(WelcomeActivity.questions[questionNumber][5]);
+        question.setText(questions[questionNumber][0]);
+        hint.setText(questions[questionNumber][1]);
+        optionA.setText(questions[questionNumber][2]);
+        optionB.setText(questions[questionNumber][3]);
+        optionC.setText(questions[questionNumber][4]);
+        optionD.setText(questions[questionNumber][5]);
         //Initialiwe variables
         if(savedInstanceState != null){
             currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
@@ -92,15 +105,15 @@ public class MainActivity extends AppCompatActivity {
         if(isTimerOn) setTimer(currentMillis);
         else time.setText((String.valueOf(currentMillis / 1000)));
         //Set the background theme according to the category chosen
-        if (WelcomeActivity.category.equals(getString(R.string.literature))) {
+        if (category.equals(getString(R.string.literature))) {
             root.setBackgroundColor(getResources().getColor(R.color.literature));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.rippleliterature));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.rippleliterature));
-        } else if (WelcomeActivity.category.equals(getString(R.string.cinema))) {
+        } else if (category.equals(getString(R.string.cinema))) {
             root.setBackgroundColor(getResources().getColor(R.color.cinema));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplecinema));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplecinema));
-        } else if (WelcomeActivity.category.equals(getString(R.string.science))) {
+        } else if (category.equals(getString(R.string.science))) {
             root.setBackgroundColor(getResources().getColor(R.color.science));
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
@@ -156,12 +169,12 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         questionNumber = savedInstanceState.getInt(KEY_QUESTIONNUMBER);
-        question.setText(WelcomeActivity.questions[questionNumber][0]);
-        hint.setText(WelcomeActivity.questions[questionNumber][1]);
-        optionA.setText(WelcomeActivity.questions[questionNumber][2]);
-        optionB.setText(WelcomeActivity.questions[questionNumber][3]);
-        optionC.setText(WelcomeActivity.questions[questionNumber][4]);
-        optionD.setText(WelcomeActivity.questions[questionNumber][5]);
+        question.setText(questions[questionNumber][0]);
+        hint.setText(questions[questionNumber][1]);
+        optionA.setText(questions[questionNumber][2]);
+        optionB.setText(questions[questionNumber][3]);
+        optionC.setText(questions[questionNumber][4]);
+        optionD.setText(questions[questionNumber][5]);
         halfLifelineCounter = savedInstanceState.getInt(KEY_HALF_COUNTER);
         hintCounter = savedInstanceState.getInt(KEY_HINT_COUNTER);
         currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
@@ -189,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
         correctOptionIsShown = savedInstanceState.getBoolean(KEY_CORRECT_OPTION_IS_SHOWN);
         if (correctOptionIsShown) {
-            correctOption = findViewById(WelcomeActivity.correctAnswers[questionNumber]);
+            correctOption = findViewById(correctAnswers[questionNumber]);
             correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         }
         wrongOptionIsShown = savedInstanceState.getBoolean(KEY_WRONG_OPTION_IS_SHOWN);
@@ -228,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showHint(View view) {
+        //can use hint only once
         if (hintCounter >= 1) {
             Toast.makeText(this, R.string.hintwarning, Toast.LENGTH_SHORT).show();
             return;
@@ -239,14 +253,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void halfTheOptions(View view) {
+        //can use this lifeline only once
         if (halfLifelineCounter >= 1) {
             Toast.makeText(this, R.string.halfwarning, Toast.LENGTH_SHORT).show();
             return;
         }
         halfLifelineCounter++;
+        //I make a temporary arraylist from the wrong answers of the question.
+        //Pick one random, remove it from the list.
+        //Pick another. Then make those two options invisible
         ArrayList<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < 3; i++) {
-            list.add(WelcomeActivity.wrongAnswers[questionNumber][i]);
+            list.add(wrongAnswers[questionNumber][i]);
         }
         Random rand = new Random();
         int index = rand.nextInt(list.size());
@@ -262,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnYellow(View view) {
+        //options turn yellow on click. If another is clicked, others return back to their initial color.
         if (optionA.isChecked()) {
             optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
             OptAIsYellow = true;
@@ -307,34 +326,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkTheAnswer(View view) {
+        //warn if nothing is chosen
         if (!(optionA.isChecked()) && !(optionB.isChecked()) && !(optionC.isChecked()) && !(optionD.isChecked())) {
             Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();
             return;
         }
-        correctOption = findViewById(WelcomeActivity.correctAnswers[questionNumber]);
+        //show correct option in green
+        correctOption = findViewById(correctAnswers[questionNumber]);
         correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
         correctOptionIsShown = true;
+        //disable lifelines temporarily until the next question
         showHint.setEnabled(false);
         isHintEnabled = false;
         half.setEnabled(false);
         isHalfEnabled = false;
+        //cancel timer
         timer.cancel();
         isTimerOn = false;
-        if (options.getCheckedRadioButtonId() == WelcomeActivity.correctAnswers[questionNumber]) {
-            if (questionNumber == 4) {
+        //if the answer is correct
+        if (options.getCheckedRadioButtonId() == correctAnswers[questionNumber]) {
+            if (questionNumber == 4) { //if it was the last question
                 String message = getString(R.string.congratulations);
                 createAlertDialog(message);
-            } else {
+            } else { //if it was not the last question
                 nextButton.setEnabled(true);
                 isNextEnabled = true;
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
-        } else {
+        } else { //if it was a wrong answer
             wrongOption =  findViewById(options.getCheckedRadioButtonId());
             wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
             wrongOptionIsShown = true;
-
-
             //Wait two seconds before opening the dialog so that user sees the right answer
             CountDownTimer waitTwoSeconds = new CountDownTimer(2000, 1000) {
                 @Override
@@ -375,18 +397,18 @@ public class MainActivity extends AppCompatActivity {
 
     protected void setNextQuestion(View view) {
         questionNumber++;
-        question.setText(WelcomeActivity.questions[questionNumber][0]);
-        hint.setText(WelcomeActivity.questions[questionNumber][1]);
-        optionA.setText(WelcomeActivity.questions[questionNumber][2]);
+        question.setText(questions[questionNumber][0]);
+        hint.setText(questions[questionNumber][1]);
+        optionA.setText(questions[questionNumber][2]);
         optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
         optionA.setVisibility(View.VISIBLE);
-        optionB.setText(WelcomeActivity.questions[questionNumber][3]);
+        optionB.setText(questions[questionNumber][3]);
         optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
         optionB.setVisibility(View.VISIBLE);
-        optionC.setText(WelcomeActivity.questions[questionNumber][4]);
+        optionC.setText(questions[questionNumber][4]);
         optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
         optionC.setVisibility(View.VISIBLE);
-        optionD.setText(WelcomeActivity.questions[questionNumber][5]);
+        optionD.setText(questions[questionNumber][5]);
         optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
         optionD.setVisibility(View.VISIBLE);
         hint.setVisibility(View.INVISIBLE);
@@ -412,6 +434,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDestroy(){
         super.onDestroy();
-        timer.cancel();
+        if(timer != null) timer.cancel();
     }
 }

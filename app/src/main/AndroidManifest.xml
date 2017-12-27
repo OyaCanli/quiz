@@ -17,8 +17,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".FeedbackActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".FeedbackActivity"
+            android:label="FEEDBACK"/>
     </application>
 
 </manifest>

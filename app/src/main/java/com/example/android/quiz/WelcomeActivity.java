@@ -12,34 +12,34 @@ import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static String questions[][]= new String [5][6];
-    public static int correctAnswers[]= new int [5];
-    public static int wrongAnswers[][] = new int [5][3];
-    public static String category;
-    public static final int[] literatureCorrectAnswers = {
+    private static String questions[][]= new String [5][6];
+    private static int correctAnswers[]= new int [5];
+    private static int wrongAnswers[][] = new int [5][3];
+    private static String category;
+    private final int[] literatureCorrectAnswers = {
             R.id.optionD, R.id.optionB, R.id.optionC, R.id.optionB, R.id.optionA,
     };
-    public static final int[][] literatureWrongAnswers = {
+    private final int[][] literatureWrongAnswers = {
             {R.id.optionA, R.id.optionB, R.id.optionC},
             {R.id.optionA, R.id.optionC, R.id.optionD},
             {R.id.optionA, R.id.optionB, R.id.optionD},
             {R.id.optionA, R.id.optionC, R.id.optionD},
             {R.id.optionB, R.id.optionC, R.id.optionD},
     };
-    public static final int[] cinemaCorrectAnswers = {
+    private final int[] cinemaCorrectAnswers = {
             R.id.optionA, R.id.optionD, R.id.optionB, R.id.optionA, R.id.optionC
     };
-    public static final int[][] cinemaWrongAnswers = {
+    private final int[][] cinemaWrongAnswers = {
             {R.id.optionB, R.id.optionC, R.id.optionD},
             {R.id.optionA, R.id.optionB, R.id.optionC},
             {R.id.optionA, R.id.optionC, R.id.optionD},
             {R.id.optionB, R.id.optionC, R.id.optionD},
             {R.id.optionA, R.id.optionB, R.id.optionD}
     };
-    public static final int[] scienceCorrectAnswers = {
+    private final int[] scienceCorrectAnswers = {
             R.id.optionA, R.id.optionA, R.id.optionC, R.id.optionD, R.id.optionB
     };
-    public static final int[][] scienceWrongAnswers = {
+    private final int[][] scienceWrongAnswers = {
             {R.id.optionB, R.id.optionC, R.id.optionD},
             {R.id.optionB, R.id.optionC, R.id.optionD},
             {R.id.optionA, R.id.optionB, R.id.optionD},
@@ -63,52 +63,60 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    public void startQuiz(View view){
+    protected void startQuiz(View view){
         RadioButton literature = findViewById(R.id.literatureButton);
         RadioButton cinema = findViewById(R.id.cinemaButton);
         RadioButton science = findViewById(R.id.scienceButton);
+        //warns if nothing is checked
         if (!(literature.isChecked()) && !(cinema.isChecked()) && !(science.isChecked())) {
             Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();
             return;
         }
-        Resources resources = getResources();
-
+        //assign the questions according to the category chosen
         if(literature.isChecked()){
-            TypedArray typedArray = resources.obtainTypedArray(R.array.literature_questions);
-            int length = typedArray.length();
-            for (int i = 0; i < length; ++i) {
-                int id = typedArray.getResourceId(i, 0);
-                questions[i] = resources.getStringArray(id);
-            }
-            typedArray.recycle();
+            extractTypedArray(R.array.literature_questions);
             correctAnswers = literatureCorrectAnswers;
             wrongAnswers = literatureWrongAnswers;
             category = getString(R.string.literature);
         } else if (cinema.isChecked()) {
-            TypedArray typedArray = resources.obtainTypedArray(R.array.cinema_questions);
-            int length = typedArray.length();
-            for (int i = 0; i < length; ++i) {
-                int id = typedArray.getResourceId(i, 0);
-                questions[i] = resources.getStringArray(id);
-            }
-            typedArray.recycle();
+            extractTypedArray(R.array.cinema_questions);
             correctAnswers = cinemaCorrectAnswers;
             wrongAnswers = cinemaWrongAnswers;
             category = getString(R.string.cinema);
         } else if(science.isChecked()) {
-            TypedArray typedArray = resources.obtainTypedArray(R.array.science_questions);
-            int length = typedArray.length();
-            for (int i = 0; i < length; ++i) {
-                int id = typedArray.getResourceId(i, 0);
-                questions[i] = resources.getStringArray(id);
-            }
-            typedArray.recycle();
+            extractTypedArray(R.array.science_questions);
             correctAnswers = scienceCorrectAnswers;
             wrongAnswers = scienceWrongAnswers;
             category = getString(R.string.science);
         }
-
-        finish();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    //Extract the question, hints and options from array.xml
+    private void extractTypedArray(int arrayId){
+        Resources resources = getResources();
+        TypedArray typedArray = resources.obtainTypedArray(arrayId);
+        int length = typedArray.length();
+        for (int i = 0; i < length; ++i) {
+            int id = typedArray.getResourceId(i, 0);
+            questions[i] = resources.getStringArray(id);
+        }
+        typedArray.recycle();
+    }
+
+    public static String[][] getQuestions(){
+        return questions;
+    }
+
+    public static int[] getCorrectAnswers(){
+        return correctAnswers;
+    }
+
+    public static int[][] getWrongAnswers(){
+        return wrongAnswers;
+    }
+
+    public static String getCategory(){
+        return category;
     }
 }
