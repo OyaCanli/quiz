@@ -36,24 +36,24 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow;
     private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
 
-    protected static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
-    protected static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
-    protected static final String KEY_HINT_COUNTER = "SavedStateOfHintCounter";
-    protected static final String KEY_HALF_COUNTER = "SavedStateOfHalfCounter";
-    protected static final String KEY_IS_TIMER_ON = "SavedStateOfIsTimerOn";
-    protected static final String KEY_OPTA_IS_YELLOW = "SavedStateOfOptAIsYellow";
-    protected static final String KEY_OPTB_IS_YELLOW = "SavedStateOfOptBIsYellow";
-    protected static final String KEY_OPTC_IS_YELLOW = "SavedStateOfOptCIsYellow";
-    protected static final String KEY_OPTD_IS_YELLOW = "SavedStateOfOptDIsYellow";
-    protected static final String KEY_IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
-    protected static final String KEY_OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
-    protected static final String KKEY_OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
-    protected static final String KEY_CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
-    protected static final String KEY_WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
-    protected static final String KEY_IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
-    protected static final String KEY_IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
-    protected static final String KEY_IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
-    protected static final String KEY_IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
+    static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
+    static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
+    static final String KEY_HINT_COUNTER = "SavedStateOfHintCounter";
+    static final String KEY_HALF_COUNTER = "SavedStateOfHalfCounter";
+    static final String KEY_IS_TIMER_ON = "SavedStateOfIsTimerOn";
+    static final String KEY_OPTA_IS_YELLOW = "SavedStateOfOptAIsYellow";
+    static final String KEY_OPTB_IS_YELLOW = "SavedStateOfOptBIsYellow";
+    static final String KEY_OPTC_IS_YELLOW = "SavedStateOfOptCIsYellow";
+    static final String KEY_OPTD_IS_YELLOW = "SavedStateOfOptDIsYellow";
+    static final String KEY_IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
+    static final String KEY_OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
+    static final String KEY_OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
+    static final String KEY_CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
+    static final String KEY_WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
+    static final String KEY_IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
+    static final String KEY_IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
+    static final String KEY_IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
+    static final String KEY_IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,21 +141,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 break;
             }
             case R.id.categories:{
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                builder.setMessage(R.string.exitwarning);
-                builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent categoriesIntent = new Intent(MainActivity.this, WelcomeActivity.class);
-                        startActivity(categoriesIntent);
-                    }
-                });
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-                builder.create();
-                builder.show();
+                goBackToCategories();
                 break;
             }
             case R.id.submit: {
@@ -186,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         outState.putBoolean(KEY_OPTD_IS_YELLOW, OptDIsYellow);
         outState.putBoolean(KEY_IS_HALF_ACTIF, isHalfLifeLineActif);
         outState.putInt(KEY_OPT_TO_ERASE_1, option_to_erase_1);
-        outState.putInt(KKEY_OPT_TO_ERASE_2, option_to_erase_2);
+        outState.putInt(KEY_OPT_TO_ERASE_2, option_to_erase_2);
         outState.putBoolean(KEY_CORRECT_OPTION_IS_SHOWN, correctOptionIsShown);
         outState.putBoolean(KEY_WRONG_OPTION_IS_SHOWN, wrongOptionIsShown);
         outState.putBoolean(KEY_IS_NEXT_ENABLED, isNextEnabled);
@@ -241,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
         isHalfLifeLineActif = savedInstanceState.getBoolean(KEY_IS_HALF_ACTIF);
         option_to_erase_1 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_1);
-        option_to_erase_2 = savedInstanceState.getInt(KKEY_OPT_TO_ERASE_2);
+        option_to_erase_2 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_2);
         if (isHalfLifeLineActif) {
             butToErase1 =  findViewById(option_to_erase_1);
             butToErase2 = findViewById(option_to_erase_2);
@@ -267,6 +253,24 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 createAlertDialog(message);
             }
         }.start();
+    }
+
+    public void goBackToCategories(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+        builder.setMessage(R.string.exitwarning);
+        builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent categoriesIntent = new Intent(MainActivity.this, WelcomeActivity.class);
+                startActivity(categoriesIntent);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
     public void showHint() {
@@ -390,7 +394,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 isNextEnabled = true;
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
-        } else { //if it was a wrong answerik; ;,;;:=:m:lmmml7
+        } else { //if it was a wrong answer
             wrongOption =  findViewById(options.getCheckedRadioButtonId());
             wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
             wrongOptionIsShown = true;
@@ -432,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         builder.show();
     }
 
-    protected void setNextQuestion() {
+    public void setNextQuestion() {
         questionNumber++;
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
