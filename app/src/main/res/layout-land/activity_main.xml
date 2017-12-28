@@ -21,7 +21,6 @@
         <Button
             android:id="@+id/showHint"
             android:text="?"
-            android:onClick="showHint"
             android:layout_alignTop="@id/time"
             style="@style/lifelinebuttonStyleLand"/>
 
@@ -36,14 +35,13 @@
            android:layout_alignParentRight="true"
             android:layout_alignTop="@id/time"
             android:text="@string/half"
-            android:onClick="halfTheOptions"
             style="@style/lifelinebuttonStyleLand"/>
 
         <TextView
             android:id="@+id/question"
             android:layout_below="@id/time"
             style="@style/questionStyle"
-            android:text="Which of the followings is not a novel by Charles Dickens?" />
+            tools:text="Which of the followings is not a novel by Charles Dickens?" />
 
         <RadioGroup
             android:id="@+id/options"
@@ -55,27 +53,23 @@
 
             <RadioButton
                 android:id="@+id/optionA"
-                android:text="A Tale Of Two Cities"
+                tools:text="A Tale Of Two Cities"
                 style="@style/radiobuttonStyle"
-                android:onClick="turnYellow"
                 android:layout_marginTop="0dp"/>
 
             <RadioButton
                 android:id="@+id/optionB"
-                android:text="Oliver Twist"
-                style="@style/radiobuttonStyle"
-                android:onClick="turnYellow"/>
+                tools:text="Oliver Twist"
+                style="@style/radiobuttonStyle" />
 
             <RadioButton
                 android:id="@+id/optionC"
-                android:text="Bleak House"
-                android:onClick="turnYellow"
+                tools:text="Bleak House"
                 style="@style/radiobuttonStyle"/>
 
             <RadioButton
                 android:id="@+id/optionD"
-                android:text="A Farewell To Arms"
-                android:onClick="turnYellow"
+                tools:text="A Farewell To Arms"
                 style="@style/radiobuttonStyle"/>
         </RadioGroup>
 
@@ -83,7 +77,7 @@
             android:id="@+id/hint"
             android:layout_width="@dimen/hint_land_width"
             android:layout_below="@id/question"
-            android:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
+            tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
             android:visibility="visible"
             style="@style/hintStyle"/>
 
@@ -98,7 +92,6 @@
         <Button
             android:id="@+id/submit"
             android:text="@string/submit"
-            android:onClick="checkTheAnswer"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             style="@style/buttonStyle"/>
@@ -107,7 +100,6 @@
             android:id="@+id/next"
             android:text="@string/next"
             android:layout_marginRight="@dimen/inner_margin"
-            android:onClick="setNextQuestion"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:enabled="false"

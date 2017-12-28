@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionC =  findViewById(R.id.optionC);
         optionD =  findViewById(R.id.optionD);
         options = findViewById(R.id.options);
-
-
         time = findViewById(R.id.time);
         //Initialiwe buttons
         showHint = findViewById(R.id.showHint);
@@ -84,7 +82,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         backToCategories.setOnClickListener(this);
         submit.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-        //gets questions from welcome activity
+        optionA.setOnClickListener(this);
+        optionB.setOnClickListener(this);
+        optionC.setOnClickListener(this);
+        optionD.setOnClickListener(this);
+        //get questions from welcome activity
         questions = WelcomeActivity.getQuestions();
         correctAnswers = WelcomeActivity.getCorrectAnswers();
         wrongAnswers = WelcomeActivity.getWrongAnswers();
@@ -125,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
             showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
         }
-        //Set the button which returns back to categories after poping up an alert dialog.
-
     }
 
     @Override
@@ -164,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             case R.id.next: {
                 setNextQuestion();
+                break;
+            }
+            case R.id.optionA:case R.id.optionB:case R.id.optionC:case R.id.optionD: {
+                turnYellow();
                 break;
             }
         }
@@ -304,49 +308,57 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     }
 
-    public void turnYellow(View view) {
+    public void turnYellow() {
         //options turn yellow on click. If another is clicked, others return back to their initial color.
-        if (optionA.isChecked()) {
-            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-            OptAIsYellow = true;
-            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptBIsYellow = false;
-            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptCIsYellow = false;
-            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptDIsYellow = false;
+        int id = options.getCheckedRadioButtonId();
+        switch(id){
+            case R.id.optionA: {
+                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+                OptAIsYellow = true;
+                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptBIsYellow = false;
+                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptCIsYellow = false;
+                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptDIsYellow = false;
+                break;
 
+            }
+            case R.id.optionB: {
+                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+                OptBIsYellow = true;
+                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptAIsYellow = false;
+                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptCIsYellow = false;
+                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptDIsYellow = false;
+                break;
+            }
+            case R.id.optionC: {
+                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+                OptCIsYellow = true;
+                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptAIsYellow = false;
+                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptBIsYellow = false;
+                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptDIsYellow = false;
+                break;
+            }
+            case R.id.optionD: {
+                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
+                OptDIsYellow = true;
+                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptAIsYellow = false;
+                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptBIsYellow = false;
+                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+                OptCIsYellow = false;
+                break;
+            }
         }
-        if (optionB.isChecked()) {
-            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-            OptBIsYellow = true;
-            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptAIsYellow = false;
-            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptCIsYellow = false;
-            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptDIsYellow = false;
-        }
-        if (optionC.isChecked()) {
-            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-            OptCIsYellow = true;
-            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptAIsYellow = false;
-            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptBIsYellow = false;
-            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptDIsYellow = false;
-        }
-        if (optionD.isChecked()) {
-            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-            OptDIsYellow = true;
-            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptAIsYellow = false;
-            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptBIsYellow = false;
-            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-            OptCIsYellow = false;
-        }
+
 
     }
 
