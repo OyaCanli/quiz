@@ -32,7 +32,7 @@
     <style name="questionStyle">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/question_textSize</item>
-        <item name="android:background">@drawable/optionsbackground</item>
+        <item name="android:background">@drawable/questionbackground</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">@dimen/question_width</item>
@@ -53,7 +53,7 @@
     <style name="radiobuttonStyle">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:background">@drawable/optionsbackground</item>
+        <item name="android:background">@drawable/selector</item>
         <item name="android:paddingRight">@dimen/radiobutton_padding</item>
         <item name="android:paddingTop">@dimen/radiobutton_padding</item>
         <item name="android:paddingBottom">@dimen/radiobutton_padding</item>
@@ -72,7 +72,6 @@
         <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
         <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/rippleliterature</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -83,7 +82,6 @@
         <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
         <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/rippleliterature</item>
         <item name="android:gravity">center</item>
     </style>
 

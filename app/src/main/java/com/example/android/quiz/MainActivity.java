@@ -2,7 +2,14 @@ package com.example.android.quiz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,18 +40,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
     private long currentMillis;
     private boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
-    private boolean OptAIsYellow, OptBIsYellow, OptCIsYellow, OptDIsYellow;
     private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
+    RippleDrawable rippleHalf, rippleHint;
 
     static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
     static final String KEY_HINT_COUNTER = "SavedStateOfHintCounter";
     static final String KEY_HALF_COUNTER = "SavedStateOfHalfCounter";
     static final String KEY_IS_TIMER_ON = "SavedStateOfIsTimerOn";
-    static final String KEY_OPTA_IS_YELLOW = "SavedStateOfOptAIsYellow";
-    static final String KEY_OPTB_IS_YELLOW = "SavedStateOfOptBIsYellow";
-    static final String KEY_OPTC_IS_YELLOW = "SavedStateOfOptCIsYellow";
-    static final String KEY_OPTD_IS_YELLOW = "SavedStateOfOptDIsYellow";
     static final String KEY_IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
     static final String KEY_OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
     static final String KEY_OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
@@ -82,10 +85,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         backToCategories.setOnClickListener(this);
         submit.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-        optionA.setOnClickListener(this);
-        optionB.setOnClickListener(this);
-        optionC.setOnClickListener(this);
-        optionD.setOnClickListener(this);
         //get questions from welcome activity
         questions = WelcomeActivity.getQuestions();
         correctAnswers = WelcomeActivity.getCorrectAnswers();
@@ -114,18 +113,34 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         else time.setText((String.valueOf(currentMillis / 1000)));
         //Set the background theme according to the category chosen
         RelativeLayout root = findViewById(R.id.root);
+
         if (category.equals(getString(R.string.literature))) {
             root.setBackgroundColor(getResources().getColor(R.color.literature));
-            half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.rippleliterature));
-            showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.rippleliterature));
+            ShapeDrawable roundButton = new ShapeDrawable();
+            roundButton.setShape(new OvalShape());
+            roundButton.getPaint().setColor(getResources().getColor(R.color.literature));
+            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            half.setBackground(rippleHalf);
+            showHint.setBackground(rippleHint);
         } else if (category.equals(getString(R.string.cinema))) {
-            root.setBackgroundColor(getResources().getColor(R.color.cinema));
-            half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplecinema));
-            showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplecinema));
+            root.setBackgroundColor(getResources().getColor(R.color.cinema));;
+            ShapeDrawable roundButton = new ShapeDrawable();
+            roundButton.setShape(new OvalShape());
+            roundButton.getPaint().setColor(getResources().getColor(R.color.cinema));
+            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            half.setBackground(rippleHalf);
+            showHint.setBackground(rippleHint);
         } else if (category.equals(getString(R.string.science))) {
-            root.setBackgroundColor(getResources().getColor(R.color.science));
-            half.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
-            showHint.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ripplescience));
+            root.setBackgroundColor(getResources().getColor(R.color.science));;
+            ShapeDrawable roundButton = new ShapeDrawable();
+            roundButton.setShape(new OvalShape());
+            roundButton.getPaint().setColor(getResources().getColor(R.color.science));
+            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+            half.setBackground(rippleHalf);
+            showHint.setBackground(rippleHint);
         }
     }
 
@@ -152,10 +167,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 setNextQuestion();
                 break;
             }
-            case R.id.optionA:case R.id.optionB:case R.id.optionC:case R.id.optionD: {
-                turnYellow();
-                break;
-            }
         }
     }
 
@@ -166,10 +177,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         outState.putInt(KEY_HALF_COUNTER, halfLifelineCounter);
         outState.putInt(KEY_QUESTIONNUMBER, questionNumber);
         outState.putBoolean(KEY_IS_TIMER_ON, isTimerOn);
-        outState.putBoolean(KEY_OPTA_IS_YELLOW, OptAIsYellow);
-        outState.putBoolean(KEY_OPTB_IS_YELLOW, OptBIsYellow);
-        outState.putBoolean(KEY_OPTC_IS_YELLOW, OptCIsYellow);
-        outState.putBoolean(KEY_OPTD_IS_YELLOW, OptDIsYellow);
         outState.putBoolean(KEY_IS_HALF_ACTIF, isHalfLifeLineActif);
         outState.putInt(KEY_OPT_TO_ERASE_1, option_to_erase_1);
         outState.putInt(KEY_OPT_TO_ERASE_2, option_to_erase_2);
@@ -203,27 +210,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         if(!isHalfEnabled) half.setEnabled(false);
         isHintVisible = savedInstanceState.getBoolean(KEY_IS_HINT_VISIBLE);
         if(isHintVisible) hint.setVisibility(View.VISIBLE);
-        OptAIsYellow = savedInstanceState.getBoolean(KEY_OPTA_IS_YELLOW);
-        if (OptAIsYellow)
-            optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptBIsYellow = savedInstanceState.getBoolean(KEY_OPTB_IS_YELLOW);
-        if (OptBIsYellow)
-            optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptCIsYellow = savedInstanceState.getBoolean(KEY_OPTC_IS_YELLOW);
-        if (OptCIsYellow)
-            optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-        OptDIsYellow = savedInstanceState.getBoolean(KEY_OPTD_IS_YELLOW);
-        if (OptDIsYellow)
-            optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
         correctOptionIsShown = savedInstanceState.getBoolean(KEY_CORRECT_OPTION_IS_SHOWN);
         if (correctOptionIsShown) {
             correctOption = findViewById(correctAnswers[questionNumber]);
-            correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
+            ShapeDrawable greenBackground = new ShapeDrawable();
+            float[] radius= {30,30,30,30,30,30,30,30};
+            greenBackground.setShape(new RoundRectShape(radius, null, null));
+            greenBackground.getPaint().setColor(Color.GREEN);
+            correctOption.setBackgroundDrawable(greenBackground);
         }
         wrongOptionIsShown = savedInstanceState.getBoolean(KEY_WRONG_OPTION_IS_SHOWN);
         if (wrongOptionIsShown) {
             wrongOption = findViewById(options.getCheckedRadioButtonId());
-            wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
+            ShapeDrawable redBackground = new ShapeDrawable();
+            float[] radius= {30,30,30,30,30,30,30,30};
+            redBackground.setShape(new RoundRectShape(radius, null, null));
+            redBackground.getPaint().setColor(Color.RED);
+            wrongOption.setBackgroundDrawable(redBackground);
         }
         isHalfLifeLineActif = savedInstanceState.getBoolean(KEY_IS_HALF_ACTIF);
         option_to_erase_1 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_1);
@@ -309,61 +312,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         butToErase1.setVisibility(View.INVISIBLE);
         butToErase2.setVisibility(View.INVISIBLE);
         isHalfLifeLineActif = true;
-
-    }
-
-    public void turnYellow() {
-        //options turn yellow on click. If another is clicked, others return back to their initial color.
-        int id = options.getCheckedRadioButtonId();
-        switch(id){
-            case R.id.optionA: {
-                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-                OptAIsYellow = true;
-                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptBIsYellow = false;
-                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptCIsYellow = false;
-                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptDIsYellow = false;
-                break;
-
-            }
-            case R.id.optionB: {
-                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-                OptBIsYellow = true;
-                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptAIsYellow = false;
-                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptCIsYellow = false;
-                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptDIsYellow = false;
-                break;
-            }
-            case R.id.optionC: {
-                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-                OptCIsYellow = true;
-                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptAIsYellow = false;
-                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptBIsYellow = false;
-                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptDIsYellow = false;
-                break;
-            }
-            case R.id.optionD: {
-                optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnyellow));
-                OptDIsYellow = true;
-                optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptAIsYellow = false;
-                optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptBIsYellow = false;
-                optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
-                OptCIsYellow = false;
-                break;
-            }
-        }
-
-
     }
 
     public void checkTheAnswer() {
@@ -374,7 +322,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
         //show correct option in green
         correctOption = findViewById(correctAnswers[questionNumber]);
-        correctOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turngreen));
+        ShapeDrawable greenBackground = new ShapeDrawable();
+        float[] radius= {30,30,30,30,30,30,30,30};
+        greenBackground.setShape(new RoundRectShape(radius, null, null));
+        greenBackground.getPaint().setColor(Color.GREEN);
+        correctOption.setBackgroundDrawable(greenBackground);
         correctOptionIsShown = true;
         //disable lifelines temporarily until the next question
         showHint.setEnabled(false);
@@ -396,7 +348,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
         } else { //if it was a wrong answer
             wrongOption =  findViewById(options.getCheckedRadioButtonId());
-            wrongOption.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.turnred));
+            ShapeDrawable redBackground = new ShapeDrawable();
+            redBackground.setShape(new RoundRectShape(radius, null, null));
+            redBackground.getPaint().setColor(Color.RED);
+            wrongOption.setBackgroundDrawable(redBackground);
             wrongOptionIsShown = true;
             //Wait two seconds before opening the dialog so that user sees the right answer
             CountDownTimer waitTwoSeconds = new CountDownTimer(2000, 1000) {
@@ -441,16 +396,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
         optionA.setText(questions[questionNumber][2]);
-        optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+        optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
         optionA.setVisibility(View.VISIBLE);
         optionB.setText(questions[questionNumber][3]);
-        optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+        optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
         optionB.setVisibility(View.VISIBLE);
         optionC.setText(questions[questionNumber][4]);
-        optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+        optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
         optionC.setVisibility(View.VISIBLE);
         optionD.setText(questions[questionNumber][5]);
-        optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.optionsbackground));
+        optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
         optionD.setVisibility(View.VISIBLE);
         hint.setVisibility(View.INVISIBLE);
         isHintVisible = false;
@@ -466,10 +421,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         isTimerOn = true;
         correctOptionIsShown = false;
         wrongOptionIsShown = false;
-        OptAIsYellow = false;
-        OptBIsYellow = false;
-        OptCIsYellow = false;
-        OptDIsYellow = false;
         isHalfLifeLineActif = false;
     }
 
