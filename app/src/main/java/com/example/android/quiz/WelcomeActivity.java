@@ -47,11 +47,14 @@ public class WelcomeActivity extends AppCompatActivity {
             {R.id.optionA, R.id.optionC, R.id.optionD},
     };
 
+    Button openFeedback, start;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
-        Button openFeedback = findViewById(R.id.openFeedback);
+        openFeedback = findViewById(R.id.openFeedback);
+        start = findViewById(R.id.startButton);
         openFeedback.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
             @Override
@@ -61,9 +64,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(feedbackIntent);
             }
         });
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQuiz();
+            }
+        });
     }
 
-    protected void startQuiz(View view){
+    protected void startQuiz(){
         RadioButton literature = findViewById(R.id.literatureButton);
         RadioButton cinema = findViewById(R.id.cinemaButton);
         RadioButton science = findViewById(R.id.scienceButton);
