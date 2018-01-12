@@ -43,20 +43,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
     RippleDrawable rippleHalf, rippleHint;
 
-    final String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
-    final String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
-    final String HINT_COUNTER = "SavedStateOfHintCounter";
-    final String HALF_COUNTER = "SavedStateOfHalfCounter";
-    final String IS_TIMER_ON = "SavedStateOfIsTimerOn";
-    final String IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
-    final String OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
-    final String OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
-    final String CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
-    final String WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
-    final String IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
-    final String IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
-    final String IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
-    final String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
+    final static String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
+    final static String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
+    final static String HINT_COUNTER = "SavedStateOfHintCounter";
+    final static String HALF_COUNTER = "SavedStateOfHalfCounter";
+    final static String IS_TIMER_ON = "SavedStateOfIsTimerOn";
+    final static String IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
+    final static String OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
+    final static String OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
+    final static String CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
+    final static String WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
+    final static String IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
+    final static String IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
+    final static String IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
+    final static String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
