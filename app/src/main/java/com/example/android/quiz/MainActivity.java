@@ -43,20 +43,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
     RippleDrawable rippleHalf, rippleHint;
 
-    static final String KEY_CURRENT_MILLIS = "SavedStateOfCurrentMillis";
-    static final String KEY_QUESTIONNUMBER = "SavedStateOfQuestionNumber";
-    static final String KEY_HINT_COUNTER = "SavedStateOfHintCounter";
-    static final String KEY_HALF_COUNTER = "SavedStateOfHalfCounter";
-    static final String KEY_IS_TIMER_ON = "SavedStateOfIsTimerOn";
-    static final String KEY_IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
-    static final String KEY_OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
-    static final String KEY_OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
-    static final String KEY_CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
-    static final String KEY_WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
-    static final String KEY_IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
-    static final String KEY_IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
-    static final String KEY_IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
-    static final String KEY_IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
+    final String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
+    final String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
+    final String HINT_COUNTER = "SavedStateOfHintCounter";
+    final String HALF_COUNTER = "SavedStateOfHalfCounter";
+    final String IS_TIMER_ON = "SavedStateOfIsTimerOn";
+    final String IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
+    final String OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
+    final String OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
+    final String CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
+    final String WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
+    final String IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
+    final String IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
+    final String IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
+    final String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,10 +99,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionD.setText(questions[questionNumber][5]);
         //Initialiwe variables
         if(savedInstanceState != null){
-            currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
-            isTimerOn = savedInstanceState.getBoolean(KEY_IS_TIMER_ON);
-            halfLifelineCounter = savedInstanceState.getInt(KEY_HALF_COUNTER);
-            hintCounter = savedInstanceState.getInt(KEY_HINT_COUNTER);
+            currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
+            isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
+            halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
+            hintCounter = savedInstanceState.getInt(HINT_COUNTER);
         } else {
             hintCounter = 0;
             halfLifelineCounter = 0;
@@ -172,45 +172,45 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(KEY_CURRENT_MILLIS, currentMillis);
-        outState.putInt(KEY_HINT_COUNTER, hintCounter);
-        outState.putInt(KEY_HALF_COUNTER, halfLifelineCounter);
-        outState.putInt(KEY_QUESTIONNUMBER, questionNumber);
-        outState.putBoolean(KEY_IS_TIMER_ON, isTimerOn);
-        outState.putBoolean(KEY_IS_HALF_ACTIF, isHalfLifeLineActif);
-        outState.putInt(KEY_OPT_TO_ERASE_1, option_to_erase_1);
-        outState.putInt(KEY_OPT_TO_ERASE_2, option_to_erase_2);
-        outState.putBoolean(KEY_CORRECT_OPTION_IS_SHOWN, correctOptionIsShown);
-        outState.putBoolean(KEY_WRONG_OPTION_IS_SHOWN, wrongOptionIsShown);
-        outState.putBoolean(KEY_IS_NEXT_ENABLED, isNextEnabled);
-        outState.putBoolean(KEY_IS_HINT_ENABLED, isHintEnabled);
-        outState.putBoolean(KEY_IS_HALF_ENABLED, isHalfEnabled);
-        outState.putBoolean(KEY_IS_HINT_VISIBLE, isHintVisible);
+        outState.putLong(CURRENT_MILLIS, currentMillis);
+        outState.putInt(HINT_COUNTER, hintCounter);
+        outState.putInt(HALF_COUNTER, halfLifelineCounter);
+        outState.putInt(QUESTIONNUMBER, questionNumber);
+        outState.putBoolean(IS_TIMER_ON, isTimerOn);
+        outState.putBoolean(IS_HALF_ACTIF, isHalfLifeLineActif);
+        outState.putInt(OPT_TO_ERASE_1, option_to_erase_1);
+        outState.putInt(OPT_TO_ERASE_2, option_to_erase_2);
+        outState.putBoolean(CORRECT_OPTION_IS_SHOWN, correctOptionIsShown);
+        outState.putBoolean(WRONG_OPTION_IS_SHOWN, wrongOptionIsShown);
+        outState.putBoolean(IS_NEXT_ENABLED, isNextEnabled);
+        outState.putBoolean(IS_HINT_ENABLED, isHintEnabled);
+        outState.putBoolean(IS_HALF_ENABLED, isHalfEnabled);
+        outState.putBoolean(IS_HINT_VISIBLE, isHintVisible);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        questionNumber = savedInstanceState.getInt(KEY_QUESTIONNUMBER);
+        questionNumber = savedInstanceState.getInt(QUESTIONNUMBER);
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
         optionA.setText(questions[questionNumber][2]);
         optionB.setText(questions[questionNumber][3]);
         optionC.setText(questions[questionNumber][4]);
         optionD.setText(questions[questionNumber][5]);
-        halfLifelineCounter = savedInstanceState.getInt(KEY_HALF_COUNTER);
-        hintCounter = savedInstanceState.getInt(KEY_HINT_COUNTER);
-        currentMillis = savedInstanceState.getLong(KEY_CURRENT_MILLIS);
-        isTimerOn = savedInstanceState.getBoolean(KEY_IS_TIMER_ON);
+        halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
+        hintCounter = savedInstanceState.getInt(HINT_COUNTER);
+        currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
+        isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
         if(isTimerOn) setTimer(currentMillis);
-        isNextEnabled = savedInstanceState.getBoolean(KEY_IS_NEXT_ENABLED);
+        isNextEnabled = savedInstanceState.getBoolean(IS_NEXT_ENABLED);
         if (isNextEnabled) nextButton.setEnabled(true);
-        isHintEnabled = savedInstanceState.getBoolean(KEY_IS_HINT_ENABLED);
+        isHintEnabled = savedInstanceState.getBoolean(IS_HINT_ENABLED);
         if(!isHintEnabled) hint.setEnabled(false);
-        isHalfEnabled = savedInstanceState.getBoolean(KEY_IS_HALF_ENABLED);
+        isHalfEnabled = savedInstanceState.getBoolean(IS_HALF_ENABLED);
         if(!isHalfEnabled) half.setEnabled(false);
-        isHintVisible = savedInstanceState.getBoolean(KEY_IS_HINT_VISIBLE);
+        isHintVisible = savedInstanceState.getBoolean(IS_HINT_VISIBLE);
         if(isHintVisible) hint.setVisibility(View.VISIBLE);
-        correctOptionIsShown = savedInstanceState.getBoolean(KEY_CORRECT_OPTION_IS_SHOWN);
+        correctOptionIsShown = savedInstanceState.getBoolean(CORRECT_OPTION_IS_SHOWN);
         if (correctOptionIsShown) {
             correctOption = findViewById(correctAnswers[questionNumber]);
             ShapeDrawable greenBackground = new ShapeDrawable();
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             greenBackground.getPaint().setColor(Color.GREEN);
             correctOption.setBackgroundDrawable(greenBackground);
         }
-        wrongOptionIsShown = savedInstanceState.getBoolean(KEY_WRONG_OPTION_IS_SHOWN);
+        wrongOptionIsShown = savedInstanceState.getBoolean(WRONG_OPTION_IS_SHOWN);
         if (wrongOptionIsShown) {
             wrongOption = findViewById(options.getCheckedRadioButtonId());
             ShapeDrawable redBackground = new ShapeDrawable();
@@ -228,9 +228,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             redBackground.getPaint().setColor(Color.RED);
             wrongOption.setBackgroundDrawable(redBackground);
         }
-        isHalfLifeLineActif = savedInstanceState.getBoolean(KEY_IS_HALF_ACTIF);
-        option_to_erase_1 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_1);
-        option_to_erase_2 = savedInstanceState.getInt(KEY_OPT_TO_ERASE_2);
+        isHalfLifeLineActif = savedInstanceState.getBoolean(IS_HALF_ACTIF);
+        option_to_erase_1 = savedInstanceState.getInt(OPT_TO_ERASE_1);
+        option_to_erase_2 = savedInstanceState.getInt(OPT_TO_ERASE_2);
         if (isHalfLifeLineActif) {
             butToErase1 =  findViewById(option_to_erase_1);
             butToErase2 = findViewById(option_to_erase_2);

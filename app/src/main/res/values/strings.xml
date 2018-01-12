@@ -40,6 +40,20 @@
     <string name="thanks">Thanks for your feedback!</string>
     <string name="mailaddress" translatable="false">oyacan@gmail.com</string>
     <string name="mailsubject">Feedback for WHICH app</string>
+    <string name="keyCurrentMillis">SavedStateOfCurrentMillis</string>
+    <string name="keyQuestionNumber">SavedStateOfQuestionNumber</string>
+    <string name="ketHintCounter">SavedStateOfHintCounter</string>
+    <string name="keyHalfCounter">SavedStateOfHalfCounter</string>
+    <string name="keyIsTimerOn">SavedStateOfIsTimerOn</string>
+    <string name="keyIsHalfActif">SavedStateOfIsHalfLifeLineActif</string>
+    <string name="keyOptToErase1">SavedStateOfOptToErase1</string>
+    <string name="keyOptToErase2">SavedStateOfOptToErase2</string>
+    <string name="keyCorrectOptionIsShown">SavedStateOfCorrectOptionIsShown</string>
+    <string name="keyWrongOptionIsShown">SavedStateOfWrongOptionIsShown</string>
+    <string name="keyIsNextEnabled">SavedStateOfIsNextEnabled</string>
+    <string name="keyIsHintEnabled">SavedStateOfIsHintEnabled</string>
+    <string name="keyIsHalfEnabled">SavedStateOfIsHalfEnabled</string>
+    <string name="keyIsHintVisible">SavedStateOfIsHintVisible</string>
 
     <string-array name="lit_q1">
         <item>Which of the followings is not a novel by Charles Dickens?</item>
