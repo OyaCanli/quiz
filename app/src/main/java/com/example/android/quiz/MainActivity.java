@@ -10,6 +10,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -90,6 +91,49 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         correctAnswers = WelcomeActivity.getCorrectAnswers();
         wrongAnswers = WelcomeActivity.getWrongAnswers();
         String category = WelcomeActivity.getCategory();
+        //Set the background theme according to the category chosen
+        RelativeLayout root = findViewById(R.id.root);
+        ShapeDrawable roundButton = new ShapeDrawable();
+        roundButton.setShape(new OvalShape());
+        if (category.equals(getString(R.string.literature))) {
+            root.setBackgroundColor(getResources().getColor(R.color.literature));
+            roundButton.getPaint().setColor(getResources().getColor(R.color.literature));
+            //Add ripple effect for new phones and simple circles for old phones
+            if (Build.VERSION.SDK_INT >= 21){
+                rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                half.setBackground(rippleHalf);
+                showHint.setBackground(rippleHint);
+            } else {
+                half.setBackground(roundButton);
+                showHint.setBackground(roundButton);
+            }
+        } else if (category.equals(getString(R.string.cinema))) {
+            root.setBackgroundColor(getResources().getColor(R.color.cinema));;
+            roundButton.getPaint().setColor(getResources().getColor(R.color.cinema));
+            if (Build.VERSION.SDK_INT >= 21){
+                rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                half.setBackground(rippleHalf);
+                showHint.setBackground(rippleHint);
+            } else {
+                half.setBackground(roundButton);
+                showHint.setBackground(roundButton);
+            }
+
+        } else if (category.equals(getString(R.string.science))) {
+            root.setBackgroundColor(getResources().getColor(R.color.science));;
+            roundButton.getPaint().setColor(getResources().getColor(R.color.science));
+            if (Build.VERSION.SDK_INT >= 21) {
+                rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
+                half.setBackground(rippleHalf);
+                showHint.setBackground(rippleHint);
+            } else {
+                half.setBackground(roundButton);
+                showHint.setBackground(roundButton);
+            }
+        }
         //Set the first question
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
@@ -97,50 +141,64 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionB.setText(questions[questionNumber][3]);
         optionC.setText(questions[questionNumber][4]);
         optionD.setText(questions[questionNumber][5]);
-        //Initialiwe variables
-        if(savedInstanceState != null){
-            currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
-            isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
-            halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
-            hintCounter = savedInstanceState.getInt(HINT_COUNTER);
-        } else {
+        //Initialize variables
+        if(savedInstanceState == null) {
+            questionNumber = 0;
             hintCounter = 0;
             halfLifelineCounter = 0;
             currentMillis = 60000;
             isTimerOn = true;
-        }
-        if(isTimerOn) setTimer(currentMillis);
-        else time.setText((String.valueOf(currentMillis / 1000)));
-        //Set the background theme according to the category chosen
-        RelativeLayout root = findViewById(R.id.root);
-
-        if (category.equals(getString(R.string.literature))) {
-            root.setBackgroundColor(getResources().getColor(R.color.literature));
-            ShapeDrawable roundButton = new ShapeDrawable();
-            roundButton.setShape(new OvalShape());
-            roundButton.getPaint().setColor(getResources().getColor(R.color.literature));
-            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            half.setBackground(rippleHalf);
-            showHint.setBackground(rippleHint);
-        } else if (category.equals(getString(R.string.cinema))) {
-            root.setBackgroundColor(getResources().getColor(R.color.cinema));;
-            ShapeDrawable roundButton = new ShapeDrawable();
-            roundButton.setShape(new OvalShape());
-            roundButton.getPaint().setColor(getResources().getColor(R.color.cinema));
-            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            half.setBackground(rippleHalf);
-            showHint.setBackground(rippleHint);
-        } else if (category.equals(getString(R.string.science))) {
-            root.setBackgroundColor(getResources().getColor(R.color.science));;
-            ShapeDrawable roundButton = new ShapeDrawable();
-            roundButton.setShape(new OvalShape());
-            roundButton.getPaint().setColor(getResources().getColor(R.color.science));
-            rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            rippleHint = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
-            half.setBackground(rippleHalf);
-            showHint.setBackground(rippleHint);
+            setTimer(currentMillis);
+        } else {
+            questionNumber = savedInstanceState.getInt(QUESTIONNUMBER);
+            question.setText(questions[questionNumber][0]);
+            hint.setText(questions[questionNumber][1]);
+            optionA.setText(questions[questionNumber][2]);
+            optionB.setText(questions[questionNumber][3]);
+            optionC.setText(questions[questionNumber][4]);
+            optionD.setText(questions[questionNumber][5]);
+            halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
+            hintCounter = savedInstanceState.getInt(HINT_COUNTER);
+            currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
+            isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
+            if(isTimerOn) setTimer(currentMillis);
+            else time.setText((String.valueOf(currentMillis / 1000)));
+            if(isTimerOn) setTimer(currentMillis);
+            isNextEnabled = savedInstanceState.getBoolean(IS_NEXT_ENABLED);
+            if (isNextEnabled) nextButton.setEnabled(true);
+            isHintEnabled = savedInstanceState.getBoolean(IS_HINT_ENABLED);
+            if(!isHintEnabled) hint.setEnabled(false);
+            isHalfEnabled = savedInstanceState.getBoolean(IS_HALF_ENABLED);
+            if(!isHalfEnabled) half.setEnabled(false);
+            isHintVisible = savedInstanceState.getBoolean(IS_HINT_VISIBLE);
+            if(isHintVisible) hint.setVisibility(View.VISIBLE);
+            correctOptionIsShown = savedInstanceState.getBoolean(CORRECT_OPTION_IS_SHOWN);
+            if (correctOptionIsShown) {
+                correctOption = findViewById(correctAnswers[questionNumber]);
+                ShapeDrawable greenBackground = new ShapeDrawable();
+                float[] radius= {30,30,30,30,30,30,30,30};
+                greenBackground.setShape(new RoundRectShape(radius, null, null));
+                greenBackground.getPaint().setColor(Color.GREEN);
+                correctOption.setBackgroundDrawable(greenBackground);
+            }
+            wrongOptionIsShown = savedInstanceState.getBoolean(WRONG_OPTION_IS_SHOWN);
+            if (wrongOptionIsShown) {
+                wrongOption = findViewById(options.getCheckedRadioButtonId());
+                ShapeDrawable redBackground = new ShapeDrawable();
+                float[] radius= {30,30,30,30,30,30,30,30};
+                redBackground.setShape(new RoundRectShape(radius, null, null));
+                redBackground.getPaint().setColor(Color.RED);
+                wrongOption.setBackgroundDrawable(redBackground);
+            }
+            isHalfLifeLineActif = savedInstanceState.getBoolean(IS_HALF_ACTIF);
+            option_to_erase_1 = savedInstanceState.getInt(OPT_TO_ERASE_1);
+            option_to_erase_2 = savedInstanceState.getInt(OPT_TO_ERASE_2);
+            if (isHalfLifeLineActif) {
+                butToErase1 =  findViewById(option_to_erase_1);
+                butToErase2 = findViewById(option_to_erase_2);
+                butToErase1.setVisibility(View.INVISIBLE);
+                butToErase2.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -186,57 +244,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         outState.putBoolean(IS_HINT_ENABLED, isHintEnabled);
         outState.putBoolean(IS_HALF_ENABLED, isHalfEnabled);
         outState.putBoolean(IS_HINT_VISIBLE, isHintVisible);
-    }
-
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        questionNumber = savedInstanceState.getInt(QUESTIONNUMBER);
-        question.setText(questions[questionNumber][0]);
-        hint.setText(questions[questionNumber][1]);
-        optionA.setText(questions[questionNumber][2]);
-        optionB.setText(questions[questionNumber][3]);
-        optionC.setText(questions[questionNumber][4]);
-        optionD.setText(questions[questionNumber][5]);
-        halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
-        hintCounter = savedInstanceState.getInt(HINT_COUNTER);
-        currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
-        isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
-        if(isTimerOn) setTimer(currentMillis);
-        isNextEnabled = savedInstanceState.getBoolean(IS_NEXT_ENABLED);
-        if (isNextEnabled) nextButton.setEnabled(true);
-        isHintEnabled = savedInstanceState.getBoolean(IS_HINT_ENABLED);
-        if(!isHintEnabled) hint.setEnabled(false);
-        isHalfEnabled = savedInstanceState.getBoolean(IS_HALF_ENABLED);
-        if(!isHalfEnabled) half.setEnabled(false);
-        isHintVisible = savedInstanceState.getBoolean(IS_HINT_VISIBLE);
-        if(isHintVisible) hint.setVisibility(View.VISIBLE);
-        correctOptionIsShown = savedInstanceState.getBoolean(CORRECT_OPTION_IS_SHOWN);
-        if (correctOptionIsShown) {
-            correctOption = findViewById(correctAnswers[questionNumber]);
-            ShapeDrawable greenBackground = new ShapeDrawable();
-            float[] radius= {30,30,30,30,30,30,30,30};
-            greenBackground.setShape(new RoundRectShape(radius, null, null));
-            greenBackground.getPaint().setColor(Color.GREEN);
-            correctOption.setBackgroundDrawable(greenBackground);
-        }
-        wrongOptionIsShown = savedInstanceState.getBoolean(WRONG_OPTION_IS_SHOWN);
-        if (wrongOptionIsShown) {
-            wrongOption = findViewById(options.getCheckedRadioButtonId());
-            ShapeDrawable redBackground = new ShapeDrawable();
-            float[] radius= {30,30,30,30,30,30,30,30};
-            redBackground.setShape(new RoundRectShape(radius, null, null));
-            redBackground.getPaint().setColor(Color.RED);
-            wrongOption.setBackgroundDrawable(redBackground);
-        }
-        isHalfLifeLineActif = savedInstanceState.getBoolean(IS_HALF_ACTIF);
-        option_to_erase_1 = savedInstanceState.getInt(OPT_TO_ERASE_1);
-        option_to_erase_2 = savedInstanceState.getInt(OPT_TO_ERASE_2);
-        if (isHalfLifeLineActif) {
-            butToErase1 =  findViewById(option_to_erase_1);
-            butToErase2 = findViewById(option_to_erase_2);
-            butToErase1.setVisibility(View.INVISIBLE);
-            butToErase2.setVisibility(View.INVISIBLE);
-        }
     }
 
     public void setTimer(long millis){
