@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#616161</item>
-        <item name="colorPrimaryDark">#424242</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -94,11 +94,10 @@
     </style>
 
     <style name="hintStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/hint_land_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/inner_margin</item>
         <item name="android:layout_marginRight">@dimen/inner_margin</item>
-        <item name="android:layout_marginTop">@dimen/hint_marginHorizontal</item>
         <item name="android:layout_marginBottom">@dimen/hint_marginHorizontal</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingLeft">@dimen/hint_padding</item>

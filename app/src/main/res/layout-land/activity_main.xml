@@ -105,5 +105,14 @@
             android:enabled="false"
             style="@style/buttonStyle"/>
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/hint"
+            android:layout_below="@id/question"
+            android:max="100"
+            android:progress="0"/>
+
     </RelativeLayout>
 </ScrollView>

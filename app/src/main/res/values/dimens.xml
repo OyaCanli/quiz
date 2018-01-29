@@ -30,7 +30,7 @@
     <dimen name="hint_padding">16dp</dimen>
     <dimen name="hint_marginHorizontal">16dp</dimen>
     <dimen name="hint_textSize">16sp</dimen>
-    <dimen name="hint_land_width">300dp</dimen>
+    <dimen name="hint_land_width">200dp</dimen>
 
     <dimen name="button_textSize">14sp</dimen>
     <dimen name="categorybutton_land_marginLeft">32dp</dimen>
