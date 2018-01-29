@@ -22,6 +22,7 @@
     <dimen name="lifelinebutton_marginLeft">50dp</dimen>
     <dimen name="lifelinebutton_marginTop">32dp</dimen>
     <dimen name="lifelinebutton_textSize">22sp</dimen>
+    <dimen name="lifelinebutton_textSize_land">18sp</dimen>
     <dimen name="lifelinebutton_land_marginRight">80dp</dimen>
     <dimen name="lifelinebutton_land_width">40dp</dimen>
     <dimen name="lifelinebutton_land_height">40dp</dimen>

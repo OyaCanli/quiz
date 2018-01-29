@@ -12,9 +12,12 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -335,6 +338,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         greenBackground.getPaint().setColor(Color.GREEN);
         correctOption.setBackgroundDrawable(greenBackground);
         correctOptionIsShown = true;
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking_animation);
+        correctOption.startAnimation(animation);
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                correctOption.clearAnimation();
+            }
+        }, 2000);
         //disable lifelines temporarily until the next question
         showHint.setEnabled(false);
         isHintEnabled = false;
@@ -425,6 +437,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         half.setEnabled(true);
         isHalfEnabled = true;
         setTimer(60000);
+        correctOption.clearAnimation();
         isTimerOn = true;
         correctOptionIsShown = false;
         wrongOptionIsShown = false;

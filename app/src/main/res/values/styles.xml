@@ -80,7 +80,7 @@
         <item name="android:layout_width">@dimen/lifelinebutton_land_width</item>
         <item name="android:layout_marginRight">@dimen/lifelinebutton_land_marginRight</item>
         <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
-        <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
+        <item name="android:textSize">@dimen/lifelinebutton_textSize_land</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
     </style>
