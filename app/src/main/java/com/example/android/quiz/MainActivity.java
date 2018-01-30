@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -44,24 +42,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private CountDownTimer timer;
     private int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
     private long currentMillis;
-    private boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
-    private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
+    private boolean isPaused, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
+    private boolean isHalfLifeLineActif, isHintVisible;
     RippleDrawable rippleHalf, rippleHint;
 
     final static String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     final static String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
     final static String HINT_COUNTER = "SavedStateOfHintCounter";
     final static String HALF_COUNTER = "SavedStateOfHalfCounter";
-    final static String IS_TIMER_ON = "SavedStateOfIsTimerOn";
+    final static String IS_NEXT_ENABLED= "SavedStateOfIsNextEnabled";
     final static String IS_HALF_ACTIF = "SavedStateOfIsHalfLifeLineActif";
     final static String OPT_TO_ERASE_1 = "SavedStateOfOptToErase1";
     final static String OPT_TO_ERASE_2 = "SavedStateOfOptToErase2";
     final static String CORRECT_OPTION_IS_SHOWN = "SavedStateOfCorrectOptionIsShown";
     final static String WRONG_OPTION_IS_SHOWN = "SavedStateOfWrongOptionIsShown";
-    final static String IS_NEXT_ENABLED = "SavedStateOfIsNextEnabled";
-    final static String IS_HINT_ENABLED = "SavedStateOfIsHintEnabled";
-    final static String IS_HALF_ENABLED = "SavedStateOfIsHalfEnabled";
+    final static String IS_PAUSED = "SavedStateOfIsPaused";
     final static String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
+    final static String WRONG_OPTION_ID = "wrongOptionId";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionD =  findViewById(R.id.optionD);
         options = findViewById(R.id.options);
         time = findViewById(R.id.time);
-        //Initialiwe buttons
+        //Initialize buttons
         showHint = findViewById(R.id.showHint);
         half = findViewById(R.id.half);
         Button backToCategories = findViewById(R.id.categories);
@@ -155,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             hintCounter = 0;
             halfLifelineCounter = 0;
             currentMillis = 60000;
-            isTimerOn = true;
             setTimer(currentMillis);
         } else {
             questionNumber = savedInstanceState.getInt(QUESTIONNUMBER);
@@ -168,20 +164,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
             hintCounter = savedInstanceState.getInt(HINT_COUNTER);
             currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
-            isTimerOn = savedInstanceState.getBoolean(IS_TIMER_ON);
-            if(isTimerOn) setTimer(currentMillis);
-            else time.setText((String.valueOf(currentMillis / 1000)));
-            if(isTimerOn) setTimer(currentMillis);
+            isPaused = savedInstanceState.getBoolean(IS_PAUSED);
+            if(isPaused){
+                hint.setEnabled(false);
+                half.setEnabled(false);
+                for(int i = 0; i<4; i++){
+                    options.getChildAt(i).setEnabled(false);
+                }
+                time.setText((String.valueOf(currentMillis / 1000)));
+            } else {
+                setTimer(currentMillis);
+            }
             isNextEnabled = savedInstanceState.getBoolean(IS_NEXT_ENABLED);
-            if (isNextEnabled) nextButton.setEnabled(true);
-            isHintEnabled = savedInstanceState.getBoolean(IS_HINT_ENABLED);
-            if(!isHintEnabled) hint.setEnabled(false);
-            isHalfEnabled = savedInstanceState.getBoolean(IS_HALF_ENABLED);
-            if(!isHalfEnabled) half.setEnabled(false);
+            if(isNextEnabled) nextButton.setEnabled(true);
             isHintVisible = savedInstanceState.getBoolean(IS_HINT_VISIBLE);
             if(isHintVisible) hint.setVisibility(View.VISIBLE);
             correctOptionIsShown = savedInstanceState.getBoolean(CORRECT_OPTION_IS_SHOWN);
-            if (correctOptionIsShown) {
+             if (correctOptionIsShown) {
                 correctOption = findViewById(correctAnswers[questionNumber]);
                 ShapeDrawable greenBackground = new ShapeDrawable();
                 float[] radius= {30,30,30,30,30,30,30,30};
@@ -191,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             wrongOptionIsShown = savedInstanceState.getBoolean(WRONG_OPTION_IS_SHOWN);
             if (wrongOptionIsShown) {
-                wrongOption = findViewById(options.getCheckedRadioButtonId());
+                wrongOption = findViewById(savedInstanceState.getInt(WRONG_OPTION_ID));
                 ShapeDrawable redBackground = new ShapeDrawable();
                 float[] radius= {30,30,30,30,30,30,30,30};
                 redBackground.setShape(new RoundRectShape(radius, null, null));
@@ -242,15 +241,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         outState.putInt(HINT_COUNTER, hintCounter);
         outState.putInt(HALF_COUNTER, halfLifelineCounter);
         outState.putInt(QUESTIONNUMBER, questionNumber);
-        outState.putBoolean(IS_TIMER_ON, isTimerOn);
         outState.putBoolean(IS_HALF_ACTIF, isHalfLifeLineActif);
         outState.putInt(OPT_TO_ERASE_1, option_to_erase_1);
         outState.putInt(OPT_TO_ERASE_2, option_to_erase_2);
         outState.putBoolean(CORRECT_OPTION_IS_SHOWN, correctOptionIsShown);
         outState.putBoolean(WRONG_OPTION_IS_SHOWN, wrongOptionIsShown);
+        outState.putInt(WRONG_OPTION_ID, options.getCheckedRadioButtonId());
+        outState.putBoolean(IS_PAUSED, isPaused);
         outState.putBoolean(IS_NEXT_ENABLED, isNextEnabled);
-        outState.putBoolean(IS_HINT_ENABLED, isHintEnabled);
-        outState.putBoolean(IS_HALF_ENABLED, isHalfEnabled);
         outState.putBoolean(IS_HINT_VISIBLE, isHintVisible);
     }
 
@@ -354,12 +352,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }, 2000);
         //disable lifelines temporarily until the next question
         showHint.setEnabled(false);
-        isHintEnabled = false;
+        isPaused = true;
         half.setEnabled(false);
-        isHalfEnabled = false;
+        for(int i = 0; i<4; i++){
+            options.getChildAt(i).setEnabled(false);
+        }
         //cancel timer
         timer.cancel();
-        isTimerOn = false;
         //if the answer is correct
         if (options.getCheckedRadioButtonId() == correctAnswers[questionNumber]) {
             if (questionNumber == 4) { //if it was the last question
@@ -420,17 +419,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         question.setText(questions[questionNumber][0]);
         hint.setText(questions[questionNumber][1]);
         optionA.setText(questions[questionNumber][2]);
-        optionA.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
-        optionA.setVisibility(View.VISIBLE);
         optionB.setText(questions[questionNumber][3]);
-        optionB.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
-        optionB.setVisibility(View.VISIBLE);
         optionC.setText(questions[questionNumber][4]);
-        optionC.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
-        optionC.setVisibility(View.VISIBLE);
         optionD.setText(questions[questionNumber][5]);
-        optionD.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
-        optionD.setVisibility(View.VISIBLE);
+        for(int i = 0; i<4; i++){
+            options.getChildAt(i).setVisibility(View.VISIBLE);
+            options.getChildAt(i).setEnabled(true);
+            options.getChildAt(i).setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
+        }
         hint.setVisibility(View.INVISIBLE);
         isHintVisible = false;
         time.setTextColor(Color.WHITE);
@@ -438,19 +434,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         nextButton.setEnabled(false);
         isNextEnabled = false;
         showHint.setEnabled(true);
-        isHintEnabled = true;
+        isPaused = true;
         half.setEnabled(true);
-        isHalfEnabled = true;
         setTimer(60000);
         correctOption.clearAnimation();
-        isTimerOn = true;
         correctOptionIsShown = false;
         wrongOptionIsShown = false;
         isHalfLifeLineActif = false;
     }
 
     public void onDestroy(){
-        super.onDestroy();
         if(timer != null) timer.cancel();
+        super.onDestroy();
     }
 }

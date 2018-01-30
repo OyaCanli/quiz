@@ -78,7 +78,7 @@
             android:layout_width="@dimen/hint_land_width"
             android:layout_below="@id/question"
             tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
-            android:visibility="visible"
+            android:visibility="invisible"
             style="@style/hintStyle"/>
 
         <Button
