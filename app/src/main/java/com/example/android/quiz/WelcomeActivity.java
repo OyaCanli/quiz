@@ -5,6 +5,9 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -46,30 +49,40 @@ public class WelcomeActivity extends AppCompatActivity {
             {R.id.optionA, R.id.optionB, R.id.optionC},
             {R.id.optionA, R.id.optionC, R.id.optionD},
     };
-
-    Button openFeedback, start;
+    Button start;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
-        openFeedback = findViewById(R.id.openFeedback);
         start = findViewById(R.id.startButton);
-        openFeedback.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent feedbackIntent = new Intent(WelcomeActivity.this, FeedbackActivity.class);
-                // Start the new activity
-                startActivity(feedbackIntent);
-            }
-        });
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startQuiz();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.rules) {
+
+        } else if (id == R.id.feedback) {
+            Intent intent = new Intent(WelcomeActivity.this, FeedbackActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void startQuiz(){

@@ -74,26 +74,5 @@
             android:text="@string/start"
             android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="8dp"
-            android:fontFamily="casual"
-            android:text="@string/giveusfeedback"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/openFeedback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="16dp"
-            android:background="@android:color/transparent"
-            android:text="@string/feedback"
-            android:textAllCaps="true"
-            android:textColor="@color/red"
-            android:textSize="20sp" />
     </LinearLayout>
 </ScrollView>

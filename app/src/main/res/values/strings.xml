@@ -7,7 +7,7 @@
     <string name="science">Science</string>
     <string name="start">Start</string>
     <string name="giveusfeedback">You\'d prefer other categories? Give us feedback!</string>
-    <string name="feedback"><![CDATA[feedback>>]]></string>
+    <string name="feedback">Feedback</string>
 
     <string name="_60" translatable="false">60</string>
     <string name="half" translatable="false">1/2</string>
@@ -54,6 +54,7 @@
     <string name="keyIsHintEnabled">SavedStateOfIsHintEnabled</string>
     <string name="keyIsHalfEnabled">SavedStateOfIsHalfEnabled</string>
     <string name="keyIsHintVisible">SavedStateOfIsHintVisible</string>
+    <string name="rules">Rules</string>
 
     <string-array name="lit_q1">
         <item>Which of the followings is not a novel by Charles Dickens?</item>
