@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         //show correct option in green
         correctOption = findViewById(correctAnswers[questionNumber]);
         ShapeDrawable greenBackground = new ShapeDrawable();
-        float[] radius= {30,30,30,30,30,30,30,30};
+        float[] radius = {30, 30, 30, 30, 30, 30, 30, 30};
         greenBackground.setShape(new RoundRectShape(radius, null, null));
         greenBackground.getPaint().setColor(Color.GREEN);
         correctOption.setBackgroundDrawable(greenBackground);
@@ -350,11 +350,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 correctOption.clearAnimation();
             }
         }, 2000);
-        //disable lifelines temporarily until the next question
+        //disable lifelines, options temporarily until the next question
         showHint.setEnabled(false);
         isPaused = true;
         half.setEnabled(false);
-        for(int i = 0; i<4; i++){
+        for (int i = 0; i < 4; i++) {
             options.getChildAt(i).setEnabled(false);
         }
         //cancel timer
@@ -370,24 +370,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
         } else { //if it was a wrong answer
-            wrongOption =  findViewById(options.getCheckedRadioButtonId());
+            wrongOption = findViewById(options.getCheckedRadioButtonId());
             ShapeDrawable redBackground = new ShapeDrawable();
             redBackground.setShape(new RoundRectShape(radius, null, null));
             redBackground.getPaint().setColor(Color.RED);
             wrongOption.setBackgroundDrawable(redBackground);
             wrongOptionIsShown = true;
             //Wait two seconds before opening the dialog so that user sees the right answer
-            CountDownTimer waitTwoSeconds = new CountDownTimer(2000, 1000) {
+            Handler delayHandler = new Handler(getMainLooper());
+            delayHandler.postDelayed(new Runnable() {
                 @Override
-                public void onTick(long millisUntilFinished) {
-                }
-                @Override
-                public void onFinish() {
+                public void run() {
                     String message = getString(R.string.wronganswer);
                     createAlertDialog(message);
                 }
-            };
-            waitTwoSeconds.start();
+            }, 2000);
         }
     }
 
