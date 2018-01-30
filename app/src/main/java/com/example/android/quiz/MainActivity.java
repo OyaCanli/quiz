@@ -3,6 +3,7 @@ package com.example.android.quiz;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private RadioButton butToErase1, butToErase2;
     private Button nextButton, showHint, half;
     private CountDownTimer timer;
-    private int questionNumber, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
+    private int questionNumber, score, hintCounter, halfLifelineCounter, option_to_erase_1, option_to_erase_2 ;
     private long currentMillis;
     private boolean isPaused, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
     private boolean isHalfLifeLineActif, isHintVisible;
@@ -59,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     final static String IS_PAUSED = "SavedStateOfIsPaused";
     final static String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
     final static String WRONG_OPTION_ID = "wrongOptionId";
+    String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        name = "Oya";
         //hide action bar
         if(Build.VERSION.SDK_INT >= 21){
             Window window = getWindow();
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
 
         } else if (category.equals(getString(R.string.science))) {
-            root.setBackgroundColor(getResources().getColor(R.color.science));;
+            root.setBackgroundColor(getResources().getColor(R.color.science));
             roundButton.getPaint().setColor(getResources().getColor(R.color.science));
             if (Build.VERSION.SDK_INT >= 21) {
                 rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
@@ -265,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             @Override
             public void onFinish() {
-                String message = getString(R.string.timeoutwarning);
+                String message = getString(R.string.timeoutwarning) + " " + score + "/100.";
                 createAlertDialog(message);
             }
         }.start();
@@ -361,6 +364,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         timer.cancel();
         //if the answer is correct
         if (options.getCheckedRadioButtonId() == correctAnswers[questionNumber]) {
+            score +=20;
             if (questionNumber == 4) { //if it was the last question
                 String message = getString(R.string.congratulations);
                 createAlertDialog(message);
@@ -381,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             delayHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    String message = getString(R.string.wronganswer);
+                    String message = getResources().getString(R.string.wronganswer, score);
                     createAlertDialog(message);
                 }
             }, 2000);

@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/outer_margin"
         android:textSize="16dp"
         android:textColor="@android:color/black"
         android:text="@string/thanksforfeedback"/>
@@ -32,35 +32,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/geography"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="@dimen/outer_margin"/>
 
     <CheckBox
         android:id="@+id/pol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/politics"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="@dimen/outer_margin"/>
 
     <CheckBox
         android:id="@+id/his"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/history"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="@dimen/outer_margin"/>
 
     <CheckBox
         android:id="@+id/mus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/music"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="@dimen/outer_margin"/>
 
     <CheckBox
         android:id="@+id/spo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sports"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="@dimen/outer_margin"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -74,13 +74,13 @@
         android:id="@+id/other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="@dimen/outer_margin"
         android:maxLines="2"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/outer_margin"
         android:layout_gravity="center"
         android:text="@string/send"
         android:onClick="sendFeedback"/>
@@ -93,8 +93,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linear"
         android:layout_alignParentLeft="true"
-        android:layout_marginVertical="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginVertical="@dimen/outer_margin"
+        android:layout_marginLeft="@dimen/outer_margin"
         android:text="@string/new_game"
         android:textColor="@color/red"
         android:textSize="18sp"
@@ -106,8 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linear"
         android:layout_alignParentRight="true"
-        android:layout_marginVertical="32dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginVertical="@dimen/inner_margin"
+        android:layout_marginRight="@dimen/outer_margin"
         android:text="@string/quitarrow"
         android:textSize="18sp"
         android:textColor="@color/red"

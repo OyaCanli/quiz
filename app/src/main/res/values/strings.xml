@@ -27,13 +27,13 @@
     <string name="quitarrow">quit>></string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
-    <string name="timeoutwarning">Time expired. Game is over. You can click new game to restart the game.</string>
+    <string name="timeoutwarning">Time expired. Game is over. You scored </string>
     <string name="hintwarning">You have already used hint.</string>
     <string name="halfwarning">You have already used 1/2 lifeline.</string>
     <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
-    <string name="congratulations">Congratulations! You successfully completed the quiz. If you would like compete in another category click new game.</string>
+    <string name="congratulations">Congratulations! You successfully completed the quiz. You scored 100/100. If you would like compete in another category click new game.</string>
     <string name="correcttoastmessage">Correct! Click next to continue.</string>
-    <string name="wronganswer">The answer was wrong. Game is over.</string>
+    <string name="wronganswer">The answer was wrong. Game is over. You scored %1$d out of 100.</string>
     <string name="newgame">New Game</string>
     <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
     <string name="youadded">You added:</string>

@@ -8,7 +8,7 @@
     android:scrollbarStyle="insideOverlay"
     android:scrollbars="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -17,8 +17,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="@dimen/inner_margin"
+            android:layout_marginTop="@dimen/outer_margin"
             android:fontFamily="casual"
             android:text="@string/info"
             android:textColor="@android:color/black"
@@ -27,14 +27,14 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/outer_margin"
             android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/literatureButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="@dimen/outer_margin"
                 android:background="@drawable/literaturecategory"
                 android:padding="10dp"
                 android:text="@string/literature"
@@ -45,7 +45,7 @@
                 android:id="@+id/cinemaButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/outer_margin"
                 android:background="@drawable/cinemacategory"
                 android:padding="10dp"
                 android:text="@string/cinema"
