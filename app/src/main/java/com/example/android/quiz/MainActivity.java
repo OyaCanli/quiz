@@ -20,7 +20,6 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean isTimerOn, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
     private boolean isHalfLifeLineActif, isHintVisible, isHintEnabled, isHalfEnabled;
     RippleDrawable rippleHalf, rippleHint;
-    ProgressBar progressBar;
 
     final static String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     final static String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionD =  findViewById(R.id.optionD);
         options = findViewById(R.id.options);
         time = findViewById(R.id.time);
-        progressBar = findViewById(R.id.progress);
         //Initialiwe buttons
         showHint = findViewById(R.id.showHint);
         half = findViewById(R.id.half);
@@ -369,7 +366,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 String message = getString(R.string.congratulations);
                 createAlertDialog(message);
             } else { //if it was not the last question
-                progressBar.incrementProgressBy(20);
                 nextButton.setEnabled(true);
                 isNextEnabled = true;
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();

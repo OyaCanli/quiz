@@ -102,17 +102,6 @@
         android:enabled="false"
         style="@style/buttonStyle"/>
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hint"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_marginLeft="@dimen/inner_margin"
-        android:layout_marginRight="@dimen/inner_margin"
-        android:max="100"
-        android:progress="0"/>
-
 </RelativeLayout>
 
 </ScrollView>
