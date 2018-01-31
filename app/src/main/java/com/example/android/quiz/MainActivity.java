@@ -64,7 +64,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     final static String IS_PAUSED = "SavedStateOfIsPaused";
     final static String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
     final static String WRONG_OPTION_ID = "wrongOptionId";
-    public final static String NAME = "name";
+    final static String SCORE = "score";
+    final static String NAME = "name";
+    final static String BEST_SCORE_LIT = "bestScoreLiterature";
+    final static String BEST_SCORE_CIN = "bestScoreCinema";
+    final static String BEST_SCORE_SCI = "bestScoreScience";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -174,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             optionB.setText(questions[questionNumber][3]);
             optionC.setText(questions[questionNumber][4]);
             optionD.setText(questions[questionNumber][5]);
+            score = savedInstanceState.getInt(SCORE);
             halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
             hintCounter = savedInstanceState.getInt(HINT_COUNTER);
             currentMillis = savedInstanceState.getLong(CURRENT_MILLIS);
@@ -254,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         outState.putInt(HINT_COUNTER, hintCounter);
         outState.putInt(HALF_COUNTER, halfLifelineCounter);
         outState.putInt(QUESTIONNUMBER, questionNumber);
+        outState.putInt(SCORE, score);
         outState.putBoolean(IS_HALF_ACTIF, isHalfLifeLineActif);
         outState.putInt(OPT_TO_ERASE_1, option_to_erase_1);
         outState.putInt(OPT_TO_ERASE_2, option_to_erase_2);
@@ -456,10 +462,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         wrongOptionIsShown = false;
         isHalfLifeLineActif = false;
     }
-
-    public final static String BEST_SCORE_LIT = "bestScoreLiterature";
-    public final static String BEST_SCORE_CIN = "bestScoreCinema";
-    public final static String BEST_SCORE_SCI = "bestScoreScience";
 
     public void saveResults(){
         if(category.equals(getString(R.string.literature))){
