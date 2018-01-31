@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -16,69 +14,46 @@
         android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/outer_margin"
-        android:textSize="16dp"
-
-        android:textColor="@android:color/black"
-        android:text="@string/thanksforfeedback"/>
+        android:text="@string/thanksforfeedback"
+        style="@style/plain_text_style" />
 
     <CheckBox
         android:id="@+id/geo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/geography"
-        android:layout_marginLeft="@dimen/outer_margin"/>
+        style="@style/checkbox_style" />
 
     <CheckBox
         android:id="@+id/pol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/politics"
-        android:layout_marginLeft="@dimen/outer_margin"/>
+        style="@style/checkbox_style"
+        android:text="@string/politics" />
 
     <CheckBox
         android:id="@+id/his"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/history"
-        android:layout_marginLeft="@dimen/outer_margin"/>
+        style="@style/checkbox_style"
+        android:text="@string/history" />
 
     <CheckBox
         android:id="@+id/mus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/music"
-        android:layout_marginLeft="@dimen/outer_margin"/>
+        style="@style/checkbox_style"
+        android:text="@string/music" />
 
     <CheckBox
         android:id="@+id/spo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sports"
-        android:layout_marginLeft="@dimen/outer_margin"/>
+        style="@style/checkbox_style"
+        android:text="@string/sports" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textSize="16dp"
-        android:textColor="@android:color/black"
+        style="@style/plain_text_style"
         android:text="@string/other"/>
 
     <EditText
         android:id="@+id/other"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/outer_margin"
+        style="@style/edittext_style"
         android:maxLines="2"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/simple_button_style"
         android:layout_marginTop="@dimen/outer_margin"
-        android:layout_gravity="center"
         android:text="@string/send"
         android:onClick="sendFeedback"/>
 

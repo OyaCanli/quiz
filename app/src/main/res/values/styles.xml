@@ -105,4 +105,57 @@
         <item name="android:textSize">@dimen/hint_textSize</item>
     </style>
 
+    <style name="checkbox_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+    </style>
+
+    <style name="category_buttons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/outer_margin</item>
+        <item name="android:layout_marginRight">@dimen/outer_margin</item>
+        <item name="android:padding">@dimen/padding_standart</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="edittext_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">textCapWords</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+    </style>
+
+    <style name="simple_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="plain_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin</item>
+        <item name="android:layout_marginBottom">@dimen/outer_margin</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="info_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/inner_margin</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin</item>
+        <item name="android:fontFamily">casual</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

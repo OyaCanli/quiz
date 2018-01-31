@@ -73,7 +73,7 @@ public class FeedbackActivity extends AppCompatActivity {
         if(spo.isChecked())  message += "\n" + getString(R.string.sports);
         message += "\n" + getString(R.string.youadded);
         other = edittext.getText().toString();
-        if(!(other.equals(" "))) message += other;
+        if(!(other.equals(" "))) message += "\n" + other;
         message += "\n" + getString(R.string.thanks);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto: "));

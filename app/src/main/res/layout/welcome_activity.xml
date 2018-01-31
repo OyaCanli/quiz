@@ -15,21 +15,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/inner_margin"
-            android:layout_marginTop="@dimen/outer_margin"
-            android:fontFamily="casual"
             android:text="@string/welcome"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            style="@style/info_text_style" />
 
         <EditText
             android:id="@+id/name_entry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:layout_marginHorizontal="@dimen/inner_margin"/>
+            style="@style/edittext_style" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -39,47 +30,29 @@
 
             <RadioButton
                 android:id="@+id/literatureButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/outer_margin"
                 android:background="@drawable/literaturecategory"
-                android:padding="10dp"
                 android:text="@string/literature"
-                android:textAllCaps="true"
-                android:textSize="20sp" />
+                style="@style/category_buttons" />
 
             <RadioButton
                 android:id="@+id/cinemaButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/category_buttons"
                 android:layout_margin="@dimen/outer_margin"
                 android:background="@drawable/literaturecategory"
-                android:padding="10dp"
-                android:text="@string/cinema"
-                android:textAllCaps="true"
-                android:textSize="20sp" />
+                android:text="@string/cinema" />
 
             <RadioButton
                 android:id="@+id/scienceButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/outer_margin"
+                style="@style/category_buttons"
                 android:background="@drawable/literaturecategory"
-                android:padding="10dp"
-                android:text="@string/science"
-                android:textAllCaps="true"
-                android:textSize="20sp" />
+                android:text="@string/science" />
 
         </RadioGroup>
 
         <Button
             android:id="@+id/startButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="16dp"
             android:text="@string/start"
-            android:textSize="20sp" />
+            style="@style/simple_button_style" />
 
     </LinearLayout>
 </ScrollView>
