@@ -43,6 +43,7 @@
     <string name="rules">Rules</string>
     <string name="welcome">Welcome to <b>WHICH!</b> Chose a category from below and click start. Don\'t forget to enter your name! Check the menu for rules.</string>
     <string name="categories">Categories</string>
+    <string name="best_records">Best Records</string>
 
     <string-array name="lit_q1">
         <item>Which of the followings is not a novel by Charles Dickens?</item>

@@ -2,6 +2,7 @@ package com.example.android.quiz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean isPaused, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
     private boolean isHalfLifeLineActif, isHintVisible;
     RippleDrawable rippleHalf, rippleHint;
-    String name;
+    String name, category;
+    static SharedPreferences bestResults;
+    SharedPreferences.Editor editor;
 
     final static String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     final static String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
@@ -67,11 +70,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //hide action bar
+        //Change the color of the status bar
         if(Build.VERSION.SDK_INT >= 21){
             Window window = getWindow();
             window.setStatusBarColor(getResources().getColor(R.color.status_bar_main));
         }
+        //hide action bar
         getSupportActionBar().hide();
         //Retrieve the intent extra
         Bundle bundle = getIntent().getExtras();
@@ -85,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         optionD =  findViewById(R.id.optionD);
         options = findViewById(R.id.options);
         time = findViewById(R.id.time);
+        //Initialize sharedPreferences editor
+        bestResults = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = bestResults.edit();
         //Initialize buttons
         showHint = findViewById(R.id.showHint);
         half = findViewById(R.id.half);
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         questions = WelcomeActivity.getQuestions();
         correctAnswers = WelcomeActivity.getCorrectAnswers();
         wrongAnswers = WelcomeActivity.getWrongAnswers();
-        String category = WelcomeActivity.getCategory();
+        category = WelcomeActivity.getCategory();
         //Set the background theme according to the category chosen
         RelativeLayout root = findViewById(R.id.root);
         ShapeDrawable roundButton = new ShapeDrawable();
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 showHint.setBackground(roundButton);
             }
         } else if (category.equals(getString(R.string.cinema))) {
-            root.setBackgroundColor(getResources().getColor(R.color.cinema));;
+            root.setBackgroundColor(getResources().getColor(R.color.cinema));
             roundButton.getPaint().setColor(getResources().getColor(R.color.cinema));
             if (Build.VERSION.SDK_INT >= 21){
                 rippleHalf = new RippleDrawable(ColorStateList.valueOf(getResources().getColor(R.color.ripplecolor)), roundButton, null);
@@ -271,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             @Override
             public void onFinish() {
+                saveResults();
                 String message = getString(R.string.timeoutwarning, score);
                 createAlertDialog(message);
             }
@@ -345,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         float[] radius = {30, 30, 30, 30, 30, 30, 30, 30};
         greenBackground.setShape(new RoundRectShape(radius, null, null));
         greenBackground.getPaint().setColor(Color.GREEN);
-        correctOption.setBackgroundDrawable(greenBackground);
+        correctOption.setBackground(greenBackground);
         correctOptionIsShown = true;
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking_animation);
         correctOption.startAnimation(animation);
@@ -369,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         if (options.getCheckedRadioButtonId() == correctAnswers[questionNumber]) {
             score +=20;
             if (questionNumber == 4) { //if it was the last question
+                saveResults();
                 String message = getString(R.string.congratulations, name);
                 createAlertDialog(message);
             } else { //if it was not the last question
@@ -377,11 +386,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 Toast.makeText(this, R.string.correcttoastmessage, Toast.LENGTH_SHORT).show();
             }
         } else { //if it was a wrong answer
+            saveResults();
             wrongOption = findViewById(options.getCheckedRadioButtonId());
             ShapeDrawable redBackground = new ShapeDrawable();
             redBackground.setShape(new RoundRectShape(radius, null, null));
             redBackground.getPaint().setColor(Color.RED);
-            wrongOption.setBackgroundDrawable(redBackground);
+            wrongOption.setBackground(redBackground);
             wrongOptionIsShown = true;
             //Wait two seconds before opening the dialog so that user sees the right answer
             Handler delayHandler = new Handler(getMainLooper());
@@ -429,7 +439,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         for(int i = 0; i<4; i++){
             options.getChildAt(i).setVisibility(View.VISIBLE);
             options.getChildAt(i).setEnabled(true);
-            options.getChildAt(i).setBackgroundDrawable(this.getResources().getDrawable(R.drawable.selector));
+            options.getChildAt(i).setBackground(this.getResources().getDrawable(R.drawable.selector));
         }
         hint.setVisibility(View.INVISIBLE);
         isHintVisible = false;
@@ -445,6 +455,41 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         correctOptionIsShown = false;
         wrongOptionIsShown = false;
         isHalfLifeLineActif = false;
+    }
+
+    public final static String BEST_SCORE_LIT = "bestScoreLiterature";
+    public final static String BEST_SCORE_CIN = "bestScoreCinema";
+    public final static String BEST_SCORE_SCI = "bestScoreScience";
+
+    public void saveResults(){
+        if(category.equals(getString(R.string.literature))){
+            if(score> bestResults.getInt(BEST_SCORE_LIT, 0)){
+                editor.putInt(BEST_SCORE_LIT, score);
+                editor.commit();
+            }
+        } else if(category.equals(getString(R.string.cinema))) {
+            if (score > bestResults.getInt(BEST_SCORE_CIN, 0)) {
+                editor.putInt(BEST_SCORE_CIN, score);
+                editor.commit();
+            }
+        } else if(category.equals(getString(R.string.science))) {
+            if (score > bestResults.getInt(BEST_SCORE_SCI, 0)) {
+                editor.putInt(BEST_SCORE_SCI, score);
+                editor.commit();
+            }
+        }
+    }
+
+    public static String bestRecords(){
+        String listOfBestResults;
+        if(bestResults != null) {
+            listOfBestResults = "Best record in Literature: " + bestResults.getInt(BEST_SCORE_LIT, 0);
+            listOfBestResults += "\nBest record in Cinema: " + bestResults.getInt(BEST_SCORE_CIN, 0);
+            listOfBestResults += "\nBest record in Science: " + bestResults.getInt(BEST_SCORE_SCI, 0);
+        } else{
+            listOfBestResults = "No results";
+        }
+        return listOfBestResults;
     }
 
     public void onDestroy(){

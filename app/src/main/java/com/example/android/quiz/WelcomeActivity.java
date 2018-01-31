@@ -121,6 +121,18 @@ public class WelcomeActivity extends AppCompatActivity {
         } else if (id == R.id.feedback) {
             Intent intent = new Intent(WelcomeActivity.this, FeedbackActivity.class);
             startActivity(intent);
+        } else if(id == R.id.bestRecords){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(MainActivity.bestRecords())
+                    .setTitle(getString(R.string.best_records))
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
         return super.onOptionsItemSelected(item);
     }
