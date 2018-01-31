@@ -3,6 +3,7 @@
 <resources>
     <dimen name="outer_margin">32dp</dimen>
     <dimen name="inner_margin">64dp</dimen>
+    <dimen name="padding_standart">12dp</dimen>
 
     <dimen name="timer_width">100dp</dimen>
     <dimen name="timer_height">60dp</dimen>

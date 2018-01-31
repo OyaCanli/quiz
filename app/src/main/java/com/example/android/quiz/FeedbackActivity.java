@@ -1,9 +1,14 @@
 package com.example.android.quiz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,13 +17,9 @@ import android.widget.EditText;
 public class FeedbackActivity extends AppCompatActivity {
 
     EditText edittext;
-    CheckBox geo;
-    CheckBox pol;
-    CheckBox his;
-    CheckBox mus;
-    CheckBox spo;
-    String message;
-    String other;
+    CheckBox geo, pol, his, mus, spo;
+    String message, other;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +32,37 @@ public class FeedbackActivity extends AppCompatActivity {
         mus = findViewById(R.id.mus);
         spo = findViewById(R.id.spo);
         message = getString(R.string.feedbackquestion);
-        Button newGame = findViewById(R.id.newGame);
-        newGame.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent newGameIntent = new Intent(FeedbackActivity.this, WelcomeActivity.class);
-                // Start the new activity
-                startActivity(newGameIntent);
-            }
-        });
-        Button quit = findViewById(R.id.quit);
-        quit.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent goToHome = new Intent(Intent.ACTION_MAIN);
-                goToHome.addCategory(Intent.CATEGORY_HOME);
-                startActivity(goToHome);
-            }
-        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        this.menu = menu;
+        menu.removeItem(R.id.feedback);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.rules) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.info))
+                    .setTitle(getString(R.string.rules))
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } else if (id == R.id.categories) {
+            Intent intent = new Intent(FeedbackActivity.this, WelcomeActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void sendFeedback(View view) {
@@ -72,9 +84,6 @@ public class FeedbackActivity extends AppCompatActivity {
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(intent);
         }
-
-
-
     }
 
 }

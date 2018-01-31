@@ -438,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         nextButton.setEnabled(false);
         isNextEnabled = false;
         showHint.setEnabled(true);
-        isPaused = true;
+        isPaused = false;
         half.setEnabled(true);
         setTimer(60000);
         correctOption.clearAnimation();

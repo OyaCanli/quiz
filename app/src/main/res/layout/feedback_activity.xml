@@ -9,10 +9,6 @@
     android:scrollbars="vertical"
     android:background="@color/background">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
 <LinearLayout
     android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -24,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/outer_margin"
         android:textSize="16dp"
+
         android:textColor="@android:color/black"
         android:text="@string/thanksforfeedback"/>
 
@@ -86,33 +83,5 @@
         android:onClick="sendFeedback"/>
 
 </LinearLayout>
-
-    <Button
-        android:id="@+id/newGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
-        android:layout_alignParentLeft="true"
-        android:layout_marginVertical="@dimen/outer_margin"
-        android:layout_marginLeft="@dimen/outer_margin"
-        android:text="@string/new_game"
-        android:textColor="@color/red"
-        android:textSize="18sp"
-        android:background="@android:color/transparent"/>
-
-    <Button
-        android:id="@+id/quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
-        android:layout_alignParentRight="true"
-        android:layout_marginVertical="@dimen/inner_margin"
-        android:layout_marginRight="@dimen/outer_margin"
-        android:text="@string/quitarrow"
-        android:textSize="18sp"
-        android:textColor="@color/red"
-        android:background="@android:color/transparent"/>
-
-    </RelativeLayout>
 
 </ScrollView>

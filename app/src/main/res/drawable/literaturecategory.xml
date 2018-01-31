@@ -4,10 +4,6 @@
 
     <solid android:color="@color/literature"/>
 
-    <stroke
-        android:width="4dp"
-        android:color="@color/literature"/>
-
     <corners android:radius="10dp" />
 
 </shape>

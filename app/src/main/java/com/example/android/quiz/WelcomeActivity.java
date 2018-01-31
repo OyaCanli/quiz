@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
             {R.id.optionA, R.id.optionC, R.id.optionD},
     };
     Button start;
+    RadioButton literature, cinema, science;
     EditText name_entry;
     private Menu menu;
     SharedPreferences prefs;
@@ -65,6 +70,9 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
+        literature = findViewById(R.id.literatureButton);
+        cinema = findViewById(R.id.cinemaButton);
+        science = findViewById(R.id.scienceButton);
         name_entry = findViewById(R.id.name_entry);
         start = findViewById(R.id.startButton);
         start.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +83,14 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         prefs = getApplicationContext().getSharedPreferences("MyPref", 0);
         editor = prefs.edit();
-        name = prefs.getString(NAME, "your name");
+        name = prefs.getString(NAME, " ");
         if(!("".equals(name))) name_entry.setText(name);
+        GradientDrawable blueBackground = (GradientDrawable)literature.getBackground();
+        blueBackground.setColor(getResources().getColor(R.color.literature));
+        GradientDrawable purpleBackground = (GradientDrawable)cinema.getBackground();
+        purpleBackground.setColor(getResources().getColor(R.color.cinema));
+        GradientDrawable redBackground = (GradientDrawable)science.getBackground();
+        redBackground.setColor(getResources().getColor(R.color.science));
     }
 
 
@@ -85,6 +99,7 @@ public class WelcomeActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         this.menu = menu;
+        menu.removeItem(R.id.categories);
         return true;
     }
 
@@ -111,9 +126,6 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     protected void startQuiz(){
-        RadioButton literature = findViewById(R.id.literatureButton);
-        RadioButton cinema = findViewById(R.id.cinemaButton);
-        RadioButton science = findViewById(R.id.scienceButton);
         //warns if nothing is checked
         if (!(literature.isChecked()) && !(cinema.isChecked()) && !(science.isChecked())) {
             Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();

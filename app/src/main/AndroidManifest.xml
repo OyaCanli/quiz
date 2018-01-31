@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeActivity">
+
+        <activity android:name=".WelcomeActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +21,8 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".FeedbackActivity"
-            android:label="FEEDBACK"/>
+            android:label="FEEDBACK"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
