@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public void checkTheAnswer() {
         //warn if nothing is chosen
-        if (!(optionA.isChecked()) && !(optionB.isChecked()) && !(optionC.isChecked()) && !(optionD.isChecked())) {
+        if (options.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, R.string.chosenothingwarning, Toast.LENGTH_SHORT).show();
             return;
         }
