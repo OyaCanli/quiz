@@ -20,21 +20,21 @@
     <string name="geography">coğrafya</string>
     <string name="other">Diğer:</string>
     <string name="newgame">Yeni Oyun</string>
-    <string name="info">HANGİSİ\'ne hoşgeldiniz! Aşağıdaki kategorilerden birinde yarışabilirsiniz. Her kategoride beş soru, her soru için bir ipucu, bir de seçenekleri yarıla joker seçeneği bulunmaktadır. Yalniz jokerleri oyun boyunca sadece birer kere kullanabilirsiniz. Aşağıdaki kategorilerden birini seçin ve başla tuşuna tıklayın. İyi eğlenceler!</string>
+    <string name="info"><b>HANGİSİ\'ne</b> hoşgeldiniz! Aşağıdaki kategorilerden birinde yarışabilirsiniz. Her kategoride beş soru, her soru için bir ipucu, bir de seçenekleri yarıla joker seçeneği bulunmaktadır. Yalniz jokerleri oyun boyunca sadece birer kere kullanabilirsiniz. Aşağıdaki kategorilerden birini seçin ve başla tuşuna tıklayın. İyi eğlenceler!</string>
     <string name="giveusfeedback">Başka bir kategoriyi mi tercih ederdiniz? Aşağıdaki sayfadan bize isteklerinizi bildirebilirsiniz.</string>
     <string name="thanksforfeedback">Zaman ayırdığınız için teşekkür ederiz. HANGİSİ yeni bir uygulama ve sizlerin geribildirimleri bizim için çok önemli. HANGİSİ\'ne eklememizi istediğiniz kategorileri tıklayın ve gönder tuşuna basın.</string>
     <string name="exitwarning">Kategorilere geri dönmek başladığınız oyunu bitirecektir. Dönmek istediğinizden emin misin?</string>
     <string name="halfwarning">Yarı yarıya jokerini zaten kullandınız.</string>
     <string name="hintwarning">Ipucunu zaten kullandınız.</string>
     <string name="chosenothingwarning">Seçeneklerden birini seçmediniz.</string>
-    <string name="congratulations">Tebrikler! Oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz Yeni Oyun\'a tıklayın.</string>
+    <string name="congratulations">Tebrikler %1$s! Oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz Yeni Oyun\'a tıklayın.</string>
     <string name="correcttoastmessage">Doğru! Sonraki soruya geçmek için >>\'a tıklayın.</string>
-    <string name="wronganswer">Yanlış cevap! Oyun sona erdi.</string>
+    <string name="wronganswer">Yanlış cevap! Oyun sona erdi. %1$d puan kazandiniz.</string>
     <string name="feedbackquestion">HANGISI\'nde görmek istediğiniz kategoriler:</string>
     <string name="thanks">Geribildiriminiz için teşekkür ederiz.</string>
     <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
     <string name="youadded">Şunları eklediniz:</string>
-    <string name="timeoutwarning">Süre doldu. Oyun sona erdi. Yeniden oynamak icin yeni oyun\'a basın.</string>
+    <string name="timeoutwarning">Süre doldu. Oyun sona erdi. %1$d puan kazandiniz. Yeniden oynamak icin yeni oyun\'a basın.</string>
 
     <string-array name="lit_q1">
         <item>Hangisi Charles Dickens\'ın romanlarından biri değildir?</item>
@@ -170,5 +170,6 @@
         <item>Alexander Fleming</item>
         <item>Johannes Kepler</item>
     </string-array>
+    <string name="rules">Kurallar</string>
 
 </resources>

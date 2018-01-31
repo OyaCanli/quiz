@@ -1,15 +1,19 @@
 package com.example.android.quiz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -50,12 +54,18 @@ public class WelcomeActivity extends AppCompatActivity {
             {R.id.optionA, R.id.optionC, R.id.optionD},
     };
     Button start;
+    EditText name_entry;
     private Menu menu;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
+    String name;
+    public final static String NAME = "name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
+        name_entry = findViewById(R.id.name_entry);
         start = findViewById(R.id.startButton);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +73,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 startQuiz();
             }
         });
+        prefs = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = prefs.edit();
+        name = prefs.getString(NAME, "your name");
+        if(!("".equals(name))) name_entry.setText(name);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,7 +92,17 @@ public class WelcomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.rules) {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.info))
+                    .setTitle(getString(R.string.rules))
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         } else if (id == R.id.feedback) {
             Intent intent = new Intent(WelcomeActivity.this, FeedbackActivity.class);
             startActivity(intent);
@@ -111,7 +136,12 @@ public class WelcomeActivity extends AppCompatActivity {
             wrongAnswers = scienceWrongAnswers;
             category = getString(R.string.science);
         }
-        startActivity(new Intent(this, MainActivity.class));
+        String name = name_entry.getText().toString();
+        editor.putString(NAME, name);
+        editor.commit();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(NAME, name);
+        startActivity(intent);
     }
 
     //Extract the question, hints and options from array.xml

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WHICH</string>
 
-    <string name="info">Welcome to WHICH! You can compete in one of the three categories below. There are five questions in each category. There is a hint and a lifeline 1/2 for reducing the options. However you can use each of them only once. Chose the category from below and click start. Have fun and good luck!</string>
+    <string name="info"><b>WHICH</b> is a general knowledge quiz. There are three categories available for the moment: Literature, Cinema and Science. There are five questions in each category. There is a hint and a lifeline 1/2 for eliminating two of the options. However you can use each of them only once. You have 60 seconds for each question. A wrong answer or the expiration of time ends the quiz. You receive 20 points for each right answer.</string>
     <string name="literature">Literature</string>
     <string name="cinema">Cinema</string>
     <string name="science">Science</string>
@@ -27,34 +27,21 @@
     <string name="quitarrow">quit>></string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
-    <string name="timeoutwarning">Time expired. Game is over. You scored </string>
+    <string name="timeoutwarning">Time expired. Game is over. You scored %1$d /100.</string>
     <string name="hintwarning">You have already used hint.</string>
     <string name="halfwarning">You have already used 1/2 lifeline.</string>
     <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
-    <string name="congratulations">Congratulations! You successfully completed the quiz. You scored 100/100. If you would like compete in another category click new game.</string>
+    <string name="congratulations">Congratulations %1$s! You successfully completed the quiz. You scored 100/100. If you would like compete in another category click new game.</string>
     <string name="correcttoastmessage">Correct! Click next to continue.</string>
-    <string name="wronganswer">The answer was wrong. Game is over. You scored %1$d out of 100.</string>
+    <string name="wronganswer">The answer was wrong. Game is over. You scored %1$d /100.</string>
     <string name="newgame">New Game</string>
     <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
     <string name="youadded">You added:</string>
     <string name="thanks">Thanks for your feedback!</string>
     <string name="mailaddress" translatable="false">oyacan@gmail.com</string>
     <string name="mailsubject">Feedback for WHICH app</string>
-    <string name="keyCurrentMillis">SavedStateOfCurrentMillis</string>
-    <string name="keyQuestionNumber">SavedStateOfQuestionNumber</string>
-    <string name="ketHintCounter">SavedStateOfHintCounter</string>
-    <string name="keyHalfCounter">SavedStateOfHalfCounter</string>
-    <string name="keyIsTimerOn">SavedStateOfIsTimerOn</string>
-    <string name="keyIsHalfActif">SavedStateOfIsHalfLifeLineActif</string>
-    <string name="keyOptToErase1">SavedStateOfOptToErase1</string>
-    <string name="keyOptToErase2">SavedStateOfOptToErase2</string>
-    <string name="keyCorrectOptionIsShown">SavedStateOfCorrectOptionIsShown</string>
-    <string name="keyWrongOptionIsShown">SavedStateOfWrongOptionIsShown</string>
-    <string name="keyIsNextEnabled">SavedStateOfIsNextEnabled</string>
-    <string name="keyIsHintEnabled">SavedStateOfIsHintEnabled</string>
-    <string name="keyIsHalfEnabled">SavedStateOfIsHalfEnabled</string>
-    <string name="keyIsHintVisible">SavedStateOfIsHintVisible</string>
     <string name="rules">Rules</string>
+    <string name="welcome">Welcome to <b>WHICH!</b> Chose a category from below and click start. Don\'t forget to enter your name! Check the menu for rules.</string>
 
     <string-array name="lit_q1">
         <item>Which of the followings is not a novel by Charles Dickens?</item>

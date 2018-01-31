@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean isPaused, isNextEnabled, correctOptionIsShown, wrongOptionIsShown;
     private boolean isHalfLifeLineActif, isHintVisible;
     RippleDrawable rippleHalf, rippleHint;
+    String name;
 
     final static String CURRENT_MILLIS = "SavedStateOfCurrentMillis";
     final static String QUESTIONNUMBER = "SavedStateOfQuestionNumber";
@@ -60,19 +61,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     final static String IS_PAUSED = "SavedStateOfIsPaused";
     final static String IS_HINT_VISIBLE = "SavedStateOfIsHintVisible";
     final static String WRONG_OPTION_ID = "wrongOptionId";
-    String name;
+    public final static String NAME = "name";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        name = "Oya";
         //hide action bar
         if(Build.VERSION.SDK_INT >= 21){
             Window window = getWindow();
             window.setStatusBarColor(getResources().getColor(R.color.status_bar_main));
         }
         getSupportActionBar().hide();
+        //Retrieve the intent extra
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) name = bundle.getString(NAME);
         //Initialize views
         question = findViewById(R.id.question);
         hint = findViewById(R.id.hint);
@@ -268,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             @Override
             public void onFinish() {
-                String message = getString(R.string.timeoutwarning) + " " + score + "/100.";
+                String message = getString(R.string.timeoutwarning, score);
                 createAlertDialog(message);
             }
         }.start();
@@ -366,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         if (options.getCheckedRadioButtonId() == correctAnswers[questionNumber]) {
             score +=20;
             if (questionNumber == 4) { //if it was the last question
-                String message = getString(R.string.congratulations);
+                String message = getString(R.string.congratulations, name);
                 createAlertDialog(message);
             } else { //if it was not the last question
                 nextButton.setEnabled(true);
