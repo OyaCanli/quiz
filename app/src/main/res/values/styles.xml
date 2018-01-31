@@ -151,7 +151,8 @@
     <style name="info_text_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal">@dimen/inner_margin</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
         <item name="android:layout_marginTop">@dimen/outer_margin</item>
         <item name="android:fontFamily">casual</item>
         <item name="android:textColor">@android:color/black</item>

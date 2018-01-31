@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 float[] radius= {30,30,30,30,30,30,30,30};
                 greenBackground.setShape(new RoundRectShape(radius, null, null));
                 greenBackground.getPaint().setColor(Color.GREEN);
-                correctOption.setBackgroundDrawable(greenBackground);
+                correctOption.setBackground(greenBackground);
             }
             wrongOptionIsShown = savedInstanceState.getBoolean(WRONG_OPTION_IS_SHOWN);
             if (wrongOptionIsShown) {
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 float[] radius= {30,30,30,30,30,30,30,30};
                 redBackground.setShape(new RoundRectShape(radius, null, null));
                 redBackground.getPaint().setColor(Color.RED);
-                wrongOption.setBackgroundDrawable(redBackground);
+                wrongOption.setBackground(redBackground);
             }
             isHalfLifeLineActif = savedInstanceState.getBoolean(IS_HALF_ACTIF);
             option_to_erase_1 = savedInstanceState.getInt(OPT_TO_ERASE_1);
