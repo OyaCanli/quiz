@@ -74,10 +74,8 @@
 
     <TextView
         android:id="@+id/hint"
-        android:layout_below="@id/options"
         tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
-        android:visibility="invisible"
-        style="@style/hintStyle"/>
+        style="@style/hintStylePortrait"/>
 
     <Button
         android:id="@+id/categories"

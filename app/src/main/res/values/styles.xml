@@ -94,10 +94,9 @@
     </style>
 
     <style name="hintStyle">
-        <item name="android:layout_width">@dimen/hint_land_width</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/inner_margin</item>
-        <item name="android:layout_marginRight">@dimen/inner_margin</item>
         <item name="android:layout_marginBottom">@dimen/hint_marginHorizontal</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingLeft">@dimen/hint_padding</item>
@@ -157,6 +156,16 @@
         <item name="android:fontFamily">casual</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="hintStylePortrait" parent="hintStyle">
+        <item name="android:layout_below">@id/options</item>
+        <item name="android:layout_marginStart">@dimen/inner_margin</item>
+        <item name="android:layout_marginLeft">@dimen/inner_margin</item>
+        <item name="android:layout_marginRight">@dimen/inner_margin</item>
+        <item name="android:layout_marginEnd">@dimen/inner_margin</item>
+        <item name="android:layout_marginTop">@dimen/outer_margin</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
 </resources>
