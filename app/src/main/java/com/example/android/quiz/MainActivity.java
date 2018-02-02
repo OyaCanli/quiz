@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             @Override
             public void onFinish() {
                 saveResults();
-                String message = getString(R.string.timeoutwarning, score);
+                String message = getString(R.string.timeoutwarning);
                 createAlertDialog(message);
             }
         }.start();
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             delayHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    String message = getResources().getString(R.string.wronganswer, score);
+                    String message = getResources().getString(R.string.wronganswer);
                     createAlertDialog(message);
                 }
             }, 2000);
@@ -414,13 +414,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public void createAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         builder.setMessage(message);
-        builder.setPositiveButton(R.string.newgame, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.view_results, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
-                Intent categoriesIntent = new Intent(MainActivity.this, WelcomeActivity.class);
-                // Start the new activity
-                startActivity(categoriesIntent);
+                Intent resultsIntent = new Intent(MainActivity.this,ResultActivity.class);
+                resultsIntent.putExtra(SCORE, score);
+                startActivity(resultsIntent);
             }
         });
         builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {

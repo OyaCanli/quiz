@@ -26,14 +26,14 @@
     <string name="halfwarning">Yarı yarıya jokerini zaten kullandınız.</string>
     <string name="hintwarning">Ipucunu zaten kullandınız.</string>
     <string name="chosenothingwarning">Seçeneklerden birini seçmediniz.</string>
-    <string name="congratulations">Tebrikler %1$s! 100 puana ulaşarak oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz Yeni Oyun\'a tıklayın.</string>
+    <string name="congratulations">Tebrikler %1$s! Oyunu başarıyla tamamladınız.</string>
     <string name="correcttoastmessage">Doğru! Sonraki soruya geçmek için >>\'a tıklayın.</string>
-    <string name="wronganswer">Yanlış cevap! Oyun sona erdi. %1$d puan kazandınız.</string>
+    <string name="wronganswer">Yanlış cevap! Oyun sona erdi. </string>
     <string name="feedbackquestion">HANGISI\'nde görmek istediğiniz kategoriler:</string>
     <string name="thanks">Geribildiriminiz için teşekkür ederiz.</string>
     <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
     <string name="youadded">Şunları eklediniz:</string>
-    <string name="timeoutwarning">Süre doldu. Oyun sona erdi. %1$d puan kazandiniz. Yeniden oynamak icin yeni oyun\'a basın.</string>
+    <string name="timeoutwarning">Süre doldu. Oyun sona erdi.</string>
 
     <string-array name="lit_q1">
         <item>Hangisi Charles Dickens\'ın romanlarından biri değildir?</item>
