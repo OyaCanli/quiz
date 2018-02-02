@@ -41,9 +41,8 @@ public class ResultActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 String message= getString(R.string.mail_message, score);
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto: "));
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mailsubject));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, message);
                 if(intent.resolveActivity(getPackageManager()) != null){
                     startActivity(intent);
