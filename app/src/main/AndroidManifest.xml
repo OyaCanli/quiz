@@ -21,10 +21,8 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".FeedbackActivity"
-            android:label="@string/feedback"
+            android:label="FEEDBACK"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ResultActivity"
-            android:label = "@string/results"/>
     </application>
 
 </manifest>

@@ -27,13 +27,13 @@
     <string name="quitarrow">quit>></string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
-    <string name="timeoutwarning">Time expired. Game is over. </string>
+    <string name="timeoutwarning">Time expired. Game is over. You scored %1$d /100.</string>
     <string name="hintwarning">You have already used hint.</string>
     <string name="halfwarning">You have already used 1/2 lifeline.</string>
     <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
-    <string name="congratulations">Congratulations %1$s! You successfully completed the quiz.</string>
+    <string name="congratulations">Congratulations %1$s! You successfully completed the quiz. You scored 100/100. If you would like compete in another category click new game.</string>
     <string name="correcttoastmessage">Correct! Click next to continue.</string>
-    <string name="wronganswer">The answer was wrong. Game is over.</string>
+    <string name="wronganswer">The answer was wrong. Game is over. You scored %1$d /100.</string>
     <string name="newgame">New Game</string>
     <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
     <string name="youadded">You added:</string>
@@ -44,10 +44,6 @@
     <string name="welcome">Welcome to <b>WHICH!</b> Chose a category from below and click start. Don\'t forget to enter your name! Check the menu for rules.</string>
     <string name="categories">Categories</string>
     <string name="best_records">Best Records</string>
-    <string name="results">RESULTS</string>
-    <string name="view_results">View results</string>
-    <string name="mail_message">Hey! I scored %1$d out of 100 in the general culture quiz WHICH. Try it yourself and let\'s compare our results!</string>
-    <string name="_score">%1$d/100</string>
 
     <string-array name="lit_q1">
         <item>Which of the followings is not a novel by Charles Dickens?</item>
@@ -55,7 +51,7 @@
         <item>A Tale Of Two Cities</item>
         <item>Oliver Twist</item>
         <item>Bleak House</item>
-        <item>A Farewell To Arms.</item>
+        <item>A Farewell To Arms</item>
     </string-array>
 
     <string-array name="lit_q2">
@@ -183,6 +179,5 @@
         <item>Alexander Fleming</item>
         <item>Johannes Kepler</item>
     </string-array>
-
 
 </resources>

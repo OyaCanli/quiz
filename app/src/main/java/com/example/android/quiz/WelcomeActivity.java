@@ -21,9 +21,12 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class WelcomeActivity extends AppCompatActivity {
 
-    private static String questions[][]= new String [5][6];
+    static ArrayList<Question> radioQuestions = new ArrayList<>();
+    static ArrayList<Question> checkboxQuestions = new ArrayList<>();
     private static int correctAnswers[]= new int [5];
     private static int wrongAnswers[][] = new int [5][3];
     private static String category;
@@ -175,13 +178,14 @@ public class WelcomeActivity extends AppCompatActivity {
         int length = typedArray.length();
         for (int i = 0; i < length; ++i) {
             int id = typedArray.getResourceId(i, 0);
-            questions[i] = resources.getStringArray(id);
+            String[] question = resources.getStringArray(id);
+            radioQuestions.add(new Question(question, correctAnswers[i]));
         }
         typedArray.recycle();
     }
 
-    public static String[][] getQuestions(){
-        return questions;
+    public static ArrayList<Question> getQuestions(){
+        return radioQuestions;
     }
 
     public static int[] getCorrectAnswers(){

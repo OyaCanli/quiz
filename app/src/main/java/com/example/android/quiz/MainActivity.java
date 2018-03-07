@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
-    private String[][] questions;
+    private ArrayList<Question> questions;
     private int[] correctAnswers;
     private int[][] wrongAnswers;
     private TextView question, hint, time;
@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
         }
         //Set the first question
-        question.setText(questions[questionNumber][0]);
-        hint.setText(questions[questionNumber][1]);
-        optionA.setText(questions[questionNumber][2]);
-        optionB.setText(questions[questionNumber][3]);
-        optionC.setText(questions[questionNumber][4]);
-        optionD.setText(questions[questionNumber][5]);
+        question.setText(questions.get(questionNumber).getQuestion());
+        hint.setText(questions.get(questionNumber).getHint());
+        optionA.setText(questions.get(questionNumber).getOption1());
+        optionB.setText(questions.get(questionNumber).getOption2());
+        optionC.setText(questions.get(questionNumber).getOption3());
+        optionD.setText(questions.get(questionNumber).getOption4());
         //Initialize variables
         if(savedInstanceState == null) {
             questionNumber = 0;
@@ -172,12 +172,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             setTimer(currentMillis);
         } else {
             questionNumber = savedInstanceState.getInt(QUESTIONNUMBER);
-            question.setText(questions[questionNumber][0]);
-            hint.setText(questions[questionNumber][1]);
-            optionA.setText(questions[questionNumber][2]);
-            optionB.setText(questions[questionNumber][3]);
-            optionC.setText(questions[questionNumber][4]);
-            optionD.setText(questions[questionNumber][5]);
+            question.setText(questions.get(questionNumber).getQuestion());
+            hint.setText(questions.get(questionNumber).getHint());
+            optionA.setText(questions.get(questionNumber).getOption1());
+            optionB.setText(questions.get(questionNumber).getOption2());
+            optionC.setText(questions.get(questionNumber).getOption3());
+            optionD.setText(questions.get(questionNumber).getOption4());
             score = savedInstanceState.getInt(SCORE);
             halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER);
             hintCounter = savedInstanceState.getInt(HINT_COUNTER);
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             @Override
             public void onFinish() {
                 saveResults();
-                String message = getString(R.string.timeoutwarning);
+                String message = getString(R.string.timeoutwarning, score);
                 createAlertDialog(message);
             }
         }.start();
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             delayHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    String message = getResources().getString(R.string.wronganswer);
+                    String message = getResources().getString(R.string.wronganswer, score);
                     createAlertDialog(message);
                 }
             }, 2000);
@@ -414,13 +414,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public void createAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         builder.setMessage(message);
-        builder.setPositiveButton(R.string.view_results, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.newgame, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
-                Intent resultsIntent = new Intent(MainActivity.this,ResultActivity.class);
-                resultsIntent.putExtra(SCORE, score);
-                startActivity(resultsIntent);
+                Intent categoriesIntent = new Intent(MainActivity.this, WelcomeActivity.class);
+                // Start the new activity
+                startActivity(categoriesIntent);
             }
         });
         builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
@@ -436,12 +436,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public void setNextQuestion() {
         questionNumber++;
-        question.setText(questions[questionNumber][0]);
-        hint.setText(questions[questionNumber][1]);
-        optionA.setText(questions[questionNumber][2]);
-        optionB.setText(questions[questionNumber][3]);
-        optionC.setText(questions[questionNumber][4]);
-        optionD.setText(questions[questionNumber][5]);
+        question.setText(questions.get(questionNumber).getQuestion());
+        hint.setText(questions.get(questionNumber).getHint());
+        optionA.setText(questions.get(questionNumber).getOption1());
+        optionB.setText(questions.get(questionNumber).getOption2());
+        optionC.setText(questions.get(questionNumber).getOption3());
+        optionD.setText(questions.get(questionNumber).getOption4());
         for(int i = 0; i<4; i++){
             options.getChildAt(i).setVisibility(View.VISIBLE);
             options.getChildAt(i).setEnabled(true);
