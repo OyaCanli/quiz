@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.quiz.ui.QuizActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:background="@color/literature">
+
+    <View
+        style="@style/frame_style"/>
+
+    <TextView
+            android:id="@+id/time"
+            android:layout_marginTop="@dimen/inner_margin"
+            android:text="@string/_60"
+            style="@style/timerStyle"/>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_below="@id/time"
+        style="@style/questionStyle"
+        tools:text="Which of the followings is not a novel by Charles Dickens?"/>
+
+    <RadioGroup
+        android:id="@+id/options"
+        android:orientation="vertical"
+        android:layout_below="@id/question"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/radiogroupStyle">
+
+        <RadioButton
+            android:id="@+id/optionA"
+            tools:text="A Tale Of Two Cities"
+            style="@style/radiobuttonStyle" />
+
+        <RadioButton
+            android:id="@+id/optionB"
+            tools:text="Oliver Twist"
+            style="@style/radiobuttonStyle" />
+
+        <RadioButton
+            android:id="@+id/optionC"
+            tools:text="Bleak House"
+            style="@style/radiobuttonStyle"/>
+
+        <RadioButton
+            android:id="@+id/optionD"
+            tools:text="A Farewell To Arms"
+            style="@style/radiobuttonStyle"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/showHint"
+        android:layout_below="@id/question"
+        android:text="?"
+        android:background="@drawable/ripple_literature"
+        style="@style/lifelinebuttonStyle"/>
+
+    <Button
+        android:id="@+id/half"
+        android:layout_below="@id/showHint"
+        android:text="@string/half"
+        android:background="@drawable/ripple_literature"
+
+        style="@style/lifelinebuttonStyle"/>
+
+    <TextView
+        android:id="@+id/hint"
+        tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
+        style="@style/hintStylePortrait"/>
+
+    <Button
+        android:id="@+id/categories"
+        android:text="@string/categoriesbutton"
+        android:layout_marginLeft="@dimen/inner_margin"
+        android:layout_marginStart="@dimen/inner_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        style="@style/buttonStyle"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:text="@string/submit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        style="@style/buttonStyle"/>
+
+    <Button
+        android:id="@+id/next"
+        android:text="@string/next"
+        android:layout_marginRight="@dimen/nextbutton_marginRight"
+        android:layout_marginEnd="@dimen/nextbutton_marginRight"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:enabled="false"
+        style="@style/buttonStyle"/>
+
+</RelativeLayout>
+
+</ScrollView>

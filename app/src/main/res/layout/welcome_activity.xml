@@ -21,6 +21,7 @@
             style="@style/edittext_style" />
 
         <RadioGroup
+            android:id="@+id/categoriesGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/outer_margin"
@@ -36,13 +37,13 @@
                 android:id="@+id/cinemaButton"
                 style="@style/category_buttons"
                 android:layout_margin="@dimen/outer_margin"
-                android:background="@drawable/literaturecategory"
+                android:background="@drawable/cinemacategory"
                 android:text="@string/cinema" />
 
             <RadioButton
                 android:id="@+id/scienceButton"
                 style="@style/category_buttons"
-                android:background="@drawable/literaturecategory"
+                android:background="@drawable/sciencecategory"
                 android:text="@string/science" />
 
         </RadioGroup>

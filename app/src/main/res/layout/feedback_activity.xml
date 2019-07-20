@@ -47,7 +47,7 @@
         android:text="@string/other"/>
 
     <EditText
-        android:id="@+id/other"
+        android:id="@+id/other_et"
         style="@style/edittext_style"
         android:maxLines="2"/>
 
