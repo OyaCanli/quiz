@@ -3,6 +3,7 @@ package com.example.android.quiz.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -10,16 +11,17 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.android.quiz.*
+import com.example.android.quiz.CATEGORY
+import com.example.android.quiz.NAME
+import com.example.android.quiz.R
 import kotlinx.android.synthetic.main.welcome_activity.*
-import java.util.*
 
 class WelcomeActivity : AppCompatActivity() {
 
-    private var menu: Menu? = null
     lateinit var prefs: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
-    internal var name: String? = null
+    private var name: String? = null
+    @StringRes private var category : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +51,6 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
-        this.menu = menu
         menu.removeItem(R.id.categories)
         return true
     }
@@ -71,9 +72,7 @@ class WelcomeActivity : AppCompatActivity() {
         builder.setMessage(QuizActivity.bestRecords())
                 .setTitle(getString(R.string.best_records))
                 .setCancelable(false)
-                .setPositiveButton("OK") { dialog, id ->
-                    //do things
-                }
+                .setPositiveButton(getString(R.string.ok)) { _, _ -> }
         val alert = builder.create()
         alert.show()
     }
@@ -83,9 +82,7 @@ class WelcomeActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.info))
                 .setTitle(getString(R.string.rules))
                 .setCancelable(false)
-                .setPositiveButton("OK") { dialog, id ->
-                    //do things
-                }
+                .setPositiveButton(getString(R.string.ok)) { _, _ -> }
         val alert = builder.create()
         alert.show()
     }
@@ -98,47 +95,16 @@ class WelcomeActivity : AppCompatActivity() {
             return
         }
         //assign the questions according to the category chosen
-        when(checkedButtonId){
-            R.id.literatureButton -> {
-                correctAnswers.addAll(literatureCorrectAnswers)
-                extractTypedArray(R.array.literature_questions)
-                category = getString(R.string.literature)
-            }
-            R.id.cinemaButton -> {
-                correctAnswers.addAll(cinemaCorrectAnswers)
-                extractTypedArray(R.array.cinema_questions)
-                category = getString(R.string.cinema)
-            }
-            R.id.scienceButton -> {
-                correctAnswers.addAll(scienceCorrectAnswers)
-                extractTypedArray(R.array.science_questions)
-                category = getString(R.string.science)
-            }
+        category = when(checkedButtonId){
+            R.id.literatureButton -> R.string.literature
+            R.id.cinemaButton -> R.string.cinema
+            R.id.scienceButton -> R.string.science
+            else -> 0
         }
 
         val intent = Intent(this, QuizActivity::class.java)
         intent.putExtra(NAME, name)
+        intent.putExtra(CATEGORY, category)
         startActivity(intent)
-    }
-
-    //Extract the question, hints and options from array.xml
-    private fun extractTypedArray(arrayId: Int) {
-        val typedArray = resources.obtainTypedArray(arrayId)
-        val length = typedArray.length()
-        for (i in 0 until length) {
-            val id = typedArray.getResourceId(i, 0)
-            val questionTexts = resources.getStringArray(id)
-            questions.add(Question(questionTexts[0], questionTexts[1], questionTexts[2], questionTexts[3], questionTexts[4], questionTexts[5], correctAnswers[i]))
-        }
-        typedArray.recycle()
-    }
-
-    companion object {
-        var correctAnswers = ArrayList<Option>()
-        var questions = ArrayList<Question>()
-            internal set
-        var category: String? = null
-            private set
-        val NAME = "name"
     }
 }

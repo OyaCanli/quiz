@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -16,13 +15,17 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import com.example.android.quiz.*
+import com.example.android.quiz.model.Category
+import com.example.android.quiz.model.Option
+import com.example.android.quiz.model.Question
 import kotlinx.android.synthetic.main.activity_quiz.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class QuizActivity : AppCompatActivity(), OnClickListener {
 
     private var questions: ArrayList<Question>? = null
-    private var correctAnswers: ArrayList<Option>? = null
+    private lateinit var correctAnswers: ArrayList<Option>
     private var questionNumber: Int = 0
     private var score: Int = 0
     private var hintCounter: Int = 0
@@ -37,7 +40,7 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
     private var isHalfLifeLineActif: Boolean = false
     private var isHintVisible: Boolean = false
     private var name: String? = null
-    private var category: String? = null
+    private lateinit var category: Category
     private lateinit var bestResults: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private val optionsToErase = arrayListOf(Option.A, Option.B, Option.C, Option.D)
@@ -45,16 +48,22 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
-        //Change the color of the status bar
-        if (Build.VERSION.SDK_INT >= 21) {
-            val window = window
-            window.statusBarColor = resources.getColor(R.color.status_bar_main)
-        }
+
         //hide action bar
         supportActionBar?.hide()
+
         //Retrieve the intent extra
         val bundle = intent.extras
         name = bundle?.getString(NAME)
+        category = when(bundle?.getInt(CATEGORY)){
+            R.string.literature -> Category.Literature()
+            R.string.cinema -> Category.Cinema()
+            R.string.science -> Category.Science()
+            else -> throw IllegalStateException()
+        }
+
+        //Get questions for the chosen category
+        questions = getQuestionsForCategory(category)
 
         //Initialize sharedPreferences editor
         bestResults = applicationContext.getSharedPreferences("MyPref", 0)
@@ -66,11 +75,6 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
         categories.setOnClickListener(this)
         submit.setOnClickListener(this)
         next.setOnClickListener(this)
-
-        //get questions from welcome activity
-        questions = WelcomeActivity.questions
-        correctAnswers = WelcomeActivity.correctAnswers
-        category = WelcomeActivity.category
 
         //todo: Set the background theme according to the category chosen
 
@@ -121,6 +125,34 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
                 }
             }*/
         }
+    }
+
+    private fun getQuestionsForCategory(category : Category): ArrayList<Question>{
+        correctAnswers = when(category){
+            is Category.Literature -> literatureCorrectAnswers
+            is Category.Cinema -> cinemaCorrectAnswers
+            is Category.Science -> scienceCorrectAnswers
+        }
+
+        return when(category){
+            is Category.Literature -> extractTypedArray(R.array.literature_questions)
+            is Category.Cinema -> extractTypedArray(R.array.cinema_questions)
+            is Category.Science -> extractTypedArray(R.array.science_questions)
+        }
+    }
+
+    //Extract the question, hints and options from array.xml
+    private fun extractTypedArray(arrayId: Int): ArrayList<Question> {
+        val list = ArrayList<Question>()
+        val typedArray = resources.obtainTypedArray(arrayId)
+        val length = typedArray.length()
+        for (i in 0 until length) {
+            val id = typedArray.getResourceId(i, 0)
+            val questionTexts = resources.getStringArray(id)
+            list.add(Question(questionTexts[0], questionTexts[1], questionTexts[2], questionTexts[3], questionTexts[4], questionTexts[5], correctAnswers[i]))
+        }
+        typedArray.recycle()
+        return list
     }
 
     override fun onClick(v: View) {
@@ -191,7 +223,7 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
         hintCounter++
         val hint = findViewById<TextView>(R.id.hint)
         hint.visibility = View.VISIBLE
-        //isHintVisible = true;
+        isHintVisible = true
     }
 
     private fun halfTheOptions() {
@@ -321,17 +353,17 @@ class QuizActivity : AppCompatActivity(), OnClickListener {
 
     fun saveResults() {
         when(category) {
-            getString(R.string.literature) -> {
+            is Category.Literature -> {
                 if (score > bestResults.getInt(BEST_SCORE_LIT, 0)) {
                     saveToSharedPrefs(BEST_SCORE_LIT)
                 }
             }
-            getString(R.string.cinema) -> {
+            is Category.Cinema -> {
                 if (score > bestResults.getInt(BEST_SCORE_CIN, 0)) {
                     saveToSharedPrefs(BEST_SCORE_CIN)
                 }
             }
-            getString(R.string.science) -> {
+            is Category.Science -> {
                 if (score > bestResults.getInt(BEST_SCORE_SCI, 0)) {
                     saveToSharedPrefs(BEST_SCORE_SCI)
                 }

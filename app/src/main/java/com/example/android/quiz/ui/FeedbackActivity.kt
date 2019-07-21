@@ -46,9 +46,7 @@ class FeedbackActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.info))
                 .setTitle(getString(R.string.rules))
                 .setCancelable(false)
-                .setPositiveButton("OK") { dialog, id ->
-                    //do things
-                }
+                .setPositiveButton(getString(R.string.ok)) { _, _ -> }
         val alert = builder.create()
         alert.show()
     }
@@ -58,9 +56,7 @@ class FeedbackActivity : AppCompatActivity() {
         builder.setMessage(QuizActivity.bestRecords())
                 .setTitle(getString(R.string.best_records))
                 .setCancelable(false)
-                .setPositiveButton("OK") { dialog, id ->
-                    //do things
-                }
+                .setPositiveButton(getString(R.string.ok)) { _, _ -> }
         val alert = builder.create()
         alert.show()
     }

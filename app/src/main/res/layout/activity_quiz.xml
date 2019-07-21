@@ -64,12 +64,15 @@
         android:id="@+id/showHint"
         android:layout_below="@id/question"
         android:text="?"
+        android:background="@drawable/ripple_literature"
         style="@style/lifelinebuttonStyle"/>
 
     <Button
         android:id="@+id/half"
         android:layout_below="@id/showHint"
         android:text="@string/half"
+        android:background="@drawable/ripple_literature"
+
         style="@style/lifelinebuttonStyle"/>
 
     <TextView

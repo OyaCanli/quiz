@@ -44,6 +44,7 @@
     <string name="welcome">Welcome to <b>WHICH!</b> Chose a category from below and click start. Don\'t forget to enter your name! Check the menu for rules.</string>
     <string name="categories">Categories</string>
     <string name="best_records">Best Records</string>
+    <string name="ok">OK</string>
 
 
 </resources>
