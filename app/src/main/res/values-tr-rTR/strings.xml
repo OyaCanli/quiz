@@ -173,5 +173,9 @@
     <string name="categories">Kategoriler</string>
     <string name="welcome"><b>HANGİ</b>\'ye hoşgeldiniz! Aşağıdaki kategorilerden birini seçip başla tuşuna basınız. Adınızı girmeyi unutmayın! Kuralları menüde bulabilirsiniz.</string>
     <string name="info">HANGI bir genel kültür sınavıdır. Şimdilik yarışabileceğiniz üç kategori bulunmaktadır: Edebiyat, Sinema, Bilim. Her kategoride beş soru, her soru için bir ipucu, bir seçenekleri yarıla joker hakkı ve 60 saniye süre kısıtlaması bulunmaktadır. Jokerleri oyun boyunca sadece birer kere kullanabilirsiniz.</string>
+    <string name="your_score">%1$d puan kazandınız.</string>
+    <string name="ok">Tamam</string>
+    <string name="new_game">Yeni Oyun</string>
+    <string name="best_records">En Iyi Puanlar</string>
 
 </resources>

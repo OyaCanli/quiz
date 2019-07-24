@@ -33,7 +33,7 @@
     <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
     <string name="congratulations">Congratulations %1$s! You successfully completed the quiz. You scored 100/100. If you would like compete in another category click new game.</string>
     <string name="correcttoastmessage">Correct! Click next to continue.</string>
-    <string name="wronganswer">The answer was wrong. Game is over. You scored %1$d /100.</string>
+    <string name="wronganswer">The answer was wrong. You scored %1$d /100.</string>
     <string name="newgame">New Game</string>
     <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
     <string name="youadded">You added:</string>
@@ -45,6 +45,7 @@
     <string name="categories">Categories</string>
     <string name="best_records">Best Records</string>
     <string name="ok">OK</string>
+    <string name="your_score">You scored %1$d /100</string>
 
 
 </resources>

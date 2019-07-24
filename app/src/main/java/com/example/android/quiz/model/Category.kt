@@ -5,24 +5,13 @@ import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import com.example.android.quiz.R
 
-sealed class Category(@StringRes val categoryName: Int,
+
+enum class Category(@StringRes val categoryName: Int,
                     @ColorRes val categoryColor: Int) {
-    abstract fun getQuestions() : ArrayList<Question>
 
-    class Literature : Category(R.string.literature, R.color.literature){
-        override fun getQuestions() : ArrayList<Question>{
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
-    class Cinema : Category(R.string.cinema, R.color.cinema) {
-        override fun getQuestions(): ArrayList<Question> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
+    LITERATURE(R.string.literature, R.color.literature),
 
-    class Science : Category(R.string.science, R.color.science) {
-        override fun getQuestions() : ArrayList<Question>{
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
+    CINEMA(R.string.cinema, R.color.cinema),
+
+    SCIENCE(R.string.science, R.color.science)
 }

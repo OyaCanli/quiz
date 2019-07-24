@@ -11,10 +11,10 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.android.quiz.CATEGORY
-import com.example.android.quiz.NAME
 import com.example.android.quiz.R
-import kotlinx.android.synthetic.main.welcome_activity.*
+import com.example.android.quiz.utils.CATEGORY
+import com.example.android.quiz.utils.NAME
+import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.welcome_activity)
+        setContentView(R.layout.activity_welcome)
 
         startButton.setOnClickListener { startQuiz() }
         name_entry.addTextChangedListener(object : TextWatcher{
@@ -58,10 +58,6 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.rules -> showRules()
-            R.id.feedback -> {
-                val intent = Intent(this@WelcomeActivity, FeedbackActivity::class.java)
-                startActivity(intent)
-            }
             R.id.bestRecords -> showBestRecords()
         }
         return super.onOptionsItemSelected(item)
