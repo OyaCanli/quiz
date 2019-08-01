@@ -3,8 +3,8 @@ package com.example.android.quiz.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.CountDownTimer
-import android.support.annotation.StringRes
 import android.util.Log
+import androidx.annotation.StringRes
 import com.example.android.quiz.QuizRepository
 import com.example.android.quiz.R
 import com.example.android.quiz.model.*

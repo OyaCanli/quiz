@@ -1,7 +1,7 @@
 package com.example.android.quiz.ui
 
-import android.support.annotation.IdRes
-import android.support.annotation.StringRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
 

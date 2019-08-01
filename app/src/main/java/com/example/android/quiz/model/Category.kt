@@ -1,8 +1,8 @@
 package com.example.android.quiz.model
 
 
-import android.support.annotation.ColorRes
-import android.support.annotation.StringRes
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import com.example.android.quiz.R
 
 

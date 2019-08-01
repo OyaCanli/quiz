@@ -6,8 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
@@ -15,6 +13,8 @@ import android.view.animation.AnimationUtils
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import com.example.android.quiz.R
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question

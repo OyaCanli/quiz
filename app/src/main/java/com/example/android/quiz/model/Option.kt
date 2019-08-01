@@ -1,6 +1,6 @@
 package com.example.android.quiz.model
 
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import com.example.android.quiz.R
 
 enum class Option(@IdRes val buttonId: Int){
