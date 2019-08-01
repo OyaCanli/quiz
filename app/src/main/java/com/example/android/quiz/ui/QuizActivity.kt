@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.AnimationUtils
@@ -17,7 +18,6 @@ import android.widget.Toast
 import com.example.android.quiz.R
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
-import com.example.android.quiz.model.QuizState
 import com.example.android.quiz.utils.*
 import kotlinx.android.synthetic.main.activity_quiz.*
 
@@ -25,15 +25,14 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
 
     private lateinit var presenter : QuizPresenter
 
-    private var correctOption : RadioButton? = null
-
     private var name: String? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        presenter = QuizPresenter(applicationContext, this)
+        presenter = QuizPresenter.getInstance(applicationContext)
+        presenter.subscribeView(this)
 
         //hide action bar
         supportActionBar?.hide()
@@ -58,50 +57,17 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         //Set the first question
         populateTheQuestion(presenter.currentQuestion)
 
-        //Initialize variables
-        if (savedInstanceState == null) {
-            presenter.setTimer(60000)
-        } else {
-            presenter.questionNumber = savedInstanceState.getInt(QUESTIONNUMBER)
-            populateTheQuestion(presenter.currentQuestion)
-            presenter.score = savedInstanceState.getInt(SCORE)
-            presenter.halfLifelineCounter = savedInstanceState.getInt(HALF_COUNTER)
-            presenter.hintCounter = savedInstanceState.getInt(HINT_COUNTER)
-            presenter.currentMillis = savedInstanceState.getLong(CURRENT_MILLIS)
-            presenter.isHintVisible = savedInstanceState.getBoolean(IS_HINT_VISIBLE)
-            if(presenter.isHintVisible) hint.visibility = View.VISIBLE
-
-            presenter.isHalfLifeLineActif = savedInstanceState.getBoolean(IS_HALF_ACTIF)
-            //optionsToErase = savedInstanceState.getParcelableArrayList<Option>(OPTIONS_TO_ERASE)
-            /*if (isHalfLifeLineActif) {
-                for(option in optionsToErase){
-                    findViewById<RadioButton>(option.buttonId).visibility = View.INVISIBLE
-                }
-            }*/
-        }
+        presenter.onStateChanged()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.showHint -> presenter.incrementHintCount()
+            R.id.showHint -> presenter.onHintClicked()
             R.id.half -> presenter.halfTheOptions()
             R.id.categories -> goBackToCategories()
-            R.id.submit -> presenter.checkTheAnswer(options.checkedRadioButtonId)
-            R.id.next -> setNextQuestion()
+            R.id.submit -> presenter.submit(options.checkedRadioButtonId)
+            R.id.next -> presenter.onNextClicked()
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong(CURRENT_MILLIS, presenter.currentMillis)
-        outState.putInt(HINT_COUNTER, presenter.hintCounter)
-        outState.putInt(HALF_COUNTER, presenter.halfLifelineCounter)
-        outState.putInt(QUESTIONNUMBER, presenter.questionNumber)
-        outState.putInt(SCORE, presenter.score)
-        outState.putBoolean(IS_HALF_ACTIF, presenter.isHalfLifeLineActif)
-        //outState.put(OPTIONS_TO_ERASE, optionsToErase)
-        outState.putInt(WRONG_OPTION_ID, options.checkedRadioButtonId)
-        outState.putBoolean(IS_HINT_VISIBLE, presenter.isHintVisible)
     }
 
     private fun goBackToCategories() {
@@ -152,9 +118,10 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         builder.show()
     }
 
-    override fun showWrongSelection(checkedButtonId: Int) {
-        val wrongOption = findViewById<RadioButton>(checkedButtonId)
-        wrongOption.background = resources.getDrawable(R.drawable.false_selection_background)
+    override fun showWrongSelection() {
+        val wrongOption = findViewById<RadioButton>(presenter.checkedButtonId)
+        Log.d("QuizActivity", "checked button id : ${presenter.checkedButtonId}")
+        wrongOption?.background = resources.getDrawable(R.drawable.false_selection_background)
     }
 
     override fun showCorrectOption(correctOption: Option) {
@@ -168,22 +135,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         handler.postDelayed({ correctButton.clearAnimation() }, 2000)
     }
 
-    private fun setNextQuestion() {
-        presenter.questionNumber++
-
-        populateTheQuestion(presenter.currentQuestion)
-
-        presenter.quizState = QuizState.ACTIVE_QUESTION
-    }
-
-    override fun setState(quizState: QuizState) {
-        when(quizState){
-            QuizState.ACTIVE_QUESTION -> setToActiveQuestionState()
-            QuizState.ANSWERED_QUESTION -> setToAnsweredQuestionState()
-        }
-    }
-
-    private fun setToActiveQuestionState() {
+    override fun setToActiveQuestionState() {
         /*Enable all buttons except Next button. All buttons are visible, hint is invisible.
         Everything returns to defaults state*/
         next.isEnabled = false
@@ -194,15 +146,15 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
             options.getChildAt(i).visibility = View.VISIBLE
             options.getChildAt(i).isEnabled = true
             options.getChildAt(i).background = this.resources.getDrawable(R.drawable.selector)
+            options.getChildAt(i).clearAnimation()
         }
         hint.visibility = View.INVISIBLE
         time.setTextColor(Color.WHITE)
         options.clearCheck()
-        presenter.setTimer(60000)
-        correctOption?.clearAnimation()
+        presenter.startTimer()
     }
 
-    private fun setToAnsweredQuestionState() {
+    override fun setToAnsweredQuestionState() {
         //Disable all buttons except Next button
         next.isEnabled = true
         showHint.isEnabled = false
@@ -213,7 +165,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         }
     }
 
-    private fun populateTheQuestion(currentQuestion : Question?) {
+    override fun populateTheQuestion(currentQuestion : Question?) {
         question.text = currentQuestion?.question
         hint.text = currentQuestion?.hint
         optionA.text = currentQuestion?.option1
@@ -230,7 +182,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
     }
 
     public override fun onDestroy() {
-        presenter.onDestroy()
+        presenter.onDestroy(isFinishing)
         super.onDestroy()
     }
 

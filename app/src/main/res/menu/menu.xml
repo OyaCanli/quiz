@@ -6,10 +6,6 @@
         android:title="@string/rules"
         app:showAsAction="never" />
     <item
-        android:id="@+id/feedback"
-        android:title="@string/feedback"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/categories"
         android:title="@string/categories"
         app:showAsAction="never" />

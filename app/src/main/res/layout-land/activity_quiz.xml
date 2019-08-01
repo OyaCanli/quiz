@@ -20,6 +20,7 @@
         <Button
             android:id="@+id/showHint"
             android:text="?"
+            android:background="@drawable/ripple_literature"
             android:layout_alignTop="@id/time"
             style="@style/lifelinebuttonStyleLand"/>
 
@@ -31,7 +32,7 @@
 
         <Button
             android:id="@+id/half"
-           android:layout_alignParentRight="true"
+            android:background="@drawable/ripple_literature"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/time"
             android:text="@string/half"
@@ -46,9 +47,7 @@
         <RadioGroup
             android:id="@+id/options"
             android:orientation="vertical"
-            android:layout_toRightOf="@id/question"
             android:layout_toEndOf="@id/question"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/question"
             style="@style/radiogroupStyle">
@@ -79,7 +78,6 @@
             android:id="@+id/hint"
             android:layout_width="wrap_content"
             android:layout_below="@id/question"
-            android:layout_alignRight="@id/question"
             tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
             android:visibility="invisible"
             style="@style/hintStyle"/>
@@ -89,8 +87,6 @@
             android:text="@string/categoriesbutton"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/categorybutton_land_marginLeft"
             android:layout_marginStart="@dimen/categorybutton_land_marginLeft"
             style="@style/buttonStyle"/>
 
@@ -104,10 +100,8 @@
         <Button
             android:id="@+id/next"
             android:text="@string/next"
-            android:layout_marginRight="@dimen/inner_margin"
             android:layout_marginEnd="@dimen/inner_margin"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:enabled="false"
             style="@style/buttonStyle"/>

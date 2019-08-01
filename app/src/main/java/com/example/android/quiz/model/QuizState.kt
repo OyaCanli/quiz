@@ -1,10 +1,20 @@
 package com.example.android.quiz.model
 
-enum class QuizState {
+sealed class QuizState
+
     /*When player is reading and trying to answer the question
     Timer is active at this state*/
-    ACTIVE_QUESTION,
-
+    class ActiveQuestion(private val callback : StateChangeListener) : QuizState(){
+        var hintIsVisible : Boolean = false
+        set(value) {
+            field = value
+            callback.onStateChanged()
+        }
+        var optionsAreHalven : Boolean = false
+            set(value) {
+                field = value
+                callback.onStateChanged()
+            }
+    }
     //When user submits ans verifies a question
-    ANSWERED_QUESTION
-}
+    class SubmittedQuestion(val answerIsWrong : Boolean): QuizState()

@@ -4,23 +4,32 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.support.annotation.StringRes
+import android.util.Log
 import com.example.android.quiz.QuizRepository
 import com.example.android.quiz.R
-import com.example.android.quiz.model.Category
-import com.example.android.quiz.model.Option
-import com.example.android.quiz.model.Question
-import com.example.android.quiz.model.QuizState
+import com.example.android.quiz.model.*
 import com.example.android.quiz.utils.BEST_SCORE_CIN
 import com.example.android.quiz.utils.BEST_SCORE_LIT
 import com.example.android.quiz.utils.BEST_SCORE_SCI
+import com.example.android.quiz.utils.TIME_LIMIT
 import java.util.*
 import kotlin.collections.ArrayList
 
-class QuizPresenter(context: Context, private var view: QuizContract.View?) : QuizContract.Presenter {
+class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListener {
 
-    lateinit var category: Category
+    var view : QuizContract.View? = null
+
+    var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
+
+    private lateinit var category: Category
 
     private val repo = QuizRepository(context)
+
+    var quizState : QuizState = ActiveQuestion(this)
+        set(value) {
+            field = value
+            onStateChanged()
+        }
 
     private var questions: ArrayList<Question?> = ArrayList()
 
@@ -30,26 +39,13 @@ class QuizPresenter(context: Context, private var view: QuizContract.View?) : Qu
         get() = questions[questionNumber]
         private set
 
-    var quizState: QuizState = QuizState.ACTIVE_QUESTION
-        set(value) {
-            field = value
-            view?.setState(value)
-        }
-
     var score: Int = 0
 
-    var currentMillis: Long = 0
-    var timer: CountDownTimer? = null
-
-    private val optionsToErase = arrayListOf(Option.A, Option.B, Option.C, Option.D)
-
-    var hintCounter: Int = 0
-
-    var halfLifelineCounter: Int = 0
-
-    var isHalfLifeLineActif: Boolean = false
-
-    var isHintVisible: Boolean = false
+    var currentMillis: Long = TIME_LIMIT
+    private var timer: CountDownTimer? = null
+    private var hintCounter: Int = 0
+    private var halfLifelineCounter: Int = 0
+    var checkedButtonId : Int = -1
 
     private var bestResults: SharedPreferences = context.getSharedPreferences("MyPref", 0)
     private var editor: SharedPreferences.Editor = bestResults.edit()
@@ -68,38 +64,43 @@ class QuizPresenter(context: Context, private var view: QuizContract.View?) : Qu
     }
 
     override fun halfTheOptions() {
+        //User can use this options once over a game
         if (halfLifelineCounter >= 1) {
             view?.showToast(R.string.halfwarning)
             return
         }
         halfLifelineCounter++
-        isHalfLifeLineActif = true
+        view?.hideTwoOptions(getRandomOptionsToErase())
+        (quizState as ActiveQuestion).optionsAreHalven = true
+    }
+
+    private fun getRandomOptionsToErase() : ArrayList<Option> {
+        optionsToErase = arrayListOf(Option.A, Option.B, Option.C, Option.D)
         //Index of the correct option
-        val indexOfCorrectOption = questions.get(questionNumber)?.correctOption?.ordinal
+        val indexOfCorrectOption = questions[questionNumber]?.correctOption?.ordinal
         //Remove the correct option from the list, because we don't want to erase the correct option
         optionsToErase.removeAt(indexOfCorrectOption!!)
         //Pick a random item from the rest of the list and keep that option as well
         val randomIndex = Random().nextInt(optionsToErase.size)
         optionsToErase.removeAt(randomIndex)
-        view?.hideTwoOptions(optionsToErase)
+
+        return optionsToErase
     }
 
-    override fun checkTheAnswer(checkedButtonId: Int) {
+    override fun submit(checkedButtonId: Int) {
         //warn if nothing is chosen
         if (checkedButtonId == -1) {
             view?.showToast(R.string.chosenothingwarning)
             return
         }
 
-        quizState = QuizState.ANSWERED_QUESTION
+        this.checkedButtonId = checkedButtonId
 
-        view?.showCorrectOption(currentQuestion!!.correctOption)
-
-        //if the answer is correct
-        if (checkedButtonId == currentQuestion?.correctOption?.buttonId) {
+        if (answerIsCorrect(checkedButtonId)) {
             score += 20
+            quizState = SubmittedQuestion(false)
         } else { //if it was a wrong answer
-            view?.showWrongSelection(checkedButtonId)
+            quizState = SubmittedQuestion(true)
         }
 
         if (questionNumber == 4) { //if it was the last question
@@ -108,25 +109,34 @@ class QuizPresenter(context: Context, private var view: QuizContract.View?) : Qu
         }
         //cancel timer
         destroyTimer()
-
     }
 
-    override fun incrementHintCount() {
+    private fun answerIsCorrect(checkedButtonId: Int) =
+            checkedButtonId == currentQuestion?.correctOption?.buttonId
+
+    override fun onNextClicked() {
+        questionNumber++
+        currentMillis = TIME_LIMIT
+        quizState = ActiveQuestion(this)
+        view?.populateTheQuestion(currentQuestion)
+    }
+
+    override fun onHintClicked() {
+        //User can use this options once over a game
         if (hintCounter >= 1) {
             view?.showToast(R.string.hintwarning)
             return
         }
         hintCounter++
-        isHintVisible = true
-        view?.showHint()
+        (quizState as ActiveQuestion).hintIsVisible = true
     }
 
-    fun setTimer(millis: Long) {
+    fun startTimer() {
         //Todo: Create a lifecycle aware timer?
         timer?.run {
             destroyTimer()
         }
-        timer = object : CountDownTimer(millis, 1000) {
+        timer = object : CountDownTimer(currentMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 view?.updateTime((millisUntilFinished / 1000))
                 currentMillis = millisUntilFinished
@@ -137,6 +147,28 @@ class QuizPresenter(context: Context, private var view: QuizContract.View?) : Qu
                 view?.showAlertWithMessage(R.string.timeoutwarning, score)
             }
         }.start()
+    }
+
+    override fun onStateChanged() {
+        when(quizState){
+            is ActiveQuestion -> {
+                view?.setToActiveQuestionState()
+                if((quizState as ActiveQuestion).hintIsVisible){
+                    view?.showHint()
+                }
+                if((quizState as ActiveQuestion).optionsAreHalven){
+                    view?.hideTwoOptions(optionsToErase)
+                }
+            }
+            is SubmittedQuestion -> {
+                if((quizState as SubmittedQuestion).answerIsWrong){
+                    view?.showWrongSelection()
+                    Log.d("QuizPresenter", "answer is wrong")
+                }
+                view?.setToAnsweredQuestionState()
+                view?.showCorrectOption(currentQuestion!!.correctOption)
+            }
+        }
     }
 
     fun destroyTimer() {
@@ -169,9 +201,27 @@ class QuizPresenter(context: Context, private var view: QuizContract.View?) : Qu
         editor.apply()
     }
 
-    override fun onDestroy() {
+    override fun onDestroy(isFinishing : Boolean) {
         destroyTimer()
+        if(isFinishing){
+            sInstance = null
+        }
         view = null
+    }
+
+    override fun subscribeView(view: QuizContract.View?) {
+        this.view = view
+    }
+
+    companion object {
+
+        @Volatile private var sInstance: QuizPresenter? = null
+
+        fun getInstance(context: Context): QuizPresenter {
+            return sInstance ?: synchronized(QuizPresenter::class.java) {
+                sInstance ?: QuizPresenter(context).also { sInstance = it }
+            }
+        }
     }
 
 
