@@ -1,6 +1,5 @@
 package com.example.android.quiz.ui
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.util.Log
@@ -15,17 +14,23 @@ import com.example.android.quiz.utils.TIME_LIMIT
 import java.util.*
 import kotlin.collections.ArrayList
 
-class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListener {
+class QuizPresenter : QuizContract.Presenter, StateChangeListener {
 
-    var view : QuizContract.View? = null
+    var view: QuizContract.View? = null
 
     var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
 
     private lateinit var category: Category
 
-    private val repo = QuizRepository(context)
+    private val repo by lazy {
+        QuizRepository((view as QuizActivity).applicationContext)
+    }
 
-    var quizState : QuizState = ActiveQuestion(this)
+    private val bestResults: SharedPreferences by lazy {
+        (view as QuizActivity).getSharedPreferences("MyPref", 0)
+    }
+
+    var quizState: QuizState = ActiveQuestion(this)
         set(value) {
             field = value
             onStateChanged()
@@ -45,10 +50,7 @@ class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListe
     private var timer: CountDownTimer? = null
     private var hintCounter: Int = 0
     private var halfLifelineCounter: Int = 0
-    var checkedButtonId : Int = -1
-
-    private var bestResults: SharedPreferences = context.getSharedPreferences("MyPref", 0)
-    private var editor: SharedPreferences.Editor = bestResults.edit()
+    var checkedButtonId: Int = -1
 
     override fun setCategory(@StringRes category: Int?) {
         this.category = when (category) {
@@ -74,7 +76,7 @@ class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListe
         (quizState as ActiveQuestion).optionsAreHalven = true
     }
 
-    private fun getRandomOptionsToErase() : ArrayList<Option> {
+    fun getRandomOptionsToErase(): ArrayList<Option> {
         optionsToErase = arrayListOf(Option.A, Option.B, Option.C, Option.D)
         //Index of the correct option
         val indexOfCorrectOption = questions[questionNumber]?.correctOption?.ordinal
@@ -150,18 +152,18 @@ class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListe
     }
 
     override fun onStateChanged() {
-        when(quizState){
+        when (quizState) {
             is ActiveQuestion -> {
                 view?.setToActiveQuestionState()
-                if((quizState as ActiveQuestion).hintIsVisible){
+                if ((quizState as ActiveQuestion).hintIsVisible) {
                     view?.showHint()
                 }
-                if((quizState as ActiveQuestion).optionsAreHalven){
+                if ((quizState as ActiveQuestion).optionsAreHalven) {
                     view?.hideTwoOptions(optionsToErase)
                 }
             }
             is SubmittedQuestion -> {
-                if((quizState as SubmittedQuestion).answerIsWrong){
+                if ((quizState as SubmittedQuestion).answerIsWrong) {
                     view?.showWrongSelection()
                     Log.d("QuizPresenter", "answer is wrong")
                 }
@@ -197,13 +199,14 @@ class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListe
     }
 
     private fun saveToSharedPrefs(key: String) {
+        val editor = bestResults.edit()
         editor.putInt(key, score)
         editor.apply()
     }
 
-    override fun onDestroy(isFinishing : Boolean) {
+    override fun onDestroy(isFinishing: Boolean) {
         destroyTimer()
-        if(isFinishing){
+        if (isFinishing) {
             sInstance = null
         }
         view = null
@@ -215,14 +218,13 @@ class QuizPresenter(context: Context) : QuizContract.Presenter, StateChangeListe
 
     companion object {
 
-        @Volatile private var sInstance: QuizPresenter? = null
+        @Volatile
+        private var sInstance: QuizPresenter? = null
 
-        fun getInstance(context: Context): QuizPresenter {
+        fun getInstance(): QuizPresenter {
             return sInstance ?: synchronized(QuizPresenter::class.java) {
-                sInstance ?: QuizPresenter(context).also { sInstance = it }
+                sInstance ?: QuizPresenter().also { sInstance = it }
             }
         }
     }
-
-
 }

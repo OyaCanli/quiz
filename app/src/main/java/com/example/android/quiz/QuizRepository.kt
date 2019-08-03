@@ -40,5 +40,16 @@ class QuizRepository(private val context: Context){
     private val cinemaCorrectAnswers : ArrayList<Option> = arrayListOf(Option.A, Option.D, Option.B, Option.A, Option.C)
     private val scienceCorrectAnswers: ArrayList<Option> = arrayListOf(Option.A, Option.A, Option.C, Option.D, Option.B)
 
+    companion object {
+
+        @Volatile
+        private var sInstance: QuizRepository? = null
+
+        fun getInstance(context: Context): QuizRepository {
+            return sInstance ?: synchronized(QuizRepository::class.java) {
+                sInstance ?: QuizRepository(context).also { sInstance = it }
+            }
+        }
+    }
 }
 

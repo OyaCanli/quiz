@@ -31,7 +31,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        presenter = QuizPresenter.getInstance(applicationContext)
+        presenter = QuizPresenter.getInstance()
         presenter.subscribeView(this)
 
         //hide action bar
