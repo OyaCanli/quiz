@@ -1,34 +1,23 @@
 package com.example.android.quiz.ui
 
-import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.annotation.StringRes
 import com.example.android.quiz.QuizRepository
 import com.example.android.quiz.R
 import com.example.android.quiz.model.*
-import com.example.android.quiz.utils.BEST_SCORE_CIN
-import com.example.android.quiz.utils.BEST_SCORE_LIT
-import com.example.android.quiz.utils.BEST_SCORE_SCI
 import com.example.android.quiz.utils.TIME_LIMIT
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class QuizPresenter : QuizContract.Presenter, StateChangeListener {
+class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContract.Presenter, StateChangeListener {
 
     var view: QuizContract.View? = null
 
-    var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
+    private var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
 
     private lateinit var category: Category
-
-    private val repo by lazy {
-        QuizRepository((view as QuizActivity).applicationContext)
-    }
-
-    private val bestResults: SharedPreferences by lazy {
-        (view as QuizActivity).getSharedPreferences("MyPref", 0)
-    }
 
     var quizState: QuizState = ActiveQuestion(this)
         set(value) {
@@ -145,7 +134,7 @@ class QuizPresenter : QuizContract.Presenter, StateChangeListener {
             }
 
             override fun onFinish() {
-                saveResults()
+                repo.saveResultsToPrefs(category, score)
                 view?.showAlertWithMessage(R.string.timeoutwarning, score)
             }
         }.start()
@@ -179,36 +168,14 @@ class QuizPresenter : QuizContract.Presenter, StateChangeListener {
     }
 
     private fun saveResults() {
-        when (category) {
-            Category.LITERATURE -> {
-                if (score > bestResults.getInt(BEST_SCORE_LIT, 0)) {
-                    saveToSharedPrefs(BEST_SCORE_LIT)
-                }
-            }
-            Category.CINEMA -> {
-                if (score > bestResults.getInt(BEST_SCORE_CIN, 0)) {
-                    saveToSharedPrefs(BEST_SCORE_CIN)
-                }
-            }
-            Category.SCIENCE -> {
-                if (score > bestResults.getInt(BEST_SCORE_SCI, 0)) {
-                    saveToSharedPrefs(BEST_SCORE_SCI)
-                }
-            }
-        }
-    }
 
-    private fun saveToSharedPrefs(key: String) {
-        val editor = bestResults.edit()
-        editor.putInt(key, score)
-        editor.apply()
     }
 
     override fun onDestroy(isFinishing: Boolean) {
         destroyTimer()
-        if (isFinishing) {
+        /*if (isFinishing) {
             sInstance = null
-        }
+        }*/
         view = null
     }
 
@@ -216,7 +183,7 @@ class QuizPresenter : QuizContract.Presenter, StateChangeListener {
         this.view = view
     }
 
-    companion object {
+    /*companion object {
 
         @Volatile
         private var sInstance: QuizPresenter? = null
@@ -226,5 +193,5 @@ class QuizPresenter : QuizContract.Presenter, StateChangeListener {
                 sInstance ?: QuizPresenter().also { sInstance = it }
             }
         }
-    }
+    }*/
 }

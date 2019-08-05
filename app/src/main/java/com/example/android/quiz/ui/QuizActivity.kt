@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.quiz.R
+import com.example.android.quiz.di.QuizApplication
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
 import com.example.android.quiz.utils.*
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 
 class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
 
-    private lateinit var presenter : QuizPresenter
+    lateinit var presenter : QuizPresenter
 
     private var name: String? = null
 
@@ -31,7 +32,8 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        presenter = QuizPresenter.getInstance()
+        presenter = (application as QuizApplication).component.getPresenter()
+
         presenter.subscribeView(this)
 
         //hide action bar

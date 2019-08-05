@@ -1,11 +1,19 @@
 package com.example.android.quiz
 
-import android.content.Context
+import android.content.SharedPreferences
+import android.content.res.Resources
 import com.example.android.quiz.model.Category
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
+import com.example.android.quiz.utils.BEST_SCORE_CIN
+import com.example.android.quiz.utils.BEST_SCORE_LIT
+import com.example.android.quiz.utils.BEST_SCORE_SCI
+import javax.inject.Inject
 
-class QuizRepository(private val context: Context){
+class QuizRepository @Inject constructor(){
+
+    @Inject lateinit var res : Resources
+    @Inject lateinit var bestResults: SharedPreferences
 
     fun getQuestionsForCategory(category : Category): ArrayList<Question?>{
         val correctAnswers = when(category){
@@ -24,7 +32,6 @@ class QuizRepository(private val context: Context){
     //Extract the question, hints and options from array.xml
     private fun extractTypedArray(arrayId: Int, correctAnswers : ArrayList<Option>): ArrayList<Question?> {
         val list = ArrayList<Question?>()
-        val res = context.resources
         val typedArray = res.obtainTypedArray(arrayId)
         val length = typedArray.length()
         for (i in 0 until length) {
@@ -40,7 +47,23 @@ class QuizRepository(private val context: Context){
     private val cinemaCorrectAnswers : ArrayList<Option> = arrayListOf(Option.A, Option.D, Option.B, Option.A, Option.C)
     private val scienceCorrectAnswers: ArrayList<Option> = arrayListOf(Option.A, Option.A, Option.C, Option.D, Option.B)
 
-    companion object {
+    fun saveResultsToPrefs(category: Category, score: Int){
+        when (category) {
+            Category.LITERATURE -> saveToSharedPrefs(BEST_SCORE_LIT, score)
+            Category.CINEMA -> saveToSharedPrefs(BEST_SCORE_CIN, score)
+            Category.SCIENCE -> saveToSharedPrefs(BEST_SCORE_SCI, score)
+        }
+    }
+
+    private fun saveToSharedPrefs(key: String, score: Int) {
+        if (score > bestResults.getInt(key, 0)) {
+            val editor = bestResults.edit()
+            editor.putInt(key, score)
+            editor.apply()
+        }
+    }
+
+    /*companion object {
 
         @Volatile
         private var sInstance: QuizRepository? = null
@@ -50,6 +73,6 @@ class QuizRepository(private val context: Context){
                 sInstance ?: QuizRepository(context).also { sInstance = it }
             }
         }
-    }
+    }*/
 }
 

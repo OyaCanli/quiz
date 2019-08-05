@@ -3,6 +3,7 @@
     package="com.example.android.quiz">
 
     <application
+        android:name=".di.QuizApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,9 +21,6 @@
         </activity>
 
         <activity android:name=".ui.QuizActivity" />
-        <activity android:name=".ui.FeedbackActivity"
-            android:label="FEEDBACK"
-            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
