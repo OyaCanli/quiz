@@ -1,24 +1,24 @@
 package com.example.android.quiz.di
 
-
+import android.app.Application
 import android.content.SharedPreferences
 import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-//Taken from Google Samples
-
 @Module
-class AndroidModule(private val application: QuizApplication) {
+class AppModule(private val app: Application) {
 
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideSharedPreferences(): SharedPreferences {
-        return application.getSharedPreferences("MyPref", 0)
+        return app.getSharedPreferences("MyPref", 0)
     }
 
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideResources(): Resources {
-        return application.resources
+        return app.resources
     }
 }

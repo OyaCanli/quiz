@@ -2,6 +2,7 @@ package com.example.android.quiz
 
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.util.Log
 import com.example.android.quiz.model.Category
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
@@ -9,11 +10,14 @@ import com.example.android.quiz.utils.BEST_SCORE_CIN
 import com.example.android.quiz.utils.BEST_SCORE_LIT
 import com.example.android.quiz.utils.BEST_SCORE_SCI
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class QuizRepository @Inject constructor(){
+@Singleton
+class QuizRepository @Inject constructor(val res : Resources, val bestResults: SharedPreferences) {
 
-    @Inject lateinit var res : Resources
-    @Inject lateinit var bestResults: SharedPreferences
+    init {
+        Log.d("Repository", "initialized")
+    }
 
     fun getQuestionsForCategory(category : Category): ArrayList<Question?>{
         val correctAnswers = when(category){

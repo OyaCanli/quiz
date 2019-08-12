@@ -16,15 +16,18 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.quiz.R
+import com.example.android.quiz.di.DaggerQuizComponent
 import com.example.android.quiz.di.QuizApplication
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
 import com.example.android.quiz.utils.*
 import kotlinx.android.synthetic.main.activity_quiz.*
+import javax.inject.Inject
 
-class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
+class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener {
 
-    lateinit var presenter : QuizPresenter
+    @Inject
+    lateinit var presenter: QuizContract.QuizPresenter
 
     private var name: String? = null
 
@@ -32,7 +35,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        presenter = (application as QuizApplication).component.getPresenter()
+        initDagger()
 
         presenter.subscribeView(this)
 
@@ -62,6 +65,15 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         presenter.onStateChanged()
     }
 
+    private fun initDagger() {
+        val appComponent = (application as QuizApplication).component
+        val quizComponent = DaggerQuizComponent.builder()
+                .appComponent(appComponent)
+                .build()
+
+        quizComponent.inject(this)
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.showHint -> presenter.onHintClicked()
@@ -88,9 +100,9 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         findViewById<TextView>(R.id.hint).visibility = View.VISIBLE
     }
 
-    override fun hideTwoOptions(optionsToErase : ArrayList<Option>) {
+    override fun hideTwoOptions(optionsToErase: ArrayList<Option>) {
         //Two of the options will become invisible
-        for(option in optionsToErase){
+        for (option in optionsToErase) {
             findViewById<RadioButton>(option.buttonId).visibility = View.INVISIBLE
         }
     }
@@ -99,9 +111,9 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showAlertWithMessage(@StringRes messageRes: Int, parameter : Any?) {
-        val message = if(parameter == null) getString(messageRes)
-                            else getString(messageRes, parameter)
+    override fun showAlertWithMessage(@StringRes messageRes: Int, parameter: Any?) {
+        val message = if (parameter == null) getString(messageRes)
+        else getString(messageRes, parameter)
 
         val builder = AlertDialog.Builder(this@QuizActivity, R.style.Theme_AppCompat_DayNight_Dialog)
         builder.setMessage(message)
@@ -167,7 +179,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.View, OnClickListener {
         }
     }
 
-    override fun populateTheQuestion(currentQuestion : Question?) {
+    override fun populateTheQuestion(currentQuestion: Question?) {
         question.text = currentQuestion?.question
         hint.text = currentQuestion?.hint
         optionA.text = currentQuestion?.option1

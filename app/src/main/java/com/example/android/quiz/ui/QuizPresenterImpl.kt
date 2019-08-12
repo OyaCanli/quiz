@@ -11,9 +11,13 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContract.Presenter, StateChangeListener {
+class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : QuizContract.QuizPresenter, StateChangeListener {
 
-    var view: QuizContract.View? = null
+    init {
+        Log.d("presenter", "initialized")
+    }
+
+    var view: QuizContract.QuizView? = null
 
     private var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
 
@@ -29,7 +33,7 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
 
     var questionNumber: Int = 0
 
-    var currentQuestion: Question? = null
+    override var currentQuestion: Question? = null
         get() = questions[questionNumber]
         private set
 
@@ -39,7 +43,7 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
     private var timer: CountDownTimer? = null
     private var hintCounter: Int = 0
     private var halfLifelineCounter: Int = 0
-    var checkedButtonId: Int = -1
+    override var checkedButtonId: Int = -1
 
     override fun setCategory(@StringRes category: Int?) {
         this.category = when (category) {
@@ -102,7 +106,7 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
         destroyTimer()
     }
 
-    private fun answerIsCorrect(checkedButtonId: Int) =
+    fun answerIsCorrect(checkedButtonId: Int) =
             checkedButtonId == currentQuestion?.correctOption?.buttonId
 
     override fun onNextClicked() {
@@ -122,7 +126,7 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
         (quizState as ActiveQuestion).hintIsVisible = true
     }
 
-    fun startTimer() {
+    override fun startTimer() {
         //Todo: Create a lifecycle aware timer?
         timer?.run {
             destroyTimer()
@@ -154,7 +158,7 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
             is SubmittedQuestion -> {
                 if ((quizState as SubmittedQuestion).answerIsWrong) {
                     view?.showWrongSelection()
-                    Log.d("QuizPresenter", "answer is wrong")
+                    Log.d("QuizPresenterImpl", "answer is wrong")
                 }
                 view?.setToAnsweredQuestionState()
                 view?.showCorrectOption(currentQuestion!!.correctOption)
@@ -179,18 +183,18 @@ class QuizPresenter @Inject constructor(val repo : QuizRepository) : QuizContrac
         view = null
     }
 
-    override fun subscribeView(view: QuizContract.View?) {
+    override fun subscribeView(view: QuizContract.QuizView?) {
         this.view = view
     }
 
     /*companion object {
 
         @Volatile
-        private var sInstance: QuizPresenter? = null
+        private var sInstance: QuizPresenterImpl? = null
 
-        fun getInstance(): QuizPresenter {
-            return sInstance ?: synchronized(QuizPresenter::class.java) {
-                sInstance ?: QuizPresenter().also { sInstance = it }
+        fun getInstance(): QuizPresenterImpl {
+            return sInstance ?: synchronized(QuizPresenterImpl::class.java) {
+                sInstance ?: QuizPresenterImpl().also { sInstance = it }
             }
         }
     }*/
