@@ -202,6 +202,11 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goBackToCategories()
+    }
+
     public override fun onDestroy() {
         Timber.d("onDestroy called")
         presenter.onDestroy(isFinishing)

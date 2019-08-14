@@ -3,8 +3,8 @@ package com.example.android.quiz.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StringRes
-import com.example.android.quiz.QuizRepository
 import com.example.android.quiz.R
+import com.example.android.quiz.data.QuizRepository
 import com.example.android.quiz.model.*
 import com.example.android.quiz.utils.*
 import javax.inject.Inject
@@ -26,12 +26,12 @@ class QuizPresenterImpl @Inject constructor(
 
     private var questions: ArrayList<Question> = ArrayList()
     private var questionNumber: Int = 0
-    lateinit var currentQuestion: Question
+    private val currentQuestion: Question
+        get() = questions[questionNumber]
 
     override fun initializePresenter(@StringRes category: Int?) {
         setCategory(category)
         getQuestions()
-        currentQuestion = questions[questionNumber]
         view?.populateTheQuestion(currentQuestion)
     }
 
