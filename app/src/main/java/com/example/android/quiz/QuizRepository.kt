@@ -19,7 +19,7 @@ class QuizRepository @Inject constructor(val res : Resources, val bestResults: S
         Timber.d( "Repository initialized")
     }
 
-    fun getQuestionsForCategory(category : Category): ArrayList<Question?>{
+    fun getQuestionsForCategory(category : Category): ArrayList<Question>{
         val correctAnswers = when(category){
             Category.LITERATURE -> literatureCorrectAnswers
             Category.CINEMA -> cinemaCorrectAnswers
@@ -34,8 +34,8 @@ class QuizRepository @Inject constructor(val res : Resources, val bestResults: S
     }
 
     //Extract the question, hints and options from array.xml
-    private fun extractTypedArray(arrayId: Int, correctAnswers : ArrayList<Option>): ArrayList<Question?> {
-        val list = ArrayList<Question?>()
+    private fun extractTypedArray(arrayId: Int, correctAnswers : ArrayList<Option>): ArrayList<Question> {
+        val list = ArrayList<Question>()
         val typedArray = res.obtainTypedArray(arrayId)
         val length = typedArray.length()
         for (i in 0 until length) {
@@ -66,17 +66,5 @@ class QuizRepository @Inject constructor(val res : Resources, val bestResults: S
             editor.apply()
         }
     }
-
-    /*companion object {
-
-        @Volatile
-        private var sInstance: QuizRepository? = null
-
-        fun getInstance(context: Context): QuizRepository {
-            return sInstance ?: synchronized(QuizRepository::class.java) {
-                sInstance ?: QuizRepository(context).also { sInstance = it }
-            }
-        }
-    }*/
 }
 

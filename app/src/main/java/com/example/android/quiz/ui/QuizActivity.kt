@@ -6,13 +6,13 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,6 +23,7 @@ import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
 import com.example.android.quiz.utils.*
 import kotlinx.android.synthetic.main.activity_quiz.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener {
@@ -40,16 +41,16 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
 
         presenter.subscribeView(this)
 
-        //hide action bar
-        supportActionBar?.hide()
-
         //Retrieve the intent extra
         val bundle = intent.extras
         name = bundle?.getString(NAME)
-        presenter.setCategory(bundle?.getInt(CATEGORY))
+        val category = bundle?.getInt(CATEGORY)
 
-        //Get questions for the chosen category
-        presenter.getQuestions()
+        presenter.initializePresenter(category)
+
+        if(savedInstanceState != null ){
+            presenter.restorePresenterState(savedInstanceState)
+        }
 
         //set click listeners on these buttons
         showHint.setOnClickListener(this)
@@ -60,14 +61,14 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
 
         //todo: Set the background theme according to the category chosen
 
-        //Set the first question
-        populateTheQuestion(presenter.currentQuestion)
-
-        presenter.currentTime.observe(this, Observer { time ->
+        presenter.timer.secondsLeft.observe(this, Observer { time ->
             updateTime(time)
         })
+    }
 
-        presenter.onStateChanged()
+    override fun onSaveInstanceState(emptyBundle : Bundle) {
+        val filledBundle = presenter.writeToBundle(emptyBundle)
+        super.onSaveInstanceState(filledBundle)
     }
 
     private fun initDagger() {
@@ -82,9 +83,9 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
     override fun onClick(v: View) {
         when (v.id) {
             R.id.showHint -> presenter.onHintClicked()
-            R.id.half -> presenter.halfTheOptions()
+            R.id.half -> presenter.onHalfClicked()
             R.id.categories -> goBackToCategories()
-            R.id.submit -> presenter.submit(options.checkedRadioButtonId)
+            R.id.submit -> presenter.onSubmitClicked(options.checkedRadioButtonId)
             R.id.next -> presenter.onNextClicked()
         }
     }
@@ -93,8 +94,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         val builder = AlertDialog.Builder(this@QuizActivity, R.style.Theme_AppCompat_DayNight_Dialog)
         builder.setMessage(R.string.exitwarning)
         builder.setPositiveButton(R.string.quit) { _, _ ->
-            val categoriesIntent = Intent(this@QuizActivity, WelcomeActivity::class.java)
-            startActivity(categoriesIntent)
+            openCategoriesActivity()
         }
         builder.setNegativeButton(R.string.cancel) { _, _ -> }
         builder.create()
@@ -123,10 +123,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         val builder = AlertDialog.Builder(this@QuizActivity, R.style.Theme_AppCompat_DayNight_Dialog)
         builder.setMessage(message)
         builder.setPositiveButton(R.string.newgame) { _, _ ->
-            finish()
-            val categoriesIntent = Intent(this@QuizActivity, WelcomeActivity::class.java)
-            // Start the new activity
-            startActivity(categoriesIntent)
+            openCategoriesActivity()
         }
         builder.setNegativeButton(R.string.quit) { _, _ ->
             val goToHome = Intent(Intent.ACTION_MAIN)
@@ -137,9 +134,15 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         builder.show()
     }
 
-    override fun showWrongSelection() {
-        val wrongOption = findViewById<RadioButton>(presenter.checkedButtonId)
-        Log.d("QuizActivity", "checked button id : ${presenter.checkedButtonId}")
+    private fun openCategoriesActivity() {
+        finish()
+        val categoriesIntent = Intent(this@QuizActivity, WelcomeActivity::class.java)
+        // Start the new activity
+        startActivity(categoriesIntent)
+    }
+
+    override fun showWrongSelection(@IdRes checkedButtonId : Int) {
+        val wrongOption = findViewById<RadioButton>(checkedButtonId)
         wrongOption?.background = resources.getDrawable(R.drawable.false_selection_background)
     }
 
@@ -200,6 +203,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
     }
 
     public override fun onDestroy() {
+        Timber.d("onDestroy called")
         presenter.onDestroy(isFinishing)
         super.onDestroy()
     }

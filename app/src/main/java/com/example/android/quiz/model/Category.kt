@@ -14,4 +14,5 @@ enum class Category(@StringRes val categoryName: Int,
     CINEMA(R.string.cinema, R.color.cinema),
 
     SCIENCE(R.string.science, R.color.science)
+
 }

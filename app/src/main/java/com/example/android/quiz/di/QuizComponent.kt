@@ -11,7 +11,7 @@ import javax.inject.Scope
 annotation class QuizScreenScope
 
 @QuizScreenScope
-@Component(modules = [PresenterModule::class],
+@Component(modules = [PresenterModule::class, JokerModule::class],
         dependencies = [AppComponent::class])
 interface QuizComponent {
     fun inject(quizActivity : QuizActivity)

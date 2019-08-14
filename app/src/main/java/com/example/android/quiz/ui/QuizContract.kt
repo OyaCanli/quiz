@@ -1,11 +1,11 @@
 package com.example.android.quiz.ui
 
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.lifecycle.LiveData
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
-import com.example.android.quiz.model.StateChangeListener
+import com.example.android.quiz.model.Timer
 
 interface QuizContract {
 
@@ -14,7 +14,7 @@ interface QuizContract {
         fun hideTwoOptions(optionsToErase: ArrayList<Option>)
         fun showHint()
         fun showCorrectOption(correctOption: Option)
-        fun showWrongSelection()
+        fun showWrongSelection(@IdRes checkedButtonId : Int)
         fun showAlertWithMessage(@StringRes messageRes: Int, parameter : Any? = null)
         fun updateTime(currentTime : Int)
         fun setToAnsweredQuestionState()
@@ -22,17 +22,18 @@ interface QuizContract {
         fun populateTheQuestion(currentQuestion : Question?)
     }
 
-    interface QuizPresenter : StateChangeListener {
-        val currentQuestion : Question?
-        var currentTime : LiveData<Int>
-        val checkedButtonId: Int
+    interface QuizPresenter {
+        val timer : Timer
+        fun initializePresenter(@StringRes category: Int?)
         fun subscribeView(view: QuizView?)
         fun setCategory(@StringRes category: Int?)
         fun getQuestions()
-        fun halfTheOptions()
+        fun onHalfClicked()
         fun onHintClicked()
-        fun submit(@IdRes checkedButtonId : Int)
+        fun onSubmitClicked(@IdRes checkedButtonId : Int)
         fun onNextClicked()
         fun onDestroy(isFinishing : Boolean)
+        fun writeToBundle(outState: Bundle): Bundle
+        fun restorePresenterState(savedInstanceState : Bundle)
     }
 }
