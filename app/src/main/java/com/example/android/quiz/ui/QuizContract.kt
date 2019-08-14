@@ -2,6 +2,7 @@ package com.example.android.quiz.ui
 
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.lifecycle.LiveData
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
 import com.example.android.quiz.model.StateChangeListener
@@ -15,7 +16,7 @@ interface QuizContract {
         fun showCorrectOption(correctOption: Option)
         fun showWrongSelection()
         fun showAlertWithMessage(@StringRes messageRes: Int, parameter : Any? = null)
-        fun updateTime(currentTime : Long)
+        fun updateTime(currentTime : Int)
         fun setToAnsweredQuestionState()
         fun setToActiveQuestionState()
         fun populateTheQuestion(currentQuestion : Question?)
@@ -23,6 +24,7 @@ interface QuizContract {
 
     interface QuizPresenter : StateChangeListener {
         val currentQuestion : Question?
+        var currentTime : LiveData<Int>
         val checkedButtonId: Int
         fun subscribeView(view: QuizView?)
         fun setCategory(@StringRes category: Int?)
@@ -31,7 +33,6 @@ interface QuizContract {
         fun onHintClicked()
         fun submit(@IdRes checkedButtonId : Int)
         fun onNextClicked()
-        fun startTimer()
         fun onDestroy(isFinishing : Boolean)
     }
 }

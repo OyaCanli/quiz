@@ -1,6 +1,7 @@
 package com.example.android.quiz.di
 
 import android.app.Application
+import timber.log.Timber
 
 
 class QuizApplication: Application() {
@@ -12,6 +13,8 @@ class QuizApplication: Application() {
         component = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()
+
+        Timber.plant(Timber.DebugTree())
 
     }
 

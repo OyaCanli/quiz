@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.android.quiz.R
 import com.example.android.quiz.di.DaggerQuizComponent
 import com.example.android.quiz.di.QuizApplication
@@ -61,6 +62,10 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
 
         //Set the first question
         populateTheQuestion(presenter.currentQuestion)
+
+        presenter.currentTime.observe(this, Observer { time ->
+            updateTime(time)
+        })
 
         presenter.onStateChanged()
     }
@@ -165,7 +170,6 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         hint.visibility = View.INVISIBLE
         time.setTextColor(Color.WHITE)
         options.clearCheck()
-        presenter.startTimer()
     }
 
     override fun setToAnsweredQuestionState() {
@@ -188,7 +192,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         optionD.text = currentQuestion?.option4
     }
 
-    override fun updateTime(currentTime: Long) {
+    override fun updateTime(currentTime: Int) {
         time.text = currentTime.toString()
         if (currentTime <= 5) {
             time.setTextColor(Color.RED)

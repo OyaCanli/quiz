@@ -1,12 +1,12 @@
 package com.example.android.quiz.ui
 
-import android.os.CountDownTimer
 import android.util.Log
 import androidx.annotation.StringRes
+import androidx.lifecycle.LiveData
 import com.example.android.quiz.QuizRepository
 import com.example.android.quiz.R
 import com.example.android.quiz.model.*
-import com.example.android.quiz.utils.TIME_LIMIT
+import com.example.android.quiz.model.Timer
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -39,8 +39,8 @@ class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : 
 
     var score: Int = 0
 
-    var currentMillis: Long = TIME_LIMIT
-    private var timer: CountDownTimer? = null
+    private var timer: Timer = Timer.getInstance()
+    override var currentTime: LiveData<Int> = timer.secondsLeft
     private var hintCounter: Int = 0
     private var halfLifelineCounter: Int = 0
     override var checkedButtonId: Int = -1
@@ -102,8 +102,7 @@ class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : 
             saveResults()
             view?.showAlertWithMessage(R.string.your_score, score)
         }
-        //cancel timer
-        destroyTimer()
+        timer.pause()
     }
 
     fun answerIsCorrect(checkedButtonId: Int) =
@@ -111,7 +110,7 @@ class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : 
 
     override fun onNextClicked() {
         questionNumber++
-        currentMillis = TIME_LIMIT
+        timer.restart()
         quizState = ActiveQuestion(this)
         view?.populateTheQuestion(currentQuestion)
     }
@@ -124,24 +123,6 @@ class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : 
         }
         hintCounter++
         (quizState as ActiveQuestion).hintIsVisible = true
-    }
-
-    override fun startTimer() {
-        //Todo: Create a lifecycle aware timer?
-        timer?.run {
-            destroyTimer()
-        }
-        timer = object : CountDownTimer(currentMillis, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                view?.updateTime((millisUntilFinished / 1000))
-                currentMillis = millisUntilFinished
-            }
-
-            override fun onFinish() {
-                repo.saveResultsToPrefs(category, score)
-                view?.showAlertWithMessage(R.string.timeoutwarning, score)
-            }
-        }.start()
     }
 
     override fun onStateChanged() {
@@ -166,25 +147,22 @@ class QuizPresenterImpl @Inject constructor(private val repo: QuizRepository) : 
         }
     }
 
-    fun destroyTimer() {
-        timer?.cancel()
-        timer = null
-    }
-
     private fun saveResults() {
 
     }
 
     override fun onDestroy(isFinishing: Boolean) {
-        destroyTimer()
-        /*if (isFinishing) {
-            sInstance = null
-        }*/
         view = null
+        if (isFinishing) {
+            timer.destroy()
+        } else {
+            timer.pause()
+        }
     }
 
     override fun subscribeView(view: QuizContract.QuizView?) {
         this.view = view
+        timer.resume()
     }
 
     /*companion object {
