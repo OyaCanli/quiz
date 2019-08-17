@@ -1,7 +1,6 @@
 package com.example.android.quiz.ui
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,14 +11,18 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.quiz.R
+import com.example.android.quiz.data.SharedPreferencesBestResults
+import com.example.android.quiz.di.QuizApplication
 import com.example.android.quiz.utils.CATEGORY
 import com.example.android.quiz.utils.NAME
 import kotlinx.android.synthetic.main.activity_welcome.*
+import javax.inject.Inject
 
 class WelcomeActivity : AppCompatActivity() {
 
-    lateinit var prefs: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
+    @Inject
+    lateinit var prefs: SharedPreferencesBestResults
+
     private var name: String? = null
     @StringRes private var category : Int = 0
 
@@ -27,21 +30,21 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
+        (application as QuizApplication).component.inject(this)
+
         startButton.setOnClickListener { startQuiz() }
         name_entry.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(userInput: Editable?) {
                 name = userInput.toString()
-                editor = prefs.edit()
-                editor.putString(NAME, name)
-                editor.apply()
+                name?.let { prefs.putUserName(it) }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         })
-        prefs = applicationContext.getSharedPreferences("MyPref", 0)
-        name = prefs.getString(NAME, "")
+
+        name = prefs.getUserName()
         if (name?.isNotBlank()== true){
             name_entry.setText(name)
         }
@@ -65,7 +68,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun showBestRecords() {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage(QuizActivity.bestRecords())
+        builder.setMessage(prefs.getBestRecords())
                 .setTitle(getString(R.string.best_records))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.ok)) { _, _ -> }

@@ -34,6 +34,7 @@
     <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
     <string name="youadded">Şunları eklediniz:</string>
     <string name="timeoutwarning">Süre doldu. Oyun sona erdi. %1$d puan kazandiniz. Yeniden oynamak icin yeni oyun\'a basın.</string>
+    <string name="best_results">Edabiyat\'ta en iyi skorunuz: %1$d \nSinema\'da en iyi skorunuz: %2$d \nBilim\'de en iyi skorunuz: %3$d</string>
 
     <string-array name="lit_q1">
         <item>Hangisi Charles Dickens\'ın romanlarından biri değildir?</item>

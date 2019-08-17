@@ -1,6 +1,6 @@
 package com.example.android.quiz.di
 
-import com.example.android.quiz.QuizRepository
+import com.example.android.quiz.data.QuizRepository
 import com.example.android.quiz.model.HalfJoker
 import com.example.android.quiz.model.HintJoker
 import com.example.android.quiz.model.Timer

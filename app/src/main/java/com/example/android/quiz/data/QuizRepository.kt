@@ -1,19 +1,17 @@
-package com.example.android.quiz
+package com.example.android.quiz.data
 
-import android.content.SharedPreferences
+
 import android.content.res.Resources
+import com.example.android.quiz.R
 import com.example.android.quiz.model.Category
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
-import com.example.android.quiz.utils.BEST_SCORE_CIN
-import com.example.android.quiz.utils.BEST_SCORE_LIT
-import com.example.android.quiz.utils.BEST_SCORE_SCI
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class QuizRepository @Inject constructor(val res : Resources, val bestResults: SharedPreferences) {
+class QuizRepository @Inject constructor(val res : Resources, val bestResults: SharedPreferencesBestResults) {
 
     init {
         Timber.d( "Repository initialized")
@@ -47,24 +45,13 @@ class QuizRepository @Inject constructor(val res : Resources, val bestResults: S
         return list
     }
 
+    fun saveResultsToPrefs(category: Category, score: Int) {
+        bestResults.saveResults(category, score)
+    }
+
     private val literatureCorrectAnswers : ArrayList<Option> = arrayListOf(Option.D, Option.B, Option.C, Option.B, Option.A)
     private val cinemaCorrectAnswers : ArrayList<Option> = arrayListOf(Option.A, Option.D, Option.B, Option.A, Option.C)
     private val scienceCorrectAnswers: ArrayList<Option> = arrayListOf(Option.A, Option.A, Option.C, Option.D, Option.B)
 
-    fun saveResultsToPrefs(category: Category, score: Int){
-        when (category) {
-            Category.LITERATURE -> saveToSharedPrefs(BEST_SCORE_LIT, score)
-            Category.CINEMA -> saveToSharedPrefs(BEST_SCORE_CIN, score)
-            Category.SCIENCE -> saveToSharedPrefs(BEST_SCORE_SCI, score)
-        }
-    }
-
-    private fun saveToSharedPrefs(key: String, score: Int) {
-        if (score > bestResults.getInt(key, 0)) {
-            val editor = bestResults.edit()
-            editor.putInt(key, score)
-            editor.apply()
-        }
-    }
 }
 

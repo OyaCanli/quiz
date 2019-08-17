@@ -2,7 +2,6 @@ package com.example.android.quiz.ui
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -21,7 +20,8 @@ import com.example.android.quiz.di.DaggerQuizComponent
 import com.example.android.quiz.di.QuizApplication
 import com.example.android.quiz.model.Option
 import com.example.android.quiz.model.Question
-import com.example.android.quiz.utils.*
+import com.example.android.quiz.utils.CATEGORY
+import com.example.android.quiz.utils.NAME
 import kotlinx.android.synthetic.main.activity_quiz.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -211,21 +211,5 @@ class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener
         Timber.d("onDestroy called")
         presenter.onDestroy(isFinishing)
         super.onDestroy()
-    }
-
-    companion object {
-        internal var bestResults: SharedPreferences? = null
-
-        fun bestRecords(): String {
-            var listOfBestResults: String
-            if (bestResults != null) {
-                listOfBestResults = "Best record in Literature: " + bestResults!!.getInt(BEST_SCORE_LIT, 0)
-                listOfBestResults += "\nBest record in Cinema: " + bestResults!!.getInt(BEST_SCORE_CIN, 0)
-                listOfBestResults += "\nBest record in Science: " + bestResults!!.getInt(BEST_SCORE_SCI, 0)
-            } else {
-                listOfBestResults = "No results"
-            }
-            return listOfBestResults
-        }
     }
 }
