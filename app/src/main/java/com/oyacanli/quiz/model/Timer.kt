@@ -1,4 +1,4 @@
-package com.example.android.quiz.model
+package com.oyacanli.quiz.model
 
 import android.os.Handler
 import androidx.lifecycle.LiveData

@@ -1,19 +1,20 @@
-package com.example.android.quiz.ui
+package com.oyacanli.quiz.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StringRes
-import com.example.android.quiz.R
-import com.example.android.quiz.data.QuizRepository
-import com.example.android.quiz.model.*
-import com.example.android.quiz.utils.*
+import com.oyacanli.quiz.R
+import com.oyacanli.quiz.data.QuizRepositoryImpl
+import com.oyacanli.quiz.model.*
+import com.oyacanli.quiz.model.Timer
+import com.oyacanli.quiz.utils.*
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class QuizPresenterImpl @Inject constructor(
-        private val repo: QuizRepository,
-        override val timer : Timer,
-        private var halfJoker : HalfJoker,
-        private var hintJoker : HintJoker
+        private val repo: QuizRepositoryImpl,
+        override val timer : Timer
 ) : QuizContract.QuizPresenter{
 
     init {
@@ -28,6 +29,10 @@ class QuizPresenterImpl @Inject constructor(
     private var questionNumber: Int = 0
     private val currentQuestion: Question
         get() = questions[questionNumber]
+
+    private var halfJoker = Joker()
+    private var hintJoker = Joker()
+    var optionsToErase: java.util.ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
 
     override fun initializePresenter(@StringRes category: Int?) {
         setCategory(category)
@@ -51,7 +56,7 @@ class QuizPresenterImpl @Inject constructor(
     }
 
     override fun getQuestions() {
-        questions = repo.getQuestionsForCategory(category)
+        questions = repo.getQuestions(category)
     }
 
     override fun onHalfClicked() {
@@ -62,7 +67,19 @@ class QuizPresenterImpl @Inject constructor(
         }
         halfJoker.isActive = true
         halfJoker.isUsed = true
-        view?.hideTwoOptions(halfJoker.getRandomOptionsToErase(currentQuestion))
+        view?.hideTwoOptions(getRandomOptionsToErase(currentQuestion))
+    }
+
+    private fun getRandomOptionsToErase(question: Question): ArrayList<Option> {
+        //Index of the correct option
+        val indexOfCorrectOption = question.correctOption.ordinal
+        //Remove the correct option from the list, because we don't want to erase the correct option
+        optionsToErase.removeAt(indexOfCorrectOption)
+        //Pick a random item from the rest of the list and keep that option as well
+        val randomIndex = Random().nextInt(optionsToErase.size)
+        optionsToErase.removeAt(randomIndex)
+
+        return optionsToErase
     }
 
     override fun onSubmitClicked(checkedButtonId: Int) {
@@ -86,7 +103,7 @@ class QuizPresenterImpl @Inject constructor(
         view?.showCorrectOption(currentQuestion.correctOption)
 
         if (questionNumber == 4) { //if it was the last question
-            repo.saveResultsToPrefs(category, score)
+            repo.saveResults(category, score)
             view?.showAlertWithMessage(R.string.your_score, score)
         }
         timer.stop()
@@ -134,6 +151,7 @@ class QuizPresenterImpl @Inject constructor(
         outState.putBoolean(IS_SUBMITTED, isSubmitted)
         outState.putParcelable(HALF_STATE, halfJoker)
         outState.putParcelable(HINT_STATE, hintJoker)
+        outState.putEnumList(OPTIONS_TO_ERASE, optionsToErase)
         return outState
     }
 
@@ -149,16 +167,19 @@ class QuizPresenterImpl @Inject constructor(
             view?.showHint()
         }
         if(halfJoker.isActive){
-            view?.hideTwoOptions(halfJoker.optionsToErase)
+            view?.hideTwoOptions(optionsToErase)
         }
     }
 
     private fun readFromBundle(savedInstanceState: Bundle) {
-        score = savedInstanceState.getInt(SCORE)
-        questionNumber = savedInstanceState.getInt(QUESTION_NO)
-        timer.setCurrentTime(savedInstanceState.getInt(CURRENT_TIME))
-        halfJoker = savedInstanceState.getParcelable(HALF_STATE)
-        hintJoker = savedInstanceState.getParcelable(HINT_STATE)
-        isSubmitted = savedInstanceState.getBoolean(IS_SUBMITTED)
+        with(savedInstanceState){
+            score = getInt(SCORE)
+            questionNumber = getInt(QUESTION_NO)
+            timer.setCurrentTime(getInt(CURRENT_TIME))
+            halfJoker = getParcelable(HALF_STATE) ?: Joker()
+            hintJoker = getParcelable(HINT_STATE) ?: Joker()
+            isSubmitted = getBoolean(IS_SUBMITTED)
+            optionsToErase = getEnumList(OPTIONS_TO_ERASE)
+        }
     }
 }

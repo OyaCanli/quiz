@@ -1,4 +1,4 @@
-package com.example.android.quiz.model
+package com.oyacanli.quiz.model
 
 data class Question(val question: String,
                     val hint: String,

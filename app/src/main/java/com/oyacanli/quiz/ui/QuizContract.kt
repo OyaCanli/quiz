@@ -1,11 +1,11 @@
-package com.example.android.quiz.ui
+package com.oyacanli.quiz.ui
 
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import com.example.android.quiz.model.Option
-import com.example.android.quiz.model.Question
-import com.example.android.quiz.model.Timer
+import com.oyacanli.quiz.model.Option
+import com.oyacanli.quiz.model.Question
+import com.oyacanli.quiz.model.Timer
 
 interface QuizContract {
 

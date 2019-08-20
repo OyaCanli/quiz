@@ -1,9 +1,9 @@
-package com.example.android.quiz.model
+package com.oyacanli.quiz.model
 
 
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
-import com.example.android.quiz.R
+import com.oyacanli.quiz.R
 
 
 enum class Category(@StringRes val categoryName: Int,

@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:scrollbarStyle="insideInset"
     android:scrollbars="vertical"
-    tools:context="com.example.android.quiz.ui.QuizActivity">
+    tools:context="com.oyacanli.quiz.ui.QuizActivity">
 
     <RelativeLayout
         android:id="@+id/root"

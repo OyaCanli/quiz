@@ -1,6 +1,6 @@
-package com.example.android.quiz.di
+package com.oyacanli.quiz.di
 
-import com.example.android.quiz.ui.QuizActivity
+import com.oyacanli.quiz.ui.QuizActivity
 import dagger.Component
 import javax.inject.Scope
 
@@ -11,7 +11,7 @@ import javax.inject.Scope
 annotation class QuizScreenScope
 
 @QuizScreenScope
-@Component(modules = [PresenterModule::class, JokerModule::class],
+@Component(modules = [PresenterModule::class],
         dependencies = [AppComponent::class])
 interface QuizComponent {
     fun inject(quizActivity : QuizActivity)

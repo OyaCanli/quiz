@@ -1,4 +1,4 @@
-package com.example.android.quiz.utils
+package com.oyacanli.quiz.utils
 
 
 const val NAME = "name"
@@ -16,4 +16,5 @@ const val QUESTION_NO = "questionNumber"
 const val HALF_STATE = "halfState"
 const val HINT_STATE = "hintState"
 const val IS_SUBMITTED = "isSubmitted"
+const val OPTIONS_TO_ERASE = "optionsToErase"
 

@@ -1,4 +1,4 @@
-package com.example.android.quiz.di
+package com.oyacanli.quiz.di
 
 import android.app.Application
 import timber.log.Timber

@@ -1,4 +1,4 @@
-package com.example.android.quiz.ui
+package com.oyacanli.quiz.ui
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -15,13 +15,13 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.android.quiz.R
-import com.example.android.quiz.di.DaggerQuizComponent
-import com.example.android.quiz.di.QuizApplication
-import com.example.android.quiz.model.Option
-import com.example.android.quiz.model.Question
-import com.example.android.quiz.utils.CATEGORY
-import com.example.android.quiz.utils.NAME
+import com.oyacanli.quiz.R
+import com.oyacanli.quiz.di.DaggerQuizComponent
+import com.oyacanli.quiz.di.QuizApplication
+import com.oyacanli.quiz.model.Option
+import com.oyacanli.quiz.model.Question
+import com.oyacanli.quiz.utils.CATEGORY
+import com.oyacanli.quiz.utils.NAME
 import kotlinx.android.synthetic.main.activity_quiz.*
 import timber.log.Timber
 import javax.inject.Inject
