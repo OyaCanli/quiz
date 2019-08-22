@@ -1,27 +1,22 @@
 package com.oyacanli.quiz.ui
 
 import android.os.Bundle
-import android.util.Log
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.oyacanli.quiz.R
-import com.oyacanli.quiz.data.QuizRepositoryImpl
+import com.oyacanli.quiz.common.*
+import com.oyacanli.quiz.data.IQuizRepository
 import com.oyacanli.quiz.model.*
-import com.oyacanli.quiz.model.Timer
-import com.oyacanli.quiz.utils.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class QuizPresenterImpl @Inject constructor(
-        private val repo: QuizRepositoryImpl,
-        override val timer : Timer
-) : QuizContract.QuizPresenter{
+class QuizPresenter @Inject constructor(
+        private val repo: IQuizRepository,
+        override val timer: ITimer
+) : QuizContract.IQuizPresenter {
 
-    init {
-        Log.d("presenter", "initialized")
-    }
-
-    var view: QuizContract.QuizView? = null
+    var view: QuizContract.IQuizView? = null
 
     private lateinit var category: Category
 
@@ -30,21 +25,28 @@ class QuizPresenterImpl @Inject constructor(
     private val currentQuestion: Question
         get() = questions[questionNumber]
 
-    private var halfJoker = Joker()
-    private var hintJoker = Joker()
+    var halfJoker = Joker()
+        private set
+
+    var hintJoker = Joker()
+        private set
+
     var optionsToErase: java.util.ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
+        private set
+
+    var score: Int = 0
+        private set
+
+    private var checkedButtonId: Int = -1
+
+    var isSubmitted = false
+        private set
 
     override fun initializePresenter(@StringRes category: Int?) {
         setCategory(category)
         getQuestions()
         view?.populateTheQuestion(currentQuestion)
     }
-
-    var score: Int = 0
-
-    var checkedButtonId: Int = -1
-
-    var isSubmitted = false
 
     override fun setCategory(@StringRes category: Int?) {
         this.category = when (category) {
@@ -67,10 +69,11 @@ class QuizPresenterImpl @Inject constructor(
         }
         halfJoker.isActive = true
         halfJoker.isUsed = true
-        view?.hideTwoOptions(getRandomOptionsToErase(currentQuestion))
+        halfTheOptions(currentQuestion)
+        view?.hideTwoOptions(optionsToErase)
     }
 
-    private fun getRandomOptionsToErase(question: Question): ArrayList<Option> {
+    fun halfTheOptions(question: Question){
         //Index of the correct option
         val indexOfCorrectOption = question.correctOption.ordinal
         //Remove the correct option from the list, because we don't want to erase the correct option
@@ -78,8 +81,6 @@ class QuizPresenterImpl @Inject constructor(
         //Pick a random item from the rest of the list and keep that option as well
         val randomIndex = Random().nextInt(optionsToErase.size)
         optionsToErase.removeAt(randomIndex)
-
-        return optionsToErase
     }
 
     override fun onSubmitClicked(checkedButtonId: Int) {
@@ -110,7 +111,7 @@ class QuizPresenterImpl @Inject constructor(
 
     }
 
-    fun answerIsCorrect(checkedButtonId: Int) =
+    fun answerIsCorrect(@IdRes checkedButtonId: Int) =
             checkedButtonId == currentQuestion.correctOption.buttonId
 
     override fun onNextClicked() {
@@ -139,7 +140,7 @@ class QuizPresenterImpl @Inject constructor(
         timer.stop()
     }
 
-    override fun subscribeView(view: QuizContract.QuizView?) {
+    override fun subscribeView(view: QuizContract.IQuizView?) {
         this.view = view
         timer.resume()
     }
@@ -158,21 +159,21 @@ class QuizPresenterImpl @Inject constructor(
     override fun restorePresenterState(savedInstanceState: Bundle) {
         readFromBundle(savedInstanceState)
         view?.populateTheQuestion(currentQuestion)
-        if(isSubmitted){
+        if (isSubmitted) {
             view?.setToAnsweredQuestionState()
             timer.stop()
             view?.showCorrectOption(currentQuestion.correctOption)
         }
-        if(hintJoker.isActive){
+        if (hintJoker.isActive) {
             view?.showHint()
         }
-        if(halfJoker.isActive){
+        if (halfJoker.isActive) {
             view?.hideTwoOptions(optionsToErase)
         }
     }
 
     private fun readFromBundle(savedInstanceState: Bundle) {
-        with(savedInstanceState){
+        with(savedInstanceState) {
             score = getInt(SCORE)
             questionNumber = getInt(QUESTION_NO)
             timer.setCurrentTime(getInt(CURRENT_TIME))

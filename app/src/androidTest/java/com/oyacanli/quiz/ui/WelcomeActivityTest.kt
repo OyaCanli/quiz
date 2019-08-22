@@ -1,4 +1,4 @@
-package com.example.android.quiz.ui
+package com.oyacanli.quiz.ui
 
 
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.android.quiz.R
+import com.oyacanli.quiz.R
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -34,7 +34,7 @@ class WelcomeActivityTest{
         }
     }
 
-    //Click on start without clicking anything
+    //Click on start button without choosing anything
     @Test
     fun clickStartWithNoChoice_returnsAWarning() {
         //Click on start button

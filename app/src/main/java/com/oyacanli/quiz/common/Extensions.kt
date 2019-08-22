@@ -1,4 +1,4 @@
-package com.oyacanli.quiz.utils
+package com.oyacanli.quiz.common
 
 import android.os.Bundle
 

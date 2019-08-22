@@ -3,13 +3,13 @@ package com.oyacanli.quiz.ui
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import com.oyacanli.quiz.model.ITimer
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
-import com.oyacanli.quiz.model.Timer
 
 interface QuizContract {
 
-    interface QuizView {
+    interface IQuizView {
         fun showToast(@StringRes message: Int)
         fun hideTwoOptions(optionsToErase: ArrayList<Option>)
         fun showHint()
@@ -22,10 +22,10 @@ interface QuizContract {
         fun populateTheQuestion(currentQuestion : Question?)
     }
 
-    interface QuizPresenter {
-        val timer : Timer
+    interface IQuizPresenter {
+        val timer : ITimer
         fun initializePresenter(@StringRes category: Int?)
-        fun subscribeView(view: QuizView?)
+        fun subscribeView(view: IQuizView?)
         fun setCategory(@StringRes category: Int?)
         fun getQuestions()
         fun onHalfClicked()

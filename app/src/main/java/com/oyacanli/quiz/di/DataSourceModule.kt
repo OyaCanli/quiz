@@ -1,17 +1,17 @@
 package com.oyacanli.quiz.di
 
-import com.oyacanli.quiz.data.QuestionDataSource
-import com.oyacanli.quiz.data.QuestionDataSourceImpl
-import com.oyacanli.quiz.data.UserRecordsDataSource
-import com.oyacanli.quiz.data.UserRecordsDataSourceImpl
+import com.oyacanli.quiz.data.*
 import dagger.Binds
 import dagger.Module
 
 @Module
 interface DataSourceModule {
     @Binds
-    fun bindUserRecordsDataSource(dataSourceImpl : UserRecordsDataSourceImpl) : UserRecordsDataSource
+    fun bindUserRecordsDataSource(dataSourceImpl : UserRecordsDataSource) : IUserRecordsDataSource
 
     @Binds
-    fun bindQuestionDataSource(dataSourceImpl : QuestionDataSourceImpl) : QuestionDataSource
+    fun bindQuestionDataSource(dataSourceImpl : QuestionDataSource) : IQuestionDataSource
+
+    @Binds
+    fun bindQuizRepository(repoImpl : QuizRepository) : IQuizRepository
 }

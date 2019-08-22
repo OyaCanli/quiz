@@ -1,4 +1,4 @@
-package com.example.android.quiz.ui
+package com.oyacanli.quiz.ui
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -10,9 +10,9 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.android.quiz.R
-import com.example.android.quiz.utils.CATEGORY
-import com.example.android.quiz.utils.NAME
+import com.oyacanli.quiz.R
+import com.oyacanli.quiz.common.CATEGORY
+import com.oyacanli.quiz.common.NAME
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -16,20 +16,20 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.oyacanli.quiz.R
+import com.oyacanli.quiz.common.CATEGORY
+import com.oyacanli.quiz.common.NAME
 import com.oyacanli.quiz.di.DaggerQuizComponent
 import com.oyacanli.quiz.di.QuizApplication
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
-import com.oyacanli.quiz.utils.CATEGORY
-import com.oyacanli.quiz.utils.NAME
 import kotlinx.android.synthetic.main.activity_quiz.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class QuizActivity : AppCompatActivity(), QuizContract.QuizView, OnClickListener {
+class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListener {
 
     @Inject
-    lateinit var presenter: QuizContract.QuizPresenter
+    lateinit var presenter: QuizContract.IQuizPresenter
 
     private var name: String? = null
 

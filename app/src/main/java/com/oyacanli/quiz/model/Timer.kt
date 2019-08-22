@@ -7,15 +7,15 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class Timer @Inject constructor(){
+class Timer @Inject constructor() : ITimer {
 
     private var handler = Handler()
     private lateinit var runnable: Runnable
 
     private var _secondsLeft: MutableLiveData<Int> = MutableLiveData()
-    var secondsLeft : LiveData<Int> = _secondsLeft
+    override var secondsLeft : LiveData<Int> = _secondsLeft
 
-    fun setCurrentTime(seconds : Int){
+    override fun setCurrentTime(seconds : Int){
         _secondsLeft.value = seconds
     }
 
@@ -24,24 +24,23 @@ class Timer @Inject constructor(){
         Timber.d("Timer is initialized")
     }
 
-    fun restart() {
+    override fun restart() {
         _secondsLeft.value = 60
         runTimer()
         Timber.d("Timer started")
-
     }
 
-    fun stop() {
+    override fun stop() {
         handler.removeCallbacks(runnable)
         Timber.d("Timer paused")
     }
 
-    fun resume(){
+    override fun resume(){
         runTimer()
         Timber.d("Timer resumed")
     }
 
-    private fun runTimer() {
+    override fun runTimer() {
         //Start running a count-down timer
         runnable = Runnable {
             _secondsLeft.value = _secondsLeft.value?.minus(1)

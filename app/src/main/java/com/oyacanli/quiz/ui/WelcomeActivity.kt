@@ -11,17 +11,17 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.oyacanli.quiz.R
-import com.oyacanli.quiz.data.UserRecordsDataSource
+import com.oyacanli.quiz.common.CATEGORY
+import com.oyacanli.quiz.common.NAME
+import com.oyacanli.quiz.data.IUserRecordsDataSource
 import com.oyacanli.quiz.di.QuizApplication
-import com.oyacanli.quiz.utils.CATEGORY
-import com.oyacanli.quiz.utils.NAME
 import kotlinx.android.synthetic.main.activity_welcome.*
 import javax.inject.Inject
 
 class WelcomeActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var prefs: UserRecordsDataSource
+    lateinit var prefs: IUserRecordsDataSource
 
     private var name: String? = null
     @StringRes private var category : Int = 0

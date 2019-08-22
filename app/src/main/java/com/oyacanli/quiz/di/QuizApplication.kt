@@ -4,7 +4,7 @@ import android.app.Application
 import timber.log.Timber
 
 
-class QuizApplication: Application() {
+open class QuizApplication: Application() {
 
     lateinit var component : AppComponent
 

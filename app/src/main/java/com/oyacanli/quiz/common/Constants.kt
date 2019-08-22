@@ -1,4 +1,4 @@
-package com.oyacanli.quiz.utils
+package com.oyacanli.quiz.common
 
 
 const val NAME = "name"
