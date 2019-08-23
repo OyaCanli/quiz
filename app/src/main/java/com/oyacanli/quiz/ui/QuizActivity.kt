@@ -61,8 +61,20 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
         //todo: Set the background theme according to the category chosen
 
+        presenter.isSubmitted.observe(this, Observer { submitted ->
+            if(submitted) {
+                setToSubmittedQuestionState()
+            } else {
+                setToActiveQuestionState()
+            }
+        })
+
         presenter.timer.secondsLeft.observe(this, Observer { time ->
             updateTime(time)
+            if(time == 0){
+                showToast(R.string.timeoutwarning)
+                presenter.setIsSubmitted(true)
+            }
         })
     }
 
@@ -175,7 +187,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         options.clearCheck()
     }
 
-    override fun setToAnsweredQuestionState() {
+    override fun setToSubmittedQuestionState() {
         //Disable all buttons except Next button
         next.isEnabled = true
         showHint.isEnabled = false

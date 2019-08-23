@@ -55,6 +55,8 @@ dependencies {
 
     testImplementation 'org.mockito:mockito-core:2.22.0'
 
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
@@ -63,6 +65,11 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation "androidx.lifecycle:lifecycle-livedata:2.0.0"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
 
 }
 repositories {

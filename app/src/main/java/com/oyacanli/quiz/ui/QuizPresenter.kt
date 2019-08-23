@@ -3,6 +3,8 @@ package com.oyacanli.quiz.ui
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.oyacanli.quiz.R
 import com.oyacanli.quiz.common.*
 import com.oyacanli.quiz.data.IQuizRepository
@@ -39,13 +41,19 @@ class QuizPresenter @Inject constructor(
 
     private var checkedButtonId: Int = -1
 
-    var isSubmitted = false
-        private set
+    private val _isSubmitted : MutableLiveData<Boolean> = MutableLiveData()
+    override val isSubmitted : LiveData<Boolean>
+        get() = _isSubmitted
+
+    override fun setIsSubmitted(submitted: Boolean){
+        _isSubmitted.value = submitted
+    }
 
     override fun initializePresenter(@StringRes category: Int?) {
         setCategory(category)
         getQuestions()
         view?.populateTheQuestion(currentQuestion)
+        _isSubmitted.value = false
     }
 
     override fun setCategory(@StringRes category: Int?) {
@@ -90,8 +98,7 @@ class QuizPresenter @Inject constructor(
             return
         }
 
-        isSubmitted = true
-        view?.setToAnsweredQuestionState()
+        _isSubmitted.value = true
 
         this.checkedButtonId = checkedButtonId
 
@@ -116,12 +123,11 @@ class QuizPresenter @Inject constructor(
 
     override fun onNextClicked() {
         questionNumber++
-        isSubmitted = false
+        _isSubmitted.value = false
         halfJoker.isActive = false
         hintJoker.isActive = false
         timer.restart()
         view?.populateTheQuestion(currentQuestion)
-        view?.setToActiveQuestionState()
     }
 
     override fun onHintClicked() {
@@ -149,7 +155,7 @@ class QuizPresenter @Inject constructor(
         outState.putInt(SCORE, score)
         outState.putInt(QUESTION_NO, questionNumber)
         outState.putInt(CURRENT_TIME, timer.secondsLeft.value ?: 60)
-        outState.putBoolean(IS_SUBMITTED, isSubmitted)
+        outState.putBoolean(IS_SUBMITTED, _isSubmitted.value!!)
         outState.putParcelable(HALF_STATE, halfJoker)
         outState.putParcelable(HINT_STATE, hintJoker)
         outState.putEnumList(OPTIONS_TO_ERASE, optionsToErase)
@@ -159,8 +165,7 @@ class QuizPresenter @Inject constructor(
     override fun restorePresenterState(savedInstanceState: Bundle) {
         readFromBundle(savedInstanceState)
         view?.populateTheQuestion(currentQuestion)
-        if (isSubmitted) {
-            view?.setToAnsweredQuestionState()
+        if (_isSubmitted.value == true) {
             timer.stop()
             view?.showCorrectOption(currentQuestion.correctOption)
         }
@@ -179,7 +184,7 @@ class QuizPresenter @Inject constructor(
             timer.setCurrentTime(getInt(CURRENT_TIME))
             halfJoker = getParcelable(HALF_STATE) ?: Joker()
             hintJoker = getParcelable(HINT_STATE) ?: Joker()
-            isSubmitted = getBoolean(IS_SUBMITTED)
+            _isSubmitted.value = getBoolean(IS_SUBMITTED)
             optionsToErase = getEnumList(OPTIONS_TO_ERASE)
         }
     }

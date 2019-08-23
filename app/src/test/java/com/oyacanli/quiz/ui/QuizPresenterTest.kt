@@ -1,5 +1,6 @@
 package com.oyacanli.quiz.ui
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.oyacanli.quiz.data.IQuizRepository
 import com.oyacanli.quiz.model.Category
 import com.oyacanli.quiz.model.ITimer
@@ -8,6 +9,7 @@ import com.oyacanli.quiz.model.Question
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -20,8 +22,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class QuizPresenterTest {
 
     private lateinit var SUT : QuizPresenter
+
     @Mock lateinit var repo: IQuizRepository
     @Mock lateinit var timer : ITimer
+
+    //This is for making livedatas inside the presenter testable
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -104,13 +111,13 @@ class QuizPresenterTest {
     @Test
     fun onSubmitClicked_withNoOptionsChosen_submissionNotRealized() {
         SUT.onSubmitClicked(-1)
-        assertFalse(SUT.isSubmitted)
+        assertEquals(false, SUT.isSubmitted.value)
     }
 
     @Test
     fun onSubmitClicked_withValidOption_submissionRealized() {
         SUT.onSubmitClicked(Option.A.buttonId)
-        assert(SUT.isSubmitted)
+        assertEquals(true, SUT.isSubmitted.value)
     }
 
     @Test

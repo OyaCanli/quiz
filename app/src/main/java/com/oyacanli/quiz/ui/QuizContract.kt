@@ -3,6 +3,7 @@ package com.oyacanli.quiz.ui
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.lifecycle.LiveData
 import com.oyacanli.quiz.model.ITimer
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
@@ -17,13 +18,15 @@ interface QuizContract {
         fun showWrongSelection(@IdRes checkedButtonId : Int)
         fun showAlertWithMessage(@StringRes messageRes: Int, parameter : Any? = null)
         fun updateTime(currentTime : Int)
-        fun setToAnsweredQuestionState()
+        fun setToSubmittedQuestionState()
         fun setToActiveQuestionState()
         fun populateTheQuestion(currentQuestion : Question?)
     }
 
     interface IQuizPresenter {
         val timer : ITimer
+        val isSubmitted : LiveData<Boolean>
+
         fun initializePresenter(@StringRes category: Int?)
         fun subscribeView(view: IQuizView?)
         fun setCategory(@StringRes category: Int?)
@@ -35,5 +38,6 @@ interface QuizContract {
         fun onDestroy()
         fun writeToBundle(outState: Bundle): Bundle
         fun restorePresenterState(savedInstanceState : Bundle)
+        fun setIsSubmitted(submitted: Boolean)
     }
 }
