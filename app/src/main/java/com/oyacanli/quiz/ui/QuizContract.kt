@@ -32,7 +32,7 @@ interface QuizContract {
         fun onHintClicked()
         fun onSubmitClicked(@IdRes checkedButtonId : Int)
         fun onNextClicked()
-        fun onDestroy(isFinishing : Boolean)
+        fun onDestroy()
         fun writeToBundle(outState: Bundle): Bundle
         fun restorePresenterState(savedInstanceState : Bundle)
     }

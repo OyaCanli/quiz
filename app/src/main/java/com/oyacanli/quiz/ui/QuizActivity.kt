@@ -209,7 +209,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
     public override fun onDestroy() {
         Timber.d("onDestroy called")
-        presenter.onDestroy(isFinishing)
+        presenter.onDestroy()
         super.onDestroy()
     }
 }

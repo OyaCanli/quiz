@@ -18,10 +18,10 @@ class QuizPresenter @Inject constructor(
 
     var view: QuizContract.IQuizView? = null
 
-    private lateinit var category: Category
+    lateinit var category: Category
 
     private var questions: ArrayList<Question> = ArrayList()
-    private var questionNumber: Int = 0
+    var questionNumber: Int = 0
     private val currentQuestion: Question
         get() = questions[questionNumber]
 
@@ -135,7 +135,7 @@ class QuizPresenter @Inject constructor(
         hintJoker.isUsed = true
     }
 
-    override fun onDestroy(isFinishing: Boolean) {
+    override fun onDestroy() {
         view = null
         timer.stop()
     }
