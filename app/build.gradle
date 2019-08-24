@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
 
     testImplementation 'org.mockito:mockito-core:2.22.0'
-
+    //For testing livedata
     testImplementation 'androidx.arch.core:core-testing:2.0.1'
 
     //Dagger
@@ -66,8 +66,10 @@ dependencies {
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:2.0.0"
 
+    //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
 

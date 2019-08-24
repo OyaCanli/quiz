@@ -1,110 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbarStyle="insideInset"
-    android:scrollbars="vertical"
-    tools:context="com.oyacanli.quiz.ui.QuizActivity">
+    android:background="#042a49">
 
-    <RelativeLayout
-        android:id="@+id/root"
-        android:layout_width="match_parent"
+    <View
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/literature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/literature"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/showHint"
+        style="@style/jokerButtonStyle"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/ripple"
+        android:text="?"
+        app:layout_constraintBottom_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@id/topBar" />
+
+    <Button
+        android:id="@+id/half"
+        style="@style/jokerButtonStyle"
+        android:background="@drawable/ripple"
+        android:text="@string/half"
+        app:layout_constraintBottom_toBottomOf="@+id/topBar"
+        app:layout_constraintStart_toEndOf="@id/showHint"
+        app:layout_constraintTop_toTopOf="@id/topBar" />
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/timerStyle"
+        android:background="@drawable/timer_background"
+        android:layout_marginEnd="@dimen/margin_standard"
+        app:layout_constraintBottom_toBottomOf="@+id/topBar"
+        app:layout_constraintTop_toTopOf="@+id/topBar"
+        app:layout_constraintEnd_toStartOf="@+id/score"
+        tools:text="@string/_60" />
+
+    <TextView
+        android:id="@+id/score"
+        style="@style/scoreStyle"
+        android:layout_marginEnd="@dimen/margin_standard"
+        android:background="@drawable/score_background"
+        app:layout_constraintBottom_toBottomOf="@+id/topBar"
+        app:layout_constraintEnd_toEndOf="@+id/topBar"
+        app:layout_constraintTop_toTopOf="@+id/topBar"
+        android:text="0" />
+
+    <ImageButton
+        android:id="@+id/categories"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/literature">
+        android:layout_marginStart="@dimen/margin_standard"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
+        app:layout_constraintStart_toStartOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@+id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/submit"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:srcCompat="@drawable/ic_home" />
 
-        <View
-            style="@style/frame_style"/>
+    <ImageButton
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_standard"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
+        app:layout_constraintStart_toEndOf="@id/categories"
+        app:layout_constraintTop_toTopOf="@+id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/next"
+        app:srcCompat="@drawable/ic_checkmark" />
 
-        <Button
-            android:id="@+id/showHint"
-            android:text="?"
-            android:background="@drawable/ripple_literature"
-            android:layout_alignTop="@id/time"
-            style="@style/lifelinebuttonStyleLand"/>
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_standard"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintEnd_toEndOf="@id/bottomBar"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        app:layout_constraintStart_toEndOf="@id/submit"
+        app:srcCompat="@drawable/ic_next" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_marginTop="@dimen/inner_margin"
-            android:text="@string/_60"
-            style="@style/timerStyle"/>
+    <TextView
+        android:id="@+id/question"
+        style="@style/questionStyle"
+        android:fontFamily="@font/source_sans_pro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        tools:text="Which of the followings is not a novel by Charles Dickens?" />
 
-        <Button
-            android:id="@+id/half"
-            android:background="@drawable/ripple_literature"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/time"
-            android:text="@string/half"
-            style="@style/lifelinebuttonStyleLand"/>
+    <RadioGroup
+        android:id="@+id/options"
+        android:orientation="vertical"
+        style="@style/radiogroupStyle_land"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/question"
+        app:layout_constraintTop_toTopOf="@+id/question" >
 
-        <TextView
-            android:id="@+id/question"
-            android:layout_below="@id/time"
-            style="@style/questionStyle"
-            tools:text="Which of the followings is not a novel by Charles Dickens?" />
+        <RadioButton
+            android:id="@+id/optionA"
+            tools:text="A Tale Of Two Cities"
+            style="@style/radiobuttonStyle_land" />
 
-        <RadioGroup
-            android:id="@+id/options"
-            android:orientation="vertical"
-            android:layout_toEndOf="@id/question"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/question"
-            style="@style/radiogroupStyle">
+        <RadioButton
+            android:id="@+id/optionB"
+            tools:text="Oliver Twist"
+            style="@style/radiobuttonStyle_land" />
 
-            <RadioButton
-                android:id="@+id/optionA"
-                tools:text="A Tale Of Two Cities"
-                style="@style/radiobuttonStyle"
-                android:layout_marginTop="0dp"/>
+        <RadioButton
+            android:id="@+id/optionC"
+            tools:text="Bleak House"
+            style="@style/radiobuttonStyle_land"/>
 
-            <RadioButton
-                android:id="@+id/optionB"
-                tools:text="Oliver Twist"
-                style="@style/radiobuttonStyle" />
+        <RadioButton
+            android:id="@+id/optionD"
+            tools:text="A Farewell To Arms"
+            style="@style/radiobuttonStyle_land"/>
 
-            <RadioButton
-                android:id="@+id/optionC"
-                tools:text="Bleak House"
-                style="@style/radiobuttonStyle"/>
+    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/optionD"
-                tools:text="A Farewell To Arms"
-                style="@style/radiobuttonStyle"/>
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/hint"
-            android:layout_width="wrap_content"
-            android:layout_below="@id/question"
-            tools:text="The answer is a novel written by Ernest Hemingway, set during the Italian Campaign of WWII"
-            android:visibility="invisible"
-            style="@style/hintStyle"/>
-
-        <Button
-            android:id="@+id/categories"
-            android:text="@string/categoriesbutton"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/categorybutton_land_marginLeft"
-            style="@style/buttonStyle"/>
-
-        <Button
-            android:id="@+id/submit"
-            android:text="@string/submit"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            style="@style/buttonStyle"/>
-
-        <Button
-            android:id="@+id/next"
-            android:text="@string/next"
-            android:layout_marginEnd="@dimen/inner_margin"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:enabled="false"
-            style="@style/buttonStyle"/>
-
-    </RelativeLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/hint"
+        style="@style/hintStylePortrait"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,6 @@
     <string name="start">Start</string>
     <string name="giveusfeedback">You\'d prefer other categories? Give us feedback!</string>
     <string name="feedback">Feedback</string>
-
     <string name="_60" translatable="false">60</string>
     <string name="half" translatable="false">1/2</string>
     <string name="categoriesbutton">categ.</string>
@@ -27,7 +26,7 @@
     <string name="quitarrow">quit>></string>
     <string name="exitwarning">Are you sure you want to quit the game?</string>
     <string name="cancel">Cancel</string>
-    <string name="timeoutwarning">Time expired. Game is over. You scored %1$d /100.</string>
+    <string name="timeoutwarning">Time expired. Click next for next question</string>
     <string name="hintwarning">You have already used hint.</string>
     <string name="halfwarning">You have already used 1/2 lifeline.</string>
     <string name="chosenothingwarning">You didn\'t chose any of the options.</string>
@@ -47,6 +46,7 @@
     <string name="ok">OK</string>
     <string name="your_score">You scored %1$d /100</string>
     <string name="best_results">Best record in Literature: %1$d \nBest record in Cinema: %2$d \nBest record in Science: %3$d</string>
+    <string name="name_hint">Name</string>
 
 
 </resources>

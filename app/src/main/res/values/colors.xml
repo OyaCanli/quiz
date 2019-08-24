@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#795548</color>
-    <color name="colorPrimaryDark">#5D4037</color>
+    <color name="colorPrimary">#34444c</color>
+    <color name="colorPrimaryDark">#263238</color>
     <color name="status_bar_main">#263238</color>
     <color name="colorAccent">#FF4081</color>
     <color name="literature">#2196F3</color>
     <color name="cinema">#9C27B0</color>
     <color name="science">#B71C1C</color>
     <color name="red">#D32F2F</color>
-    <color name="background">#FFD180</color>
+    <color name="background">#ffffff</color>
     <color name="yellow">#FFEB3B</color>
     <color name="ripplecolor">#FFF</color>
     <color name="disactif">#000</color>
+    <color name="golden">#ffbf00</color>
 </resources>
