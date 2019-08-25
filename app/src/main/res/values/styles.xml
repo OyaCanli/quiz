@@ -1,21 +1,46 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/literature</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="category_menu_color">@color/science</item>
+        <item name="category_background_color">@color/science_dark</item>
     </style>
 
-    <style name="AppTheme.Literature">
+    <style name="Literature" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="category_menu_color">@color/literature</item>
+        <item name="category_background_color">@color/literature_dark</item>
+        <item name="colorAccent">@color/literature</item>
+    </style>
 
+    <style name="Cinema" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="category_menu_color">@color/cinema</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="category_background_color">@color/cinema_dark</item>
+        <item name="colorAccent">@color/cinema</item>
+    </style>
+
+    <style name="Science" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="category_menu_color">@color/science</item>
+        <item name="category_background_color">@color/science_dark</item>
+        <item name="colorAccent">@color/science</item>
     </style>
 
     <style name="timerStyle">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/timer_textSize</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_height">@dimen/timer_height</item>
         <item name="android:layout_width">@dimen/timer_width</item>
@@ -23,14 +48,14 @@
 
     <style name="scoreStyle">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">@dimen/timer_textSize</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_height">@dimen/timer_height</item>
         <item name="android:layout_width">@dimen/timer_width</item>
     </style>
 
     <style name="questionStyle">
-        <item name="android:textSize">@dimen/question_textSize</item>
+        <item name="android:textSize">@dimen/textsize_small</item>
         <item name="android:background">@drawable/questionbackground</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:layout_height">wrap_content</item>
@@ -45,7 +70,7 @@
     <style name="radiogroupStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
         <item name="android:layout_marginStart">@dimen/margin_standard</item>
         <item name="android:layout_marginEnd">@dimen/margin_standard</item>
     </style>
@@ -82,40 +107,12 @@
         <item name="android:textSize">@dimen/radiobutton_textSize</item>
     </style>
 
-    <style name="lifelinebuttonStyle">
-        <item name="android:layout_height">@dimen/lifelinebutton_height</item>
-        <item name="android:layout_width">@dimen/lifelinebutton_width</item>
-        <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
-        <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:gravity">center</item>
-    </style>
-
     <style name="jokerButtonStyle">
         <item name="android:layout_height">@dimen/lifelinebutton_height</item>
         <item name="android:layout_width">@dimen/lifelinebutton_width</item>
         <item name="android:layout_margin">@dimen/margin_standard</item>
-        <item name="android:textSize">@dimen/lifelinebutton_textSize</item>
+        <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:gravity">center</item>
-    </style>
-
-
-    <style name="lifelinebuttonStyleLand">
-        <item name="android:layout_height">@dimen/lifelinebutton_height</item>
-        <item name="android:layout_width">@dimen/lifelinebutton_width</item>
-        <item name="android:layout_marginRight">@dimen/margin_standard</item>
-        <item name="android:layout_marginLeft">@dimen/lifelinebutton_marginLeft</item>
-        <item name="android:textSize">@dimen/lifelinebutton_textSize_land</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="buttonStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/margin_standard</item>
-        <item name="android:background">@drawable/buttonborders</item>
-        <item name="android:textSize">@dimen/button_textSize</item>
     </style>
 
     <style name="hintStyle">
@@ -124,15 +121,9 @@
         <item name="android:layout_marginLeft">@dimen/margin_large</item>
         <item name="android:layout_marginBottom">@dimen/margin_standard</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:paddingLeft">@dimen/padding_standart</item>
-        <item name="android:paddingRight">@dimen/padding_standart</item>
+        <item name="android:paddingLeft">@dimen/padding_small</item>
+        <item name="android:paddingRight">@dimen/padding_small</item>
         <item name="android:textSize">@dimen/hint_textSize</item>
-    </style>
-
-    <style name="checkbox_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/margin_large</item>
     </style>
 
     <style name="category_buttons">
@@ -140,9 +131,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/margin_standard</item>
         <item name="android:layout_marginRight">@dimen/margin_standard</item>
-        <item name="android:padding">@dimen/padding_standart</item>
+        <item name="android:padding">@dimen/padding_small</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:buttonTint">@android:color/white</item>
     </style>
 
     <style name="edittext_style">
@@ -157,8 +150,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:paddingStart">@dimen/padding_small</item>
+        <item name="android:paddingEnd">@dimen/padding_small</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="plain_text_style">

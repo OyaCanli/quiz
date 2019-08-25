@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
+import com.oyacanli.quiz.model.Category
 import com.oyacanli.quiz.model.ITimer
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
@@ -27,9 +28,8 @@ interface QuizContract {
         val timer : ITimer
         val isSubmitted : LiveData<Boolean>
 
-        fun initializePresenter(@StringRes category: Int?)
+        fun initializePresenter(category: Category)
         fun subscribeView(view: IQuizView?)
-        fun setCategory(@StringRes category: Int?)
         fun getQuestions()
         fun onHalfClicked()
         fun onHintClicked()

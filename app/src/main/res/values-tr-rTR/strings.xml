@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HANGI</string>
-    <string name="feedback">Geribildirim</string>
     <string name="quitarrow">çıkış</string>
     <string name="quit">çıkış</string>
     <string name="cancel">iptal</string>
     <string name="categoriesbutton">Kateg.</string>
     <string name="cinema">Sinema</string>
-    <string name="history">Tarih</string>
     <string name="literature">Edebiyat</string>
     <string name="science">Bilim</string>
-    <string name="submit">gönder</string>
     <string name="start">Başla</string>
     <string name="next"> >> </string>
-    <string name="politics">Politika</string>
-    <string name="sports">Spor</string>
-    <string name="send">gönder</string>
-    <string name="music">Müzik</string>
-    <string name="geography">Coğrafya</string>
-    <string name="other">Diğer:</string>
     <string name="newgame">Yeni Oyun</string>
-    <string name="giveusfeedback">Başka bir kategoriyi mi tercih ederdiniz? Aşağıdaki sayfadan bize isteklerinizi bildirebilirsiniz.</string>
-    <string name="thanksforfeedback">Zaman ayırdığınız için teşekkür ederiz. HANGİSİ yeni bir uygulama ve sizlerin geribildirimleri bizim için çok önemli. HANGİSİ\'ne eklememizi istediğiniz kategorileri tıklayın ve gönder tuşuna basın.</string>
     <string name="exitwarning">Kategorilere geri dönmek başladığınız oyunu bitirecektir. Dönmek istediğinizden emin misin?</string>
     <string name="halfwarning">Yarı yarıya jokerini zaten kullandınız.</string>
     <string name="hintwarning">Ipucunu zaten kullandınız.</string>
@@ -29,12 +18,9 @@
     <string name="congratulations">Tebrikler %1$s! 100 puana ulaşarak oyunu başarıyla tamamladınız. Başka bir kategoride yarışmak isterseniz Yeni Oyun\'a tıklayın.</string>
     <string name="correcttoastmessage">Doğru! Sonraki soruya geçmek için >>\'a tıklayın.</string>
     <string name="wronganswer">Yanlış cevap! Oyun sona erdi. %1$d puan kazandınız.</string>
-    <string name="feedbackquestion">HANGISI\'nde görmek istediğiniz kategoriler:</string>
-    <string name="thanks">Geribildiriminiz için teşekkür ederiz.</string>
-    <string name="mailsubject">HANGİSİ uygulaması için geribildirim</string>
-    <string name="youadded">Şunları eklediniz:</string>
     <string name="timeoutwarning">Süre doldu. Oyun sona erdi. %1$d puan kazandiniz. Yeniden oynamak icin yeni oyun\'a basın.</string>
     <string name="best_results">Edabiyat\'ta en iyi skorunuz: %1$d \nSinema\'da en iyi skorunuz: %2$d \nBilim\'de en iyi skorunuz: %3$d</string>
+    <string name="name_hint">Isim</string>
 
     <string-array name="lit_q1">
         <item>Hangisi Charles Dickens\'ın romanlarından biri değildir?</item>

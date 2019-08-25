@@ -2,7 +2,6 @@ package com.oyacanli.quiz.ui
 
 import android.os.Bundle
 import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.oyacanli.quiz.R
@@ -49,20 +48,11 @@ class QuizPresenter @Inject constructor(
         _isSubmitted.value = submitted
     }
 
-    override fun initializePresenter(@StringRes category: Int?) {
-        setCategory(category)
+    override fun initializePresenter(category: Category) {
+        this.category = category
         getQuestions()
         view?.populateTheQuestion(currentQuestion)
         _isSubmitted.value = false
-    }
-
-    override fun setCategory(@StringRes category: Int?) {
-        this.category = when (category) {
-            R.string.literature -> Category.LITERATURE
-            R.string.cinema -> Category.CINEMA
-            R.string.science -> Category.SCIENCE
-            else -> throw IllegalStateException()
-        }
     }
 
     override fun getQuestions() {

@@ -1,18 +1,18 @@
 package com.oyacanli.quiz.model
 
 
-import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import com.oyacanli.quiz.R
 
 
 enum class Category(@StringRes val categoryName: Int,
-                    @ColorRes val categoryColor: Int) {
+                    @StyleRes val theme: Int) {
 
-    LITERATURE(R.string.literature, R.color.literature),
+    LITERATURE(R.string.literature, R.style.Literature),
 
-    CINEMA(R.string.cinema, R.color.cinema),
+    CINEMA(R.string.cinema, R.style.Cinema),
 
-    SCIENCE(R.string.science, R.color.science)
+    SCIENCE(R.string.science, R.style.Science)
 
 }

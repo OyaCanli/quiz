@@ -3,16 +3,16 @@
 <resources>
     <dimen name="margin_standard">32dp</dimen>
     <dimen name="margin_large">64dp</dimen>
-    <dimen name="padding_standart">12dp</dimen>
+    <dimen name="padding_small">12dp</dimen>
 
     <dimen name="timer_width">100dp</dimen>
     <dimen name="timer_height">60dp</dimen>
-    <dimen name="timer_textSize">32sp</dimen>
+    <dimen name="textsize_medium">32sp</dimen>
 
     <dimen name="question_width">500dp</dimen>
     <dimen name="question_padding">16dp</dimen>
     <dimen name="question_margin_vertical">32dp</dimen>
-    <dimen name="question_textSize">28sp</dimen>
+    <dimen name="textsize_small">28sp</dimen>
 
     <dimen name="radiobutton_padding">10dp</dimen>
     <dimen name="radiobutton_marginLeft">10dp</dimen>
@@ -22,7 +22,7 @@
     <dimen name="lifelinebutton_width">80dp</dimen>
     <dimen name="lifelinebutton_height">80dp</dimen>
     <dimen name="lifelinebutton_marginLeft">80dp</dimen>
-    <dimen name="lifelinebutton_textSize">32sp</dimen>
+    <dimen name="textsize_large">32sp</dimen>
 
     <dimen name="hint_textSize">24sp</dimen>
     <dimen name="hint_land_width">500dp</dimen>

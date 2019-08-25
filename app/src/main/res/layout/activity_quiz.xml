@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#042a49">
+    android:background="?category_background_color">
 
     <View
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="4dp"
-        android:background="@color/literature"
+        android:background="?category_menu_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@color/literature"
+        android:background="?category_menu_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

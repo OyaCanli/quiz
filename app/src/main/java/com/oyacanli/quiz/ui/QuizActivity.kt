@@ -20,6 +20,7 @@ import com.oyacanli.quiz.common.CATEGORY
 import com.oyacanli.quiz.common.NAME
 import com.oyacanli.quiz.di.DaggerQuizComponent
 import com.oyacanli.quiz.di.QuizApplication
+import com.oyacanli.quiz.model.Category
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
 import kotlinx.android.synthetic.main.activity_quiz.*
@@ -33,19 +34,21 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
     private var name: String? = null
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        //Retrieve the intent extra
+        val bundle = intent.extras
+        name = bundle?.getString(NAME)
+        val category = getCategoryForString(bundle?.getInt(CATEGORY))
+
+        setTheme(category.theme)
+        Timber.d("theme: ${category.name}")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
         initDagger()
 
         presenter.subscribeView(this)
-
-        //Retrieve the intent extra
-        val bundle = intent.extras
-        name = bundle?.getString(NAME)
-        val category = bundle?.getInt(CATEGORY)
-
         presenter.initializePresenter(category)
 
         if(savedInstanceState != null ){
@@ -58,8 +61,6 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         categories.setOnClickListener(this)
         submit.setOnClickListener(this)
         next.setOnClickListener(this)
-
-        //todo: Set the background theme according to the category chosen
 
         presenter.isSubmitted.observe(this, Observer { submitted ->
             if(submitted) {
@@ -76,6 +77,15 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
                 presenter.setIsSubmitted(true)
             }
         })
+    }
+
+    private fun getCategoryForString(@StringRes categoryName: Int?) : Category {
+        return when (categoryName) {
+            R.string.literature -> Category.LITERATURE
+            R.string.cinema -> Category.CINEMA
+            R.string.science -> Category.SCIENCE
+            else -> throw IllegalStateException()
+        }
     }
 
     override fun onSaveInstanceState(emptyBundle : Bundle) {

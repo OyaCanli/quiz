@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="category_menu_color" format="reference"/>
+    <attr name="category_background_color" format="reference"/>
+</resources>

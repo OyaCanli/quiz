@@ -1,26 +1,15 @@
 <resources>
     <string name="app_name">WHICH</string>
 
-    <string name="info">WHICH is a general knowledge quiz. There are three categories available for the moment: Literature, Cinema and Science. There are five questions in each category. There is a hint and a lifeline 1/2 for eliminating two of the options. However you can use each of them only once. You have 60 seconds for each question. A wrong answer or the expiration of time ends the quiz. You receive 20 points for each right answer.</string>
+    <string name="info">WHICH is a general knowledge quiz. There are three categories available for the moment: Literature, Cinema and Science. There are five questions in each category. There is a hint and a lifeline 1/2 for eliminating two of the options. However you can use each of them only once. You have 60 seconds for each question. If time expires you cannot answer that question. You receive 20 points for each right answer.</string>
     <string name="literature">Literature</string>
     <string name="cinema">Cinema</string>
     <string name="science">Science</string>
     <string name="start">Start</string>
-    <string name="giveusfeedback">You\'d prefer other categories? Give us feedback!</string>
-    <string name="feedback">Feedback</string>
     <string name="_60" translatable="false">60</string>
     <string name="half" translatable="false">1/2</string>
     <string name="categoriesbutton">categ.</string>
-    <string name="submit">submit</string>
     <string name="next">next</string>
-    <string name="thanksforfeedback">Thanks for taking your time to send us feedback. WHICH is a new application and we really appreciate your feedback. Chose the categories you would like us to add in WHICH and click send.</string>
-    <string name="geography">Geography</string>
-    <string name="politics">Politics</string>
-    <string name="music">Music</string>
-    <string name="sports">Sports</string>
-    <string name="history">History</string>
-    <string name="other">Other:</string>
-    <string name="send">send</string>
     <string name="new_game"><![CDATA[new game>>]]></string>
     <string name="quit">quit</string>
     <string name="quitarrow">quit>></string>
@@ -34,11 +23,6 @@
     <string name="correcttoastmessage">Correct! Click next to continue.</string>
     <string name="wronganswer">The answer was wrong. You scored %1$d /100.</string>
     <string name="newgame">New Game</string>
-    <string name="feedbackquestion">The categories you would like to see in WHICH are:</string>
-    <string name="youadded">You added:</string>
-    <string name="thanks">Thanks for your feedback!</string>
-    <string name="mailaddress" translatable="false">oyacan@gmail.com</string>
-    <string name="mailsubject">Feedback for WHICH app</string>
     <string name="rules">Rules</string>
     <string name="welcome">Welcome to <b>WHICH!</b> Chose a category from below and click start. Don\'t forget to enter your name! Check the menu for rules.</string>
     <string name="categories">Categories</string>
