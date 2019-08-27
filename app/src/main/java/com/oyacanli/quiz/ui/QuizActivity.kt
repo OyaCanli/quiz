@@ -46,10 +46,9 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        initDagger()
+        initDagger(category)
 
-        presenter.subscribeView(this)
-        presenter.initializePresenter(category)
+        presenter.subscribe(this)
 
         if(savedInstanceState != null ){
             presenter.restorePresenterState(savedInstanceState)
@@ -62,7 +61,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         submit.setOnClickListener(this)
         next.setOnClickListener(this)
 
-        presenter.isSubmitted.observe(this, Observer { submitted ->
+        presenter.isSubmitted().observe(this, Observer { submitted ->
             if(submitted) {
                 setToSubmittedQuestionState()
             } else {
@@ -93,13 +92,13 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         super.onSaveInstanceState(filledBundle)
     }
 
-    private fun initDagger() {
+    private fun initDagger(category: Category) {
         val appComponent = (application as QuizApplication).component
-        val quizComponent = DaggerQuizComponent.builder()
+        DaggerQuizComponent.builder()
                 .appComponent(appComponent)
+                .category(category)
                 .build()
-
-        quizComponent.inject(this)
+                .inject(this)
     }
 
     override fun onClick(v: View) {
@@ -231,7 +230,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
     public override fun onDestroy() {
         Timber.d("onDestroy called")
-        presenter.onDestroy()
+        presenter.unsubscribe()
         super.onDestroy()
     }
 }

@@ -10,18 +10,16 @@ import com.oyacanli.quiz.data.IQuizRepository
 import com.oyacanli.quiz.model.*
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class QuizPresenter @Inject constructor(
         private val repo: IQuizRepository,
-        override val timer: ITimer
+        override val timer: ITimer,
+        val category : Category
 ) : QuizContract.IQuizPresenter {
 
     var view: QuizContract.IQuizView? = null
 
-    lateinit var category: Category
-
-    private var questions: ArrayList<Question> = ArrayList()
+    private var questions: ArrayList<Question> = repo.getQuestions(category)
     var questionNumber: Int = 0
     private val currentQuestion: Question
         get() = questions[questionNumber]
@@ -32,7 +30,7 @@ class QuizPresenter @Inject constructor(
     var hintJoker = Joker()
         private set
 
-    var optionsToErase: java.util.ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
+    var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
         private set
 
     var score: Int = 0
@@ -40,23 +38,29 @@ class QuizPresenter @Inject constructor(
 
     private var checkedButtonId: Int = -1
 
+    /*When question is submitted, some buttons should be disabled. This variable keeps
+    this data and activity observes this livedata to update ui accordingly*/
     private val _isSubmitted : MutableLiveData<Boolean> = MutableLiveData()
-    override val isSubmitted : LiveData<Boolean>
-        get() = _isSubmitted
+
+    override fun isSubmitted(): LiveData<Boolean> = _isSubmitted
 
     override fun setIsSubmitted(submitted: Boolean){
         _isSubmitted.value = submitted
     }
 
-    override fun initializePresenter(category: Category) {
-        this.category = category
-        getQuestions()
-        view?.populateTheQuestion(currentQuestion)
-        _isSubmitted.value = false
+    override fun subscribe(view: QuizContract.IQuizView) {
+        this.view = view
+        this.view?.populateTheQuestion(currentQuestion)
+        timer.resume()
     }
 
-    override fun getQuestions() {
-        questions = repo.getQuestions(category)
+    override fun unsubscribe() {
+        view = null
+        timer.stop()
+    }
+
+    init {
+        _isSubmitted.value = false
     }
 
     override fun onHalfClicked() {
@@ -129,16 +133,6 @@ class QuizPresenter @Inject constructor(
         view?.showHint()
         hintJoker.isActive = true
         hintJoker.isUsed = true
-    }
-
-    override fun onDestroy() {
-        view = null
-        timer.stop()
-    }
-
-    override fun subscribeView(view: QuizContract.IQuizView?) {
-        this.view = view
-        timer.resume()
     }
 
     override fun writeToBundle(outState: Bundle): Bundle {
