@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 ext {
     dagger_version = '2.17'
+    lifecycle_version = '2.2.0-alpha04'
 }
 
 android {
@@ -62,18 +63,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
     compileOnly 'javax.annotation:jsr250-api:1.0'
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    //LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata:2.0.0"
+    //LiveData and ViewModel
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
 
-}
-repositories {
-    mavenCentral()
 }

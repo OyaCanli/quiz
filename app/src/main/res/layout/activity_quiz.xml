@@ -9,8 +9,7 @@
     <View
         android:id="@+id/topBar"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/menu_height"
         android:background="?category_menu_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,7 +19,7 @@
     <View
         android:id="@+id/bottomBar"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/menu_height"
         android:background="?category_menu_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,11 +47,11 @@
     <TextView
         android:id="@+id/time"
         style="@style/timerStyle"
-        android:background="@drawable/timer_background"
         android:layout_marginEnd="@dimen/margin_standard"
+        android:background="@drawable/timer_background"
         app:layout_constraintBottom_toBottomOf="@+id/topBar"
-        app:layout_constraintTop_toTopOf="@+id/topBar"
         app:layout_constraintEnd_toStartOf="@+id/score"
+        app:layout_constraintTop_toTopOf="@+id/topBar"
         tools:text="@string/_60" />
 
     <TextView
@@ -60,10 +59,10 @@
         style="@style/scoreStyle"
         android:layout_marginEnd="@dimen/margin_standard"
         android:background="@drawable/score_background"
+        android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/topBar"
         app:layout_constraintEnd_toEndOf="@+id/topBar"
-        app:layout_constraintTop_toTopOf="@+id/topBar"
-        android:text="0" />
+        app:layout_constraintTop_toTopOf="@+id/topBar" />
 
     <ImageButton
         android:id="@+id/categories"
@@ -72,10 +71,10 @@
         android:layout_marginStart="@dimen/margin_standard"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
-        app:layout_constraintStart_toStartOf="@id/topBar"
-        app:layout_constraintTop_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toStartOf="@id/submit"
         app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@+id/bottomBar"
         app:srcCompat="@drawable/ic_home" />
 
     <ImageButton
@@ -85,9 +84,9 @@
         android:layout_margin="@dimen/margin_standard"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/next"
         app:layout_constraintStart_toEndOf="@id/categories"
         app:layout_constraintTop_toTopOf="@+id/bottomBar"
-        app:layout_constraintEnd_toStartOf="@id/next"
         app:srcCompat="@drawable/ic_checkmark" />
 
     <ImageButton
@@ -98,8 +97,8 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="@id/bottomBar"
-        app:layout_constraintTop_toTopOf="@id/bottomBar"
         app:layout_constraintStart_toEndOf="@id/submit"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
         app:srcCompat="@drawable/ic_next" />
 
     <TextView
@@ -111,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topBar"
         tools:text="Which of the followings is not a novel by Charles Dickens?" />
 
-    <RadioGroup
+    <com.oyacanli.quiz.ui.QuizRadioGroup
         android:id="@+id/options"
         android:orientation="vertical"
         style="@style/radiogroupStyle"
@@ -141,14 +140,16 @@
             tools:text="A Farewell To Arms"
             style="@style/radiobuttonStyle"/>
 
-    </RadioGroup>
+    </com.oyacanli.quiz.ui.QuizRadioGroup>
 
     <TextView
         android:id="@+id/hint"
-        style="@style/hintStylePortrait"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/options" />
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@id/options"
+        app:layout_constraintStart_toStartOf="@id/options"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/options" />
 </androidx.constraintlayout.widget.ConstraintLayout>

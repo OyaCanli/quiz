@@ -15,10 +15,10 @@ import com.oyacanli.quiz.common.CATEGORY
 import com.oyacanli.quiz.common.NAME
 import com.oyacanli.quiz.data.IUserRecordsDataSource
 import com.oyacanli.quiz.di.QuizApplication
-import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.activity_categories.*
 import javax.inject.Inject
 
-class WelcomeActivity : AppCompatActivity() {
+class CategoriesActivity : AppCompatActivity() {
 
     @Inject
     lateinit var prefs: IUserRecordsDataSource
@@ -28,7 +28,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        setContentView(R.layout.activity_categories)
 
         (application as QuizApplication).component.inject(this)
 

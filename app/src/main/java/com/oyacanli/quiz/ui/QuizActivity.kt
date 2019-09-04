@@ -9,7 +9,6 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
@@ -48,11 +47,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
         initDagger(category)
 
-        presenter.subscribe(this)
-
-        if(savedInstanceState != null ){
-            presenter.restorePresenterState(savedInstanceState)
-        }
+        presenter.attachView(this, lifecycle)
 
         //set click listeners on these buttons
         showHint.setOnClickListener(this)
@@ -61,19 +56,15 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         submit.setOnClickListener(this)
         next.setOnClickListener(this)
 
-        presenter.isSubmitted().observe(this, Observer { submitted ->
-            if(submitted) {
-                setToSubmittedQuestionState()
-            } else {
-                setToActiveQuestionState()
-            }
-        })
+        if(savedInstanceState != null ){
+            presenter.restorePresenterState(savedInstanceState)
+        }
 
         presenter.timer.secondsLeft.observe(this, Observer { time ->
             updateTime(time)
             if(time == 0){
                 showToast(R.string.timeoutwarning)
-                presenter.setIsSubmitted(true)
+                presenter.isSubmitted = true
             }
         })
     }
@@ -123,10 +114,12 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
     }
 
     override fun showHint() {
-        findViewById<TextView>(R.id.hint).visibility = View.VISIBLE
+        hint.visibility = View.VISIBLE
+        Timber.d("showHint is called")
     }
 
     override fun hideTwoOptions(optionsToErase: ArrayList<Option>) {
+        Timber.d("hide options is called. list size: ${optionsToErase.size}")
         //Two of the options will become invisible
         for (option in optionsToErase) {
             findViewById<RadioButton>(option.buttonId).visibility = View.INVISIBLE
@@ -157,7 +150,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
 
     private fun openCategoriesActivity() {
         finish()
-        val categoriesIntent = Intent(this@QuizActivity, WelcomeActivity::class.java)
+        val categoriesIntent = Intent(this@QuizActivity, CategoriesActivity::class.java)
         // Start the new activity
         startActivity(categoriesIntent)
     }
@@ -186,10 +179,12 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         half.isEnabled = true
         submit.isEnabled = true
         for (i in 0..3) {
-            options.getChildAt(i).visibility = View.VISIBLE
-            options.getChildAt(i).isEnabled = true
-            options.getChildAt(i).background = this.resources.getDrawable(R.drawable.selector)
-            options.getChildAt(i).clearAnimation()
+            options.getRadioButtonAt(i)?.run{
+                visibility = View.VISIBLE
+                isEnabled = true
+                background = this.resources.getDrawable(R.drawable.selector)
+                clearAnimation()
+            }
         }
         hint.visibility = View.INVISIBLE
         time.setTextColor(Color.WHITE)
@@ -203,17 +198,23 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         half.isEnabled = false
         submit.isEnabled = false
         for (i in 0..3) {
-            options.getChildAt(i).isEnabled = false
+            options.getRadioButtonAt(i)?.isEnabled = false
         }
     }
 
+    override fun updateScore(newScore: Int) {
+        score.text = newScore.toString()
+    }
+
     override fun populateTheQuestion(currentQuestion: Question?) {
-        question.text = currentQuestion?.question
-        hint.text = currentQuestion?.hint
-        optionA.text = currentQuestion?.option1
-        optionB.text = currentQuestion?.option2
-        optionC.text = currentQuestion?.option3
-        optionD.text = currentQuestion?.option4
+        currentQuestion?.let{
+            question.text = it.question
+            hint.text = it.hint
+            optionA.text = it.option1
+            optionB.text = it.option2
+            optionC.text = it.option3
+            optionD.text = it.option4
+        }
     }
 
     override fun updateTime(currentTime: Int) {
@@ -226,11 +227,5 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
     override fun onBackPressed() {
         super.onBackPressed()
         goBackToCategories()
-    }
-
-    public override fun onDestroy() {
-        Timber.d("onDestroy called")
-        presenter.unsubscribe()
-        super.onDestroy()
     }
 }

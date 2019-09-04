@@ -6,6 +6,7 @@
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_standard">16dp</dimen>
 
+    <dimen name="button_textSize">14sp</dimen>
     <dimen name="hint_textSize">16sp</dimen>
     <dimen name="textsize_small">18sp</dimen>
     <dimen name="textsize_medium">20sp</dimen>
@@ -28,6 +29,5 @@
 
     <dimen name="hint_land_width">300dp</dimen>
 
-    <dimen name="button_textSize">14sp</dimen>
-
+    <dimen name="menu_height">60dp</dimen>
 </resources>

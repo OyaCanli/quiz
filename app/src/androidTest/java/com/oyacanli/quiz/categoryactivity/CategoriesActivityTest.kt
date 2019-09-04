@@ -1,4 +1,4 @@
-package com.oyacanli.quiz.ui
+package com.oyacanli.quiz.categoryactivity
 
 
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.oyacanli.quiz.R
+import com.oyacanli.quiz.ui.CategoriesActivity
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -20,16 +21,16 @@ import org.junit.runner.RunWith
 const val SAMPLE_NAME = "Oya"
 
 @RunWith(AndroidJUnit4::class)
-class WelcomeActivityTest{
+class CategoriesActivityTest{
 
    @Rule @JvmField
-    var activityScenarioRule: ActivityScenarioRule<WelcomeActivity> = ActivityScenarioRule(WelcomeActivity::class.java)
+    var activityScenarioRule: ActivityScenarioRule<CategoriesActivity> = ActivityScenarioRule(CategoriesActivity::class.java)
 
     private var decorView: View? = null
 
     @Before
     fun setUp() {
-        activityScenarioRule.scenario.onActivity {activity: WelcomeActivity ->
+        activityScenarioRule.scenario.onActivity {activity: CategoriesActivity ->
             decorView = activity.window.decorView
         }
     }
