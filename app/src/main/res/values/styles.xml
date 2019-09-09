@@ -137,8 +137,8 @@
         <item name="android:paddingEnd">@dimen/padding_small</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">@dimen/margin_large</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="plain_text_style">

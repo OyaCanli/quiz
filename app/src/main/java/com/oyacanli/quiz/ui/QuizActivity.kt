@@ -113,9 +113,14 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         builder.show()
     }
 
-    override fun showHint() {
-        hint.visibility = View.VISIBLE
-        Timber.d("showHint is called")
+    override fun showHint(hint: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(hint)
+                .setPositiveButton(getString(R.string.ok)) { _, _ ->
+                    presenter.onHintHidden()
+                }
+        val alert = builder.create()
+        alert.show()
     }
 
     override fun hideTwoOptions(optionsToErase: ArrayList<Option>) {
@@ -186,7 +191,6 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
                 clearAnimation()
             }
         }
-        hint.visibility = View.INVISIBLE
         time.setTextColor(Color.WHITE)
         options.clearCheck()
     }
@@ -209,7 +213,6 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
     override fun populateTheQuestion(currentQuestion: Question?) {
         currentQuestion?.let{
             question.text = it.question
-            hint.text = it.hint
             optionA.text = it.option1
             optionB.text = it.option2
             optionC.text = it.option3

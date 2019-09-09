@@ -52,6 +52,10 @@
         <Button
             android:id="@+id/startButton"
             android:text="@string/start"
+            android:textStyle="bold"
+            android:elevation="@dimen/button_elevation"
+            android:outlineSpotShadowColor="@color/grey"
+            android:foreground="?attr/selectableItemBackground"
             style="@style/simple_button_style" />
 
     </LinearLayout>

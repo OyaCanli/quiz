@@ -9,7 +9,6 @@ import com.oyacanli.quiz.R
 import com.oyacanli.quiz.common.*
 import com.oyacanli.quiz.data.IQuizRepository
 import com.oyacanli.quiz.model.*
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -137,7 +136,7 @@ class QuizPresenter @Inject constructor(
             view?.showToast(R.string.hintwarning)
             return
         }
-        view?.showHint()
+        view?.showHint(currentQuestion.hint)
         hintJoker.isActive = true
         hintJoker.isUsed = true
     }
@@ -161,14 +160,16 @@ class QuizPresenter @Inject constructor(
             view?.showCorrectOption(currentQuestion.correctOption)
         }
         if (hintJoker.isActive) {
-            Timber.d("hint joker is active after rotation")
-            view?.showHint() ?: Timber.d("view is null")
+            view?.showHint(currentQuestion.hint)
         }
         if (halfJoker.isActive) {
-            Timber.d("half joker is active after rotation")
             view?.hideTwoOptions(optionsToErase)
         }
         view?.updateScore(score)
+    }
+
+    override fun onHintHidden() {
+        hintJoker.isActive = false
     }
 
     private fun readFromBundle(savedInstanceState: Bundle) {

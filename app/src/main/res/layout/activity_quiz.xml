@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?category_background_color">
+    android:background="?category_background_color"
+    tools:background="@color/literature_dark">
 
     <View
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="@dimen/menu_height"
         android:background="?category_menu_color"
+        tools:background="@color/literature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/menu_height"
         android:background="?category_menu_color"
+        tools:background="@color/literature"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,7 +72,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_standard"
+        android:elevation="@dimen/button_elevation"
+        android:outlineSpotShadowColor="@color/grey"
         android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
         app:layout_constraintEnd_toStartOf="@id/submit"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -83,6 +89,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_standard"
         android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
+        android:elevation="@dimen/button_elevation"
+        android:outlineSpotShadowColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
         app:layout_constraintEnd_toStartOf="@id/next"
         app:layout_constraintStart_toEndOf="@id/categories"
@@ -95,6 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_standard"
         android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
+        android:elevation="@dimen/button_elevation"
+        android:outlineSpotShadowColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="@id/bottomBar"
         app:layout_constraintStart_toEndOf="@id/submit"
@@ -142,14 +154,4 @@
 
     </com.oyacanli.quiz.ui.QuizRadioGroup>
 
-    <TextView
-        android:id="@+id/hint"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/options"
-        app:layout_constraintStart_toStartOf="@id/options"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-        app:layout_constraintTop_toBottomOf="@id/options" />
 </androidx.constraintlayout.widget.ConstraintLayout>

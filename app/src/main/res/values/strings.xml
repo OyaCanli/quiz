@@ -5,7 +5,7 @@
     <string name="literature">Literature</string>
     <string name="cinema">Cinema</string>
     <string name="science">Science</string>
-    <string name="start">Start</string>
+    <string name="start">Start Quiz>></string>
     <string name="_60" translatable="false">60</string>
     <string name="half" translatable="false">1/2</string>
     <string name="categoriesbutton">categ.</string>
@@ -31,6 +31,5 @@
     <string name="your_score">You scored %1$d /100</string>
     <string name="best_results">Best record in Literature: %1$d \nBest record in Cinema: %2$d \nBest record in Science: %3$d</string>
     <string name="name_hint">Name</string>
-
 
 </resources>

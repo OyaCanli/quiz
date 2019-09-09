@@ -30,4 +30,5 @@
     <dimen name="hint_land_width">300dp</dimen>
 
     <dimen name="menu_height">60dp</dimen>
+    <dimen name="button_elevation">4dp</dimen>
 </resources>

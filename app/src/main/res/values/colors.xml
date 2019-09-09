@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#34444c</color>
-    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorPrimary">#064679</color>
+    <color name="colorPrimaryDark">#042a49</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="background">#FFD180</color>
@@ -17,7 +17,5 @@
 
     <color name="science">#367c3d</color>
     <color name="science_dark">#17351a</color>
-
-
 
 </resources>

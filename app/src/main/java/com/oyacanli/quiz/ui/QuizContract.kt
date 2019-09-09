@@ -13,7 +13,7 @@ interface QuizContract {
     interface IQuizView {
         fun showToast(@StringRes message: Int)
         fun hideTwoOptions(optionsToErase: ArrayList<Option>)
-        fun showHint()
+        fun showHint(hint: String)
         fun showCorrectOption(correctOption: Option)
         fun showWrongSelection(@IdRes checkedButtonId : Int)
         fun showAlertWithMessage(@StringRes messageRes: Int, parameter : Any? = null)
@@ -31,6 +31,7 @@ interface QuizContract {
         fun destroyView()
         fun onHalfClicked()
         fun onHintClicked()
+        fun onHintHidden()
         fun onSubmitClicked(@IdRes checkedButtonId : Int)
         fun onNextClicked()
         fun writeToBundle(outState: Bundle): Bundle
