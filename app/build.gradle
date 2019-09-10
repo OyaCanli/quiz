@@ -11,12 +11,12 @@ ext {
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.android.quiz"
+        applicationId "com.oyacanli.quiz"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.oyacanli.quiz.CustomTestRunner"
     }
     buildTypes {
         release {

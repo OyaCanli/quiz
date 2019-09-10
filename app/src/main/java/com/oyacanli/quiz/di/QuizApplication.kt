@@ -6,7 +6,7 @@ import timber.log.Timber
 
 open class QuizApplication: Application() {
 
-    lateinit var component : AppComponent
+    open lateinit var component : AppComponent
 
     override fun onCreate() {
         super.onCreate()
