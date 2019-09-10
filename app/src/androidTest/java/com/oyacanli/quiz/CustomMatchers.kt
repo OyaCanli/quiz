@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RadioButton
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.test.espresso.matcher.BoundedMatcher
@@ -36,6 +37,20 @@ fun withBackgroundColor(@ColorRes colorId: Int): Matcher<View> {
             val actualColor : Int = (view.background as ColorDrawable).color
             val expectedColor  = view.context.getColor(colorId)
             return actualColor == expectedColor
+        }
+    }
+}
+
+fun lessThen(upperLimit: Int): Matcher<View> {
+    return object : BoundedMatcher<View, TextView>(TextView::class.java) {
+        override fun describeTo(description: Description) {
+            description.appendText("should have less than $upperLimit")
+        }
+
+        override fun matchesSafely(textView: TextView): Boolean {
+            val actualText = textView.text.toString().trim()
+            val actualNumber = Integer.valueOf(actualText)
+            return actualNumber < upperLimit
         }
     }
 }

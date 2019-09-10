@@ -1,13 +1,15 @@
-package com.oyacanli.quiz.model
+package com.oyacanli.quiz.testdoubles
 
 import android.os.Handler
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
+import com.oyacanli.quiz.model.IQuizTimer
 import timber.log.Timber
 import javax.inject.Inject
 
-
-class QuizTimer @Inject constructor() : IQuizTimer {
+class QuizTimerTD @Inject constructor() : IQuizTimer {
 
     private var handler = Handler()
     private var runnable: Runnable? = null
@@ -46,11 +48,22 @@ class QuizTimer @Inject constructor() : IQuizTimer {
             _secondsLeft.value = _secondsLeft.value?.minus(1)
             //Timber.d("Current time: ${_secondsLeft.value}")
             if(_secondsLeft.value != 0 ){
-                handler.postDelayed(runnable!!, 1000)
+                handler.postDelayed(runnable!!, 10)
             }
         }
 
         // This is what initially starts the timer
-        handler.postDelayed(runnable!!, 1000)
+        handler.postDelayed(runnable!!, 10)
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onActivityCreated(){
+        resume()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun activityDestroyed(){
+        stop()
+    }
+
 }

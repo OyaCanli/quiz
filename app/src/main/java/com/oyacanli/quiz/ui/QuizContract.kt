@@ -3,10 +3,11 @@ package com.oyacanli.quiz.ui
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
+import com.oyacanli.quiz.model.IQuizTimer
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
-import com.oyacanli.quiz.model.QuizTimer
 
 interface QuizContract {
 
@@ -25,7 +26,9 @@ interface QuizContract {
     }
 
     interface IQuizPresenter {
-        val timer: QuizTimer
+        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+        val timer: IQuizTimer
+
         var isSubmitted : Boolean
         fun attachView(view: IQuizView, lifecycleOwner: Lifecycle)
         fun destroyView()

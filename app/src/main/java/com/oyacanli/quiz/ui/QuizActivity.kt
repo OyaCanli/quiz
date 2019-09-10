@@ -2,7 +2,6 @@ package com.oyacanli.quiz.ui
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -60,7 +59,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
             presenter.restorePresenterState(savedInstanceState)
         }
 
-        presenter.timer.secondsLeft.observe(this, Observer { time ->
+        presenter.timer.secondsLeft.observe(this, Observer { time : Int ->
             updateTime(time)
             if(time == 0){
                 showToast(R.string.timeoutwarning)
@@ -191,7 +190,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
                 clearAnimation()
             }
         }
-        time.setTextColor(Color.WHITE)
+        time.setBackgroundResource(R.drawable.timer_background)
         options.clearCheck()
     }
 
@@ -223,7 +222,7 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
     override fun updateTime(currentTime: Int) {
         time.text = currentTime.toString()
         if (currentTime <= 5) {
-            time.setTextColor(Color.RED)
+            time.setBackgroundResource(R.drawable.timer_red_background)
         }
     }
 

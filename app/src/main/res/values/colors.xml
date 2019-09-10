@@ -8,6 +8,7 @@
     <color name="question_background">#ffffff</color>
     <color name="golden">#ffbf00</color>
     <color name="grey">#777777</color>
+    <color name="red">@android:color/holo_red_dark</color>
 
     <color name="literature">#0962a9</color>
     <color name="literature_dark">#042a49</color>

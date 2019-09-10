@@ -2,7 +2,7 @@ package com.oyacanli.quiz.model
 
 import androidx.lifecycle.LiveData
 
-interface ITimer {
+interface IQuizTimer {
     var secondsLeft : LiveData<Int>
     fun setCurrentTime(seconds : Int)
     fun restart()

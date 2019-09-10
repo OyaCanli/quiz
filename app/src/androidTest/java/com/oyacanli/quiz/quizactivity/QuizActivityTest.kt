@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.oyacanli.quiz.R
 import com.oyacanli.quiz.common.CATEGORY
 import com.oyacanli.quiz.common.NAME
+import com.oyacanli.quiz.lessThen
 import com.oyacanli.quiz.ui.QuizActivity
 import com.oyacanli.quiz.withBackgroundColor
 import com.oyacanli.quiz.withDrawableId
@@ -70,7 +71,8 @@ class QuizActivityTest {
     // Check whether the time started
     @Test
     fun atLaunch_timeStarted() {
-        //TODO: needs refactoring timer
+        Thread.sleep(2)
+        onView(withId(R.id.time)).check(matches(lessThen(60)))
     }
 
     // Click on hint button and check whether hint dialog is shown
@@ -205,9 +207,35 @@ class QuizActivityTest {
     }
 
     //Simulate time running, when it reaches last five seconds, verify it turns red
+    @Test
+    fun lastFiveSeconds_timersTurnsRed() {
+        Thread.sleep(550)
+        onView(withId(R.id.time)).check(matches(withDrawableId(R.drawable.timer_red_background)))
+    }
 
     //Simulate time running, when it reaches the end, verify a toast is shown (or snack may be)
+    @Test
+    fun timeOver_showsToast() {
+        Thread.sleep(600)
+        onView(withText(R.string.chosenothingwarning))
+                .inRoot(withDecorView(not(decorView)))
+                .check(matches(isDisplayed()))
+    }
 
     //Simulate time running, when it reaches the end, verify options, jokers and submit buttons are disabled
+    @Test
+    fun timeOver_jokersAndButtonsDisabled() {
+        Thread.sleep(600)
+        //Verify that jokers, radiobuttons and submit buttons are disabled
+        onView(withId(R.id.showHint)).check(matches(not(isEnabled())))
+        onView(withId(R.id.half)).check(matches(not(isEnabled())))
+        onView(withId(R.id.submit)).check(matches(not(isEnabled())))
+        onView(withId(R.id.optionA)).check(matches(not(isEnabled())))
+        onView(withId(R.id.optionB)).check(matches(not(isEnabled())))
+        onView(withId(R.id.optionC)).check(matches(not(isEnabled())))
+        onView(withId(R.id.optionD)).check(matches(not(isEnabled())))
 
+        //Verify next button is enabled
+        onView(withId(R.id.next)).check(matches(isEnabled()))
+    }
 }

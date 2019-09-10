@@ -2,45 +2,54 @@ package com.oyacanli.quiz.ui
 
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.oyacanli.quiz.R
 import com.oyacanli.quiz.common.*
 import com.oyacanli.quiz.data.IQuizRepository
+import com.oyacanli.quiz.di.QuizScreenScope
 import com.oyacanli.quiz.model.*
 import java.util.*
 import javax.inject.Inject
 
+@QuizScreenScope
 class QuizPresenter @Inject constructor(
         private val repo: IQuizRepository,
-        val category : Category
+        val category : Category,
+        override val timer : IQuizTimer
 ) : QuizContract.IQuizPresenter, LifecycleObserver {
 
-    private var view: QuizContract.IQuizView? = null
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    var view: QuizContract.IQuizView? = null
 
-    private var viewLifecycle: Lifecycle? = null
+    var viewLifecycle: Lifecycle? = null
 
     private var questions: ArrayList<Question> = repo.getQuestions(category)
+
     var questionNumber: Int = 0
+
     private val currentQuestion: Question
         get() = questions[questionNumber]
 
-    override lateinit var timer : QuizTimer
-
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var halfJoker = Joker()
-        private set
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var hintJoker = Joker()
-        private set
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var optionsToErase: ArrayList<Option> = arrayListOf(Option.A, Option.B, Option.C, Option.D)
-        private set
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var score: Int = 0
-        private set
 
     private var checkedButtonId: Int = -1
+
+    init {
+        timer.resume()
+    }
 
     /*When question is submitted, some buttons should be disabled. This variable keeps
     this data and update ui accordingly*/
@@ -58,12 +67,12 @@ class QuizPresenter @Inject constructor(
         this.view = view
         viewLifecycle = lifecycleOwner
         viewLifecycle?.addObserver(this)
-        timer = QuizTimer.getInstance(lifecycleOwner)
         this.view?.populateTheQuestion(currentQuestion)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     override fun destroyView() {
+        timer.stop()
         view = null
         viewLifecycle = null
     }

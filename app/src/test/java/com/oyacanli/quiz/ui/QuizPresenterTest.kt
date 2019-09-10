@@ -3,11 +3,10 @@ package com.oyacanli.quiz.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.oyacanli.quiz.data.IQuizRepository
 import com.oyacanli.quiz.model.Category
-import com.oyacanli.quiz.model.ITimer
+import com.oyacanli.quiz.model.IQuizTimer
 import com.oyacanli.quiz.model.Option
 import com.oyacanli.quiz.model.Question
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertFalse
+import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,7 +23,7 @@ class QuizPresenterTest {
     private lateinit var SUT : QuizPresenter
 
     @Mock lateinit var repo: IQuizRepository
-    @Mock lateinit var timer : ITimer
+    @Mock lateinit var timer : IQuizTimer
 
     //This is for making livedatas inside the presenter testable
     @get:Rule
@@ -32,9 +31,8 @@ class QuizPresenterTest {
 
     @Before
     fun setUp() {
-        SUT = QuizPresenter(repo, timer)
         `when`(repo.getQuestions(Category.LITERATURE)).thenReturn(getSampleQuestions())
-        SUT.initializePresenter(Category.LITERATURE.categoryName)
+        SUT = QuizPresenter(repo, Category.LITERATURE, timer)
     }
 
     @Test
@@ -111,13 +109,13 @@ class QuizPresenterTest {
     @Test
     fun onSubmitClicked_withNoOptionsChosen_submissionNotRealized() {
         SUT.onSubmitClicked(-1)
-        assertEquals(false, SUT.isSubmitted.value)
+        assertEquals(false, SUT.isSubmitted)
     }
 
     @Test
     fun onSubmitClicked_withValidOption_submissionRealized() {
         SUT.onSubmitClicked(Option.A.buttonId)
-        assertEquals(true, SUT.isSubmitted.value)
+        assertEquals(true, SUT.isSubmitted)
     }
 
     @Test
@@ -170,8 +168,15 @@ class QuizPresenterTest {
     }
 
     @Test
+    fun onDestroy_viewDetached() {
+        SUT.destroyView()
+        assertNull(SUT.view)
+        assertNull(SUT.viewLifecycle)
+    }
+
+    @Test
     fun onDestroy_timerStopped() {
-        SUT.onDestroy()
+        SUT.destroyView()
         verify(timer).stop()
     }
 
