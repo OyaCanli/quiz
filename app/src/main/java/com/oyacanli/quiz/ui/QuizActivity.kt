@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import com.oyacanli.quiz.R
 import com.oyacanli.quiz.common.CATEGORY
 import com.oyacanli.quiz.common.NAME
-import com.oyacanli.quiz.di.DaggerQuizComponent
 import com.oyacanli.quiz.di.QuizApplication
 import com.oyacanli.quiz.model.Category
 import com.oyacanli.quiz.model.Option
@@ -44,7 +43,8 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        initDagger(category)
+        //Initialize quiz appComponent and inject dependencies into this activity
+        (application as QuizApplication).initQuizComponent(category).inject(this)
 
         presenter.attachView(this, lifecycle)
 
@@ -80,15 +80,6 @@ class QuizActivity : AppCompatActivity(), QuizContract.IQuizView, OnClickListene
     override fun onSaveInstanceState(emptyBundle : Bundle) {
         val filledBundle = presenter.writeToBundle(emptyBundle)
         super.onSaveInstanceState(filledBundle)
-    }
-
-    private fun initDagger(category: Category) {
-        val appComponent = (application as QuizApplication).component
-        DaggerQuizComponent.builder()
-                .appComponent(appComponent)
-                .category(category)
-                .build()
-                .inject(this)
     }
 
     override fun onClick(v: View) {

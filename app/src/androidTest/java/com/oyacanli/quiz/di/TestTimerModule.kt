@@ -2,12 +2,14 @@ package com.oyacanli.quiz.di
 
 import com.oyacanli.quiz.model.IQuizTimer
 import com.oyacanli.quiz.testdoubles.QuizTimerTD
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module
-interface TestTimerModule {
+class TestTimerModule {
 
-    @Binds
-    fun bindTimer(timerImp: QuizTimerTD) : IQuizTimer
+    @Provides
+    fun provideTimer() : IQuizTimer {
+        return QuizTimerTD()
+    }
 }

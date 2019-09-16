@@ -30,7 +30,7 @@ class CategoriesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories)
 
-        (application as QuizApplication).component.inject(this)
+        (application as QuizApplication).appComponent.inject(this)
 
         startButton.setOnClickListener { startQuiz() }
         name_entry.addTextChangedListener(object : TextWatcher{

@@ -27,6 +27,8 @@ const val sampleName = "Oya"
 const val sampleCategory = R.string.literature
 const val sampleCorrectOption = R.id.optionC
 const val sampleWrongOption = R.id.optionA
+const val sampleOptionToErase1 = R.id.optionB
+const val sampleOptionToErase2 = R.id.optionD
 const val sampleQuestion = "LITERATURE question"
 const val sampleHint = "LITERATURE hint"
 
@@ -85,8 +87,14 @@ class QuizActivityTest {
     // Click on half joker and check if two of the buttons are hidden
     @Test
     fun clickHalf_hidesTwoOptions() {
-        //onView(withId(R.id.half)).perform(click())
-        //todo : needs rafactoring random options
+        onView(withId(R.id.half)).perform(click())
+
+        //Verify that previously specified options are hidden
+        onView(withId(sampleOptionToErase1)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        onView(withId(sampleOptionToErase2)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+
+        //Verify that the correct answer stays visible
+        onView(withId(sampleCorrectOption)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
     // Click on submit without choosing anything. Verify a toast is shown and no action is taken.
@@ -209,14 +217,14 @@ class QuizActivityTest {
     //Simulate time running, when it reaches last five seconds, verify it turns red
     @Test
     fun lastFiveSeconds_timersTurnsRed() {
-        Thread.sleep(550)
+        Thread.sleep(5500)
         onView(withId(R.id.time)).check(matches(withDrawableId(R.drawable.timer_red_background)))
     }
 
     //Simulate time running, when it reaches the end, verify a toast is shown (or snack may be)
     @Test
     fun timeOver_showsToast() {
-        Thread.sleep(600)
+        Thread.sleep(6000)
         onView(withText(R.string.chosenothingwarning))
                 .inRoot(withDecorView(not(decorView)))
                 .check(matches(isDisplayed()))
@@ -225,7 +233,7 @@ class QuizActivityTest {
     //Simulate time running, when it reaches the end, verify options, jokers and submit buttons are disabled
     @Test
     fun timeOver_jokersAndButtonsDisabled() {
-        Thread.sleep(600)
+        Thread.sleep(6000)
         //Verify that jokers, radiobuttons and submit buttons are disabled
         onView(withId(R.id.showHint)).check(matches(not(isEnabled())))
         onView(withId(R.id.half)).check(matches(not(isEnabled())))

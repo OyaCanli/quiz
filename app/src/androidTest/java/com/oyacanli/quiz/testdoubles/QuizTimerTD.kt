@@ -48,12 +48,12 @@ class QuizTimerTD @Inject constructor() : IQuizTimer {
             _secondsLeft.value = _secondsLeft.value?.minus(1)
             //Timber.d("Current time: ${_secondsLeft.value}")
             if(_secondsLeft.value != 0 ){
-                handler.postDelayed(runnable!!, 10)
+                handler.postDelayed(runnable!!, 100)
             }
         }
 
         // This is what initially starts the timer
-        handler.postDelayed(runnable!!, 10)
+        handler.postDelayed(runnable!!, 100)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
