@@ -91,6 +91,7 @@
         android:layout_margin="@dimen/margin_standard"
         android:background="@android:color/transparent"
         android:foreground="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/padding_standard"
         android:elevation="@dimen/button_elevation"
         android:outlineSpotShadowColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"

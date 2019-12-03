@@ -18,18 +18,21 @@
     </style>
 
     <style name="Literature" parent="QuizTheme">
+        <item name="colorPrimaryDark">@color/literature_dark</item>
         <item name="category_menu_color">@color/literature</item>
         <item name="category_background_color">@color/literature_dark</item>
         <item name="colorAccent">@color/literature</item>
     </style>
 
     <style name="Cinema" parent="QuizTheme">
+        <item name="colorPrimaryDark">@color/cinema_dark</item>
         <item name="category_menu_color">@color/cinema</item>
         <item name="category_background_color">@color/cinema_dark</item>
         <item name="colorAccent">@color/cinema</item>
     </style>
 
     <style name="Science" parent="QuizTheme">
+        <item name="colorPrimaryDark">@color/science_dark</item>
         <item name="category_menu_color">@color/science</item>
         <item name="category_background_color">@color/science_dark</item>
         <item name="colorAccent">@color/science</item>
