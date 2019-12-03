@@ -13,7 +13,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 
 
-fun withDrawableId(@DrawableRes resourceId: Int): Matcher<View> {
+fun buttonWithDrawableId(@DrawableRes resourceId: Int): Matcher<View> {
     return object : BoundedMatcher<View, RadioButton>(RadioButton::class.java) {
         override fun describeTo(description: Description) {
             description.appendText("has drawable resource $resourceId")
@@ -22,6 +22,20 @@ fun withDrawableId(@DrawableRes resourceId: Int): Matcher<View> {
         override fun matchesSafely(radioButton: RadioButton): Boolean {
             val expectedDrawable : Drawable = radioButton.context.resources.getDrawable(resourceId)
             val actualDrawable : Drawable = radioButton.background as Drawable
+            return expectedDrawable.constantState == actualDrawable.constantState
+        }
+    }
+}
+
+fun textWithDrawableId(@DrawableRes resourceId: Int): Matcher<View> {
+    return object : BoundedMatcher<View, TextView>(TextView::class.java) {
+        override fun describeTo(description: Description) {
+            description.appendText("has drawable resource $resourceId")
+        }
+
+        override fun matchesSafely(textView: TextView): Boolean {
+            val expectedDrawable : Drawable = textView.context.resources.getDrawable(resourceId)
+            val actualDrawable : Drawable = textView.background as Drawable
             return expectedDrawable.constantState == actualDrawable.constantState
         }
     }

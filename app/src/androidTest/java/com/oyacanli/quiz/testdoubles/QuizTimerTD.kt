@@ -9,6 +9,8 @@ import com.oyacanli.quiz.model.IQuizTimer
 import timber.log.Timber
 import javax.inject.Inject
 
+const val tickInterval : Long = 500
+
 class QuizTimerTD @Inject constructor() : IQuizTimer {
 
     private var handler = Handler()
@@ -46,14 +48,14 @@ class QuizTimerTD @Inject constructor() : IQuizTimer {
         //Start running a count-down timer
         runnable = Runnable {
             _secondsLeft.value = _secondsLeft.value?.minus(1)
-            //Timber.d("Current time: ${_secondsLeft.value}")
-            if(_secondsLeft.value != 0 ){
-                handler.postDelayed(runnable!!, 100)
+
+            if(_secondsLeft.value!! > 0){
+                handler.postDelayed(runnable!!, tickInterval)
             }
         }
 
         // This is what initially starts the timer
-        handler.postDelayed(runnable!!, 100)
+        handler.postDelayed(runnable!!, tickInterval)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

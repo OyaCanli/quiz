@@ -11,14 +11,12 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.oyacanli.quiz.R
+import com.oyacanli.quiz.buttonWithDrawableId
 import com.oyacanli.quiz.common.CATEGORY
 import com.oyacanli.quiz.common.NAME
-import com.oyacanli.quiz.lessThen
 import com.oyacanli.quiz.ui.QuizActivity
 import com.oyacanli.quiz.withBackgroundColor
-import com.oyacanli.quiz.withDrawableId
 import org.hamcrest.CoreMatchers.not
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,15 +36,6 @@ class QuizActivityTest {
     @Rule
     @JvmField
     var activityScenarioRule: ActivityScenarioRule<QuizActivity> = ActivityScenarioRule(getSampleIntent())
-
-    private var decorView: View? = null
-
-    @Before
-    fun setUp() {
-        activityScenarioRule.scenario.onActivity {activity: QuizActivity ->
-            decorView = activity.window.decorView
-        }
-    }
 
     private fun getSampleIntent() : Intent {
         val context = InstrumentationRegistry.getTargetContext()
@@ -68,13 +57,6 @@ class QuizActivityTest {
     @Test
     fun atLaunch_correctQuestionDisplayedForCategory() {
         onView(withId(R.id.question)).check(matches(withText(sampleQuestion)))
-    }
-
-    // Check whether the time started
-    @Test
-    fun atLaunch_timeStarted() {
-        Thread.sleep(2)
-        onView(withId(R.id.time)).check(matches(lessThen(60)))
     }
 
     // Click on hint button and check whether hint dialog is shown
@@ -100,6 +82,11 @@ class QuizActivityTest {
     // Click on submit without choosing anything. Verify a toast is shown and no action is taken.
     @Test
     fun clickSubmit_withNoOptionChosen_showsToast() {
+        var decorView : View? = null
+        activityScenarioRule.scenario.onActivity {activity: QuizActivity ->
+            decorView = activity.window.decorView
+        }
+
         //Click on submit without chosing any option
         onView(withId(R.id.submit)).perform(click())
 
@@ -135,10 +122,10 @@ class QuizActivityTest {
 
         //Verify that wrong and correct options are marked with the corresponding drawables
         onView(withId(sampleWrongOption))
-                .check(matches(withDrawableId(R.drawable.false_selection_background)))
+                .check(matches(buttonWithDrawableId(R.drawable.false_selection_background)))
 
         onView(withId(sampleCorrectOption))
-                .check(matches(withDrawableId(R.drawable.correct_option_background)))
+                .check(matches(buttonWithDrawableId(R.drawable.correct_option_background)))
     }
 
     // Click on a wrong choice, click submit and verify options, jokers and submit buttons are disabled
@@ -189,7 +176,7 @@ class QuizActivityTest {
 
         //Verify that correct option is marked with the corresponding background
         onView(withId(sampleCorrectOption))
-                .check(matches(withDrawableId(R.drawable.correct_option_background)))
+                .check(matches(buttonWithDrawableId(R.drawable.correct_option_background)))
     }
 
     // Click on the correct choice, click submit and verify options, jokers and submit buttons are disabled
@@ -201,39 +188,6 @@ class QuizActivityTest {
         //Click on submit
         onView(withId(R.id.submit)).perform(click())
 
-        //Verify that jokers, radiobuttons and submit buttons are disabled
-        onView(withId(R.id.showHint)).check(matches(not(isEnabled())))
-        onView(withId(R.id.half)).check(matches(not(isEnabled())))
-        onView(withId(R.id.submit)).check(matches(not(isEnabled())))
-        onView(withId(R.id.optionA)).check(matches(not(isEnabled())))
-        onView(withId(R.id.optionB)).check(matches(not(isEnabled())))
-        onView(withId(R.id.optionC)).check(matches(not(isEnabled())))
-        onView(withId(R.id.optionD)).check(matches(not(isEnabled())))
-
-        //Verify next button is enabled
-        onView(withId(R.id.next)).check(matches(isEnabled()))
-    }
-
-    //Simulate time running, when it reaches last five seconds, verify it turns red
-    @Test
-    fun lastFiveSeconds_timersTurnsRed() {
-        Thread.sleep(5500)
-        onView(withId(R.id.time)).check(matches(withDrawableId(R.drawable.timer_red_background)))
-    }
-
-    //Simulate time running, when it reaches the end, verify a toast is shown (or snack may be)
-    @Test
-    fun timeOver_showsToast() {
-        Thread.sleep(6000)
-        onView(withText(R.string.chosenothingwarning))
-                .inRoot(withDecorView(not(decorView)))
-                .check(matches(isDisplayed()))
-    }
-
-    //Simulate time running, when it reaches the end, verify options, jokers and submit buttons are disabled
-    @Test
-    fun timeOver_jokersAndButtonsDisabled() {
-        Thread.sleep(6000)
         //Verify that jokers, radiobuttons and submit buttons are disabled
         onView(withId(R.id.showHint)).check(matches(not(isEnabled())))
         onView(withId(R.id.half)).check(matches(not(isEnabled())))
